@@ -10,6 +10,7 @@ const Guestbook = () => {
     const [text, setText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
+    const [showToast, setShowToast] = useState(false);
 
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhgQA0EVN5nYpKdNmGax1cjd1WzNz6lHV4jASBOvLChGPghibhgipegRbesJBYxnFtEw/exec";
 
@@ -67,6 +68,10 @@ const Guestbook = () => {
             setName('');
             setText('');
 
+            // Show success toast
+            setShowToast(true);
+            setTimeout(() => setShowToast(false), 3000);
+
             // 전송 후 데이터가 바로 반영되지 않을 수 있으므로 짧은 간격으로 재시도
             setTimeout(async () => {
                 await fetchMessages();
@@ -85,6 +90,20 @@ const Guestbook = () => {
 
     return (
         <section className="py-20 bg-theme-bg overflow-hidden">
+            {/* Toast Notification */}
+            <AnimatePresence>
+                {showToast && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -50 }}
+                        className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-theme-primary text-white px-6 py-4 rounded-full shadow-2xl font-bold"
+                    >
+                        ✓ 축하 메시지가 등록되었습니다!
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             <div className="max-w-[430px] mx-auto px-4 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

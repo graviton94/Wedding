@@ -1,8 +1,16 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
-const AccordionItem = ({ title, children, defaultOpen = false }) => {
+const AccordionItem = ({ title, children, defaultOpen = false, variant = 'default' }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  // 색상 variant 설정
+  const colors = {
+    default: 'text-theme-primary',
+    navy: 'text-[#003764]'
+  };
+
+  const textColor = colors[variant] || colors.default;
 
   return (
     <div className="border-b border-black/5 last:border-0 mb-4 overflow-hidden rounded-2xl">
@@ -10,15 +18,15 @@ const AccordionItem = ({ title, children, defaultOpen = false }) => {
         onClick={() => setIsOpen(!isOpen)}
         className="w-full py-5 px-6 flex items-center justify-between text-left bg-white/90 backdrop-blur-md hover:bg-white transition-all duration-300 group shadow-sm border border-white/20"
       >
-        <span className="text-lg font-bold text-theme-primary font-['Noto_Sans_KR'] group-hover:translate-x-1 transition-transform duration-300">
+        <span className={`text-lg font-bold ${textColor} font-['Noto_Sans_KR'] group-hover:translate-x-1 transition-transform duration-300`}>
           {title}
         </span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0, scale: isOpen ? 1.2 : 1 }}
           transition={{ duration: 0.3 }}
-          className="text-theme-primary text-xl"
+          className={`${textColor} text-xl`}
         >
-          ↓
+          ▼
         </motion.span>
       </button>
       <AnimatePresence>

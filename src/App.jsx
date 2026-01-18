@@ -9,10 +9,16 @@ import Footer from './components/layout/Footer';
 import BackgroundMusic from './components/ui/BackgroundMusic';
 import Guestbook from './components/sections/Guestbook';
 import Divider from './components/ui/Divider';
+import LoadingScreen from './components/ui/LoadingScreen';
+import PetalEffect from './components/ui/PetalEffect';
+import GoldDustEffect from './components/ui/GoldDustEffect';
 
 function App() {
   return (
     <div className="min-h-screen bg-[#FDFCF0]">
+      <GoldDustEffect />
+      <LoadingScreen />
+      <PetalEffect />
       <BackgroundMusic />
       <Hero />
       <Divider />

@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import content from '../../data/content.json';
+import DDayCounter from '../ui/DDayCounter';
 
 const Hero = () => {
   const { hero } = content;
@@ -17,11 +18,11 @@ const Hero = () => {
   return (
     <section ref={ref} className="relative h-screen w-full overflow-hidden bg-[#0F0F0F]">
       {/* Background Image Area - Portrait Optimization */}
-      <motion.div style={{ y }} className="absolute inset-0 z-0 flex items-center justify-center">
+      <motion.div style={{ y }} className="absolute inset-0 z-0">
         <img
           src="https://lh3.google.com/u/0/d/1IpTpXyrFksZLy4djGpaTrKqvQvVMOthc=w1920-h868-iv1?auditContext=prefetch"
           alt="Wedding Hero"
-          className="h-full w-auto object-contain"
+          className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40"></div>
       </motion.div>
@@ -55,6 +56,9 @@ const Hero = () => {
               <p className="text-base md:text-lg text-white/90 font-light font-['Noto_Sans_KR']">
                 {hero.location}
               </p>
+
+              {/* D-Day Counter */}
+              <DDayCounter targetDate="2026-09-20T12:30:00" />
             </div>
           </motion.div>
 
