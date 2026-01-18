@@ -1,37 +1,37 @@
-# 💍 Wedding Invitation (Mobile-First)
+# Wedding Invitation
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
-![Vite](https://img.shields.io/badge/Vite-Bundler-646CFF?logo=vite)
-![Tailwind](https://img.shields.io/badge/Tailwind-CSS-06B6D4?logo=tailwindcss)
+결혼식 초대장 웹사이트
 
-A beautiful, responsive mobile wedding invitation web application built for `graviton94`.
-Designed with a "Vibe Coding" approach, orchestrating AI agents for rapid development.
+## 배포 방법
 
-## 🚀 Live Demo
-[Link to your GitHub Pages URL will go here]
+1. GitHub에서 새 저장소 생성 (예: `wedding-invitation`)
+2. 아래 명령어로 코드 푸시:
 
-## ✨ Features
-- **Mobile-Optimized UX:** Designed specifically for mobile viewports (max-width 430px).
-- **Interactive Maps:** Integration with Kakao Maps API.
-- **Photo Gallery:** Lightbox modal with smooth transitions.
-- **RSVP & Accounts:** Copy-to-clipboard functionality for account numbers.
-- **Animations:** Elegant scroll-triggered animations using Framer Motion.
-
-## 🛠 Tech Stack
-- **Core:** React, Vite
-- **Styling:** Tailwind CSS
-- **Motion:** Framer Motion
-- **Maps:** react-kakao-maps-sdk
-
-## 🏃‍♂️ Getting Started
-
-### Prerequisites
-- Node.js (LTS version)
-- npm or yarn
-
-### Installation
 ```bash
-git clone [https://github.com/graviton94/wedding.git](https://github.com/graviton94/wedding.git)
-cd wedding
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git push -u origin main
+```
+
+3. GitHub Pages 배포:
+
+```bash
+npm run deploy
+```
+
+4. GitHub 저장소 Settings > Pages에서 Source를 `gh-pages` 브랜치로 설정
+
+## 로컬 개발
+
+```bash
 npm install
+npm run dev
+```
+
+## 빌드
+
+```bash
+npm run build
+```
