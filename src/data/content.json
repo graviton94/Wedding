@@ -1,0 +1,90 @@
+{
+  "hero": {
+    "title": "We are getting married",
+    "groomName": "최준영",
+    "brideName": "민수영",
+    "date": "2026.09.20",
+    "time": "오후 12:30",
+    "location": "더 화이트베일"
+  },
+  "greeting": {
+    "messages": [
+      "두 사람이 사랑으로 하나 되는 날,",
+      "저희의 소중한 시작을 함께 축복해 주시면 큰 기쁨이 되겠습니다.",
+      "여러분의 따뜻한 마음과 격려가 저희에게 큰 힘이 됩니다."
+    ],
+    "closing": "진심을 담아 초대합니다."
+  },
+  "gallery": {
+    "title": "Our Moments",
+    "subtitle": "Precious memories we've shared together",
+    "images": [
+      {
+        "id": 1,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 1"
+      },
+      {
+        "id": 2,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 2"
+      },
+      {
+        "id": 3,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 3"
+      },
+      {
+        "id": 4,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 4"
+      },
+      {
+        "id": 5,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 5"
+      },
+      {
+        "id": 6,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 6"
+      }
+    ]
+  },
+  "location": {
+    "title": "Location",
+    "subtitle": "Join us at this beautiful venue",
+    "venueName": "더 화이트베일",
+    "address": "서울특별시 서초구 서초중앙로 14",
+    "floor": "1F 화이트베일홀",
+    "coordinates": {
+      "lat": 37.4838261,
+      "lng": 127.0179212
+    },
+    "naverMapUrl": "https://map.naver.com/p/entry/place/12023277?placePath=%2Fhome%3Fentry%3Dplt&searchType=place&lng=127.0179212&lat=37.4838261",
+    "transportation": {
+      "subway": "3호선 남부터미널역 4번 출구 도보 1분",
+      "parking": "무료 주차 가능 (약 600대)"
+    }
+  },
+  "accounts": {
+    "title": "Money Gift",
+    "subtitle": "Your presence is the greatest gift, but if you wish to bless us",
+    "groom": {
+      "title": "신랑측",
+      "name": "최준영",
+      "bank": "계좌번호를 입력해주세요",
+      "accountNumber": "000-000-000000"
+    },
+    "bride": {
+      "title": "신부측",
+      "name": "민수영",
+      "bank": "계좌번호를 입력해주세요",
+      "accountNumber": "000-000-000000"
+    }
+  },
+  "share": {
+    "title": "Share Our Joy",
+    "subtitle": "소중한 분들과 이 기쁨을 나누어 주세요"
+  }
+}

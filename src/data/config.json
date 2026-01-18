@@ -1,0 +1,30 @@
+{
+  "theme": {
+    "colors": {
+      "background": "#FDFCF0",
+      "textPrimary": "#333333",
+      "textAccent": "#D4AF37"
+    },
+    "fonts": {
+      "heading": "Playfair Display",
+      "body": "Noto Sans KR"
+    },
+    "layout": {
+      "maxWidth": "430px"
+    }
+  },
+  "features": {
+    "kakaoMap": {
+      "enabled": true,
+      "appKey": "YOUR_KAKAO_APP_KEY"
+    },
+    "kakaoShare": {
+      "enabled": true,
+      "appKey": "YOUR_KAKAO_APP_KEY"
+    }
+  },
+  "animation": {
+    "scrollRevealDuration": 0.8,
+    "fadeInDelay": 0.2
+  }
+}
