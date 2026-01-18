@@ -11,15 +11,32 @@ const Share = () => {
     // 1. 카카오 SDK 초기화
     const KAKAO_KEY = import.meta.env.VITE_KAKAO_API_KEY;
 
-    if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init(KAKAO_KEY);
-      console.log('Kakao SDK Initialized');
+    if (!KAKAO_KEY) {
+      console.error('Kakao API Key is missing in .env file');
+      return;
+    }
+
+    if (window.Kakao) {
+      if (!window.Kakao.isInitialized()) {
+        try {
+          window.Kakao.init(KAKAO_KEY);
+          console.log('Kakao SDK Initialized successfully');
+        } catch (e) {
+          console.error('Kakao SDK Init Error:', e);
+        }
+      }
+    } else {
+      console.error('Kakao SDK script not loaded');
     }
   }, []);
 
   const handleKakaoShare = () => {
-    if (!window.Kakao || !window.Kakao.isInitialized()) {
-      alert('카카오 SDK가 초기화되지 않았습니다. .env 파일을 확인해주세요.');
+    if (!window.Kakao) {
+      alert('카카오 SDK 스크립트가 로드되지 않았습니다.');
+      return;
+    }
+    if (!window.Kakao.isInitialized()) {
+      alert('카카오 SDK 초기화에 실패했습니다. 다음을 확인해주세요:\n1. .env 파일의 VITE_KAKAO_API_KEY가 정확한지\n2. 카카오 개발자 콘솔에 현재 도메인이 등록되어 있는지');
       return;
     }
 
