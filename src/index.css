@@ -2,10 +2,18 @@
 
 @import "tailwindcss";
 
+@theme {
+  --color-theme-bg: #0F0F0F;
+  --color-theme-primary: #FF6F61;
+  --color-theme-primary-active: #E66458;
+  --color-theme-secondary: #E37383;
+  --color-theme-accent: #FFB347;
+}
+
 @layer base {
   body {
-    background-color: #FDFCF0;
-    color: #333333;
+    background-color: var(--color-theme-bg);
+    color: var(--color-theme-secondary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'Noto Sans KR', sans-serif;
@@ -17,6 +25,7 @@
   h4,
   h5,
   h6 {
+    color: var(--color-theme-primary);
     font-family: 'Playfair Display', serif;
   }
 }

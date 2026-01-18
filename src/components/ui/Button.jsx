@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion';
 
-const Button = ({ 
-  children, 
-  onClick, 
-  variant = 'primary', 
+const Button = ({
+  children,
+  onClick,
+  variant = 'primary',
   className = '',
-  ...props 
+  ...props
 }) => {
   const variants = {
-    primary: 'bg-[#D4AF37] text-white hover:bg-[#C19B2F]',
-    secondary: 'bg-white text-[#D4AF37] border-2 border-[#D4AF37] hover:bg-[#D4AF37] hover:text-white',
-    outline: 'bg-transparent border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white',
+    primary: 'bg-theme-primary text-white hover:bg-theme-secondary active:bg-theme-primary-active',
+    secondary: 'bg-white text-theme-primary border-2 border-theme-primary hover:bg-theme-primary hover:text-white',
+    outline: 'bg-transparent border-2 border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-white',
   };
 
   return (

@@ -5,18 +5,18 @@ const AccordionItem = ({ title, children, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-b border-gray-200">
+    <div className="border-b border-black/5 last:border-0 mb-4 overflow-hidden rounded-2xl">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-4 px-2 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+        className="w-full py-5 px-6 flex items-center justify-between text-left bg-white/90 backdrop-blur-md hover:bg-white transition-all duration-300 group shadow-sm border border-white/20"
       >
-        <span className="text-lg font-semibold text-[#333333] font-['Noto_Sans_KR']">
+        <span className="text-lg font-bold text-theme-primary font-['Noto_Sans_KR'] group-hover:translate-x-1 transition-transform duration-300">
           {title}
         </span>
         <motion.span
-          animate={{ rotate: isOpen ? 180 : 0 }}
+          animate={{ rotate: isOpen ? 180 : 0, scale: isOpen ? 1.2 : 1 }}
           transition={{ duration: 0.3 }}
-          className="text-[#D4AF37] text-2xl"
+          className="text-theme-primary text-xl"
         >
           ↓
         </motion.span>
@@ -28,9 +28,9 @@ const AccordionItem = ({ title, children, defaultOpen = false }) => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden"
+            className="bg-white/80 backdrop-blur-sm"
           >
-            <div className="pb-4 px-2">
+            <div className="p-6">
               {children}
             </div>
           </motion.div>
@@ -42,7 +42,7 @@ const AccordionItem = ({ title, children, defaultOpen = false }) => {
 
 const Accordion = ({ children }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="space-y-4">
       {children}
     </div>
   );

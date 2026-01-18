@@ -35,7 +35,7 @@ const Share = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-[#FDFCF0]">
+    <section className="py-20 px-4 bg-theme-bg">
       <div className="max-w-[430px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,10 +44,10 @@ const Share = () => {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-['Playfair_Display'] text-[#333333] mb-8">
+          <h2 className="text-3xl md:text-4xl font-serif text-theme-primary mb-4">
             {share.title}
           </h2>
-          <p className="text-[#333333] text-base mb-8 font-['Noto_Sans_KR']">
+          <p className="text-white text-base mb-8 font-['Noto_Sans_KR']">
             {share.subtitle}
           </p>
 
@@ -56,9 +56,13 @@ const Share = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleKakaoShare}
-              className="w-full bg-[#FEE500] text-[#333333] py-4 px-6 rounded-lg font-semibold text-lg hover:bg-[#FDD835] transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-[#FEE500] text-black border-2 border-black py-4 px-6 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center gap-3"
             >
-              <span>💬</span>
+              <img
+                src="https://i.namu.wiki/i/lXr7m01ZyyI7UqpH4ogeDHcLY4pCiysnwCvNf8VlULO4aMqE7mX8ww-VLKjIAuKdIO6XniPyCBx4zyI7LK--7shuXBlp9GEQUhZcbzWNULYHhb88FjgXDLgPqZwzJA9BymVRndsCIRTbvEtUraowxQ.svg"
+                alt="KakaoTalk"
+                className="w-5 h-5"
+              />
               <span>Share on KakaoTalk</span>
             </motion.button>
 
@@ -66,7 +70,7 @@ const Share = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleCopyLink}
-              className="w-full bg-white text-[#D4AF37] border-2 border-[#D4AF37] py-4 px-6 rounded-lg font-semibold text-lg hover:bg-[#D4AF37] hover:text-white transition-colors"
+              className="w-full bg-theme-primary text-white py-4 px-6 rounded-lg font-semibold text-lg active:bg-theme-primary-active transition-colors"
             >
               {copyFeedback ? '✓ Link Copied!' : '🔗 Copy Link'}
             </motion.button>

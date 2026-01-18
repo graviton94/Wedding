@@ -29,7 +29,7 @@ const Gallery = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-20 px-4 bg-theme-bg">
       <div className="max-w-[430px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,10 +38,10 @@ const Gallery = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-['Playfair_Display'] text-[#333333] mb-4">
+          <h2 className="text-3xl md:text-4xl font-serif text-theme-primary mb-4">
             {gallery.title}
           </h2>
-          <p className="text-[#333333] text-lg font-['Noto_Sans_KR']">
+          <p className="text-white text-lg font-['Noto_Sans_KR']">
             {gallery.subtitle}
           </p>
         </motion.div>

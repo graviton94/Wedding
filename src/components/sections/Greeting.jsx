@@ -5,7 +5,7 @@ const Greeting = () => {
   const { greeting } = content;
 
   return (
-    <section className="py-20 px-4 bg-[#FDFCF0]">
+    <section className="py-20 px-4 bg-theme-bg">
       <div className="max-w-[430px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -21,7 +21,7 @@ const Greeting = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 * (index + 1) }}
-              className="text-[#333333] text-lg leading-relaxed font-['Noto_Sans_KR']"
+              className="text-white text-lg leading-relaxed font-['Noto_Sans_KR']"
             >
               {message}
             </motion.p>
@@ -33,7 +33,7 @@ const Greeting = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="pt-8"
           >
-            <p className="text-[#D4AF37] text-base font-['Noto_Sans_KR']">
+            <p className="text-theme-primary text-xl font-bold font-['Noto_Sans_KR'] tracking-wide">
               {greeting.closing}
             </p>
           </motion.div>

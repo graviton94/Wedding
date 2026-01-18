@@ -4,24 +4,25 @@
     "groomName": "최준영",
     "brideName": "민수영",
     "date": "2026.09.20",
-    "time": "오후 12:30",
-    "location": "더 화이트베일"
+    "time": "12:30",
+    "location": "The WhiteVeil Hall"
   },
   "greeting": {
     "messages": [
       "두 사람이 사랑으로 하나 되는 날,",
-      "저희의 소중한 시작을 함께 축복해 주시면 큰 기쁨이 되겠습니다.",
+      "저희의 소중한 시작을 함께 축복해 주시면",
+      "큰 기쁨이 되겠습니다.",
       "여러분의 따뜻한 마음과 격려가 저희에게 큰 힘이 됩니다."
     ],
     "closing": "진심을 담아 초대합니다."
   },
   "gallery": {
     "title": "Our Moments",
-    "subtitle": "Precious memories we've shared together",
+    "subtitle": "소중한 우리의 추억들",
     "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/400x600",
+        "url": "https://lh3.googleusercontent.com/rd-d/ALs6j_EheDQ4bZyYgTeKIgaIiPgIqwC8NRjUTuFBun_TkpNKYlaqSO36Gq6ITs0SfPRCeVcfWkXvOYBErF1S511jKcaICA5x-AUESEi9NKy6xeoINkMKfQ4sBHSR0YIWrP6QAOLZ-jj8uEKVdCehy8CNttcOo6oabG4OMB8UN4nW2i6ro_FmCsJr9RxbrcNSF0lDVpJahFF7sVpgQIEIvmkYtRiVlFJWbSNSjuvFQsjXK09QShs9D2HHOc7EfxFlQlSLLdu6ptHw4sHF1hexv1cA06kkq8-LxITBntA26ZPS6C3e6J4ZMIrBNz-Wxdwvdu53jk_M8kNoIjxWzzyLu05aNSmST526wyZruAeFYANQd33VdtSxnN1gaSCYToMUdC7le8wuLLTAw2RB641mUd7KqAS4Es93B3aEWi9F7vTAJ3DU5pdMnQGHMmWpr8-huIy7lSFFI7cZs7AZJw22HO7MKA8vJNtfqZXyaJY1Me_mqxuvXn0LciDdLzWfCRXmmx73fTzAJ34eLDIptVpRe51D3FPZqaZm_fMCjPhXTNYpSM_fOJ1HNvON6uIMfGfSjK8BPV_BIsONQUZQNC2-6e-oLeAL6iDQUd7aVX4I7AjD2hKVGW7jebgwqb13wql5UkDP9oDcPAljXFZaMSrJZJ68NIIlFFpdKR8bXbefgiBTg7DZNmQz3y84v9fOtpannF_2NqEw02shjHwVvkhVQ5YbeVt21b9YkpAlIAKvJ9A6FVqvPHlNMfzd1gDyLOtvsIjtyeERQX7rShx8JZZbzHa3r_BX60aoZg2NVczsUuuNZwUPQCPlNLEwYMkH2N3hj8xrwi-o8IlNwAxA8eLEutVnLLicQ14mvnmmAQl5_WvBYMpLiHGDQOzTjwIRLUKZK7pLsmtTTj8TzcXECRtLUzMjoTvt0eLLHbviRNIbXFSr2C8HzuScE-FgYg20a9qd57GPmuvCaW51fghClIdgLUMpdOSBNojfOVw_pfS0kYezazUYb0Jvcag1pPKhJg18HvZcOYoy1cf6JUDOrr4SYYOYCRCO=w1920-h868?auditContext=prefetch",
         "alt": "Wedding photo 1"
       },
       {
@@ -61,27 +62,74 @@
       "lat": 37.4838261,
       "lng": 127.0179212
     },
-    "naverMapUrl": "https://map.naver.com/p/entry/place/12023277?placePath=%2Fhome%3Fentry%3Dplt&searchType=place&lng=127.0179212&lat=37.4838261",
+    "naverMapUrl": "https://m.place.naver.com/place/12023277",
+    "mapImage": "https://lh3.google.com/u/0/d/1VLgLPe3UGPeYQbhOIi-aRcOuFkF2QLCr=w1227-h868-iv1?auditContext=prefetch",
     "transportation": {
-      "subway": "3호선 남부터미널역 4번 출구 도보 1분",
-      "parking": "무료 주차 가능 (약 600대)"
+      "subway": "3호선 남부터미널역 하차 4번 출구 도보 2분 거리",
+      "bus": "지선버스(G, 초록색) : 4319\n간선버스(B, 파랑색) : 461, 641\n직행ㆍ공항버스 : 5300-1, 8501",
+      "car": "경부 고속도로 서초 IC(서초·사당) 500m 내",
+      "parking": "맞은편 전용 주차장(주차타워) 이용\n(서초동 1426-5번지 or 서초구 서초중앙로2길 10)"
     }
   },
   "accounts": {
-    "title": "Money Gift",
-    "subtitle": "Your presence is the greatest gift, but if you wish to bless us",
+    "title": "마음 전하실 곳",
+    "subtitle": "마음으로 축하해 주시는 분들을 위해 안내드립니다.",
     "groom": {
-      "title": "신랑측",
-      "name": "최준영",
-      "bank": "계좌번호를 입력해주세요",
-      "accountNumber": "000-000-000000"
+      "title": "🤵신랑측",
+      "accounts": [
+        {
+          "label": "신랑 아버님",
+          "name": "이름을 입력해주세요",
+          "bank": "계좌번호를 입력해주세요",
+          "accountNumber": "000-000-000000"
+        },
+        {
+          "label": "신랑 어머님",
+          "name": "이름을 입력해주세요",
+          "bank": "계좌번호를 입력해주세요",
+          "accountNumber": "000-000-000000"
+        },
+        {
+          "label": "신랑",
+          "name": "최준영",
+          "bank": "계좌번호를 입력해주세요",
+          "accountNumber": "000-000-000000"
+        }
+      ]
     },
     "bride": {
-      "title": "신부측",
-      "name": "민수영",
-      "bank": "계좌번호를 입력해주세요",
-      "accountNumber": "000-000-000000"
+      "title": "👰신부측",
+      "accounts": [
+        {
+          "label": "신부 아버님",
+          "name": "이름을 입력해주세요",
+          "bank": "계좌번호를 입력해주세요",
+          "accountNumber": "000-000-000000"
+        },
+        {
+          "label": "신부 어머님",
+          "name": "이름을 입력해주세요",
+          "bank": "계좌번호를 입력해주세요",
+          "accountNumber": "000-000-000000"
+        },
+        {
+          "label": "신부",
+          "name": "민수영",
+          "bank": "계좌번호를 입력해주세요",
+          "accountNumber": "000-000-000000"
+        }
+      ]
     }
+  },
+  "rsvp": {
+    "title": "참석 의사 전달하기",
+    "description": "참석해 주시는 분들의 성함과 연락처를\n남겨주시면 정성껏 모시겠습니다.\n\n버스를 이용하실 분들은\n꼭 작성 요청드립니다.",
+    "buttonText": "참석의사 전달하기",
+    "formUrl": "https://forms.gle/TzPFhaZmZjv8A2bg7"
+  },
+  "guestbook": {
+    "title": "방명록",
+    "subtitle": "소중한 앞 날을 축복하는 따뜻한 한마디를 남겨주세요."
   },
   "share": {
     "title": "Share Our Joy",

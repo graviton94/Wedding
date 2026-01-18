@@ -1,34 +1,22 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
 import content from '../../data/content.json';
 
 const Map = () => {
-  const { location } = content;
+  const { location, hero } = content;
   const [isCopied, copyToClipboard] = useCopyToClipboard();
 
-  const venue = {
-    name: location.venueName,
-    address: location.address,
-    floor: location.floor,
-    time: content.hero.time,
-    mapUrl: location.naverMapUrl,
-    tmapUrl: 'https://tmap.life/search',
-    lat: location.coordinates.lat,
-    lng: location.coordinates.lng
-  };
-
   const handleCopyAddress = () => {
-    copyToClipboard(venue.address);
+    copyToClipboard(location.address);
   };
 
-  // Validate coordinates are within valid ranges
-  const isValidCoordinate = (lat, lng) => {
-    return lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
-  };
+  const kakaoMapUrl = `https://map.kakao.com/link/to/${encodeURIComponent(location.venueName)},${location.coordinates.lat},${location.coordinates.lng}`;
+  const tmapUrl = `https://apis.openapi.sk.com/tmap/app/routes?appKey=&name=${encodeURIComponent(location.venueName)}&lon=${location.coordinates.lng}&lat=${location.coordinates.lat}`;
 
   return (
-    <section className="py-20 px-4 bg-[#FDFCF0]">
+    <section className="py-20 px-4 bg-theme-bg">
       <div className="max-w-[430px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,11 +25,11 @@ const Map = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-['Playfair_Display'] text-[#333333] mb-4">
-            오시는 길
+          <h2 className="text-3xl md:text-4xl font-serif text-theme-primary mb-4">
+            Location
           </h2>
-          <p className="text-[#333333] text-lg font-['Noto_Sans_KR']">
-            저희의 앞날을 축복하러 오시는 길을 안내해 드립니다.
+          <p className="text-white text-lg">
+            오시는 길을 안내해 드립니다.
           </p>
         </motion.div>
 
@@ -50,95 +38,112 @@ const Map = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-xl shadow-lg overflow-hidden"
+          className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden border border-white/20"
         >
-          <div className="p-6">
-            <p className="text-[#D4AF37] text-lg mb-4 font-['Noto_Sans_KR']">{venue.time}</p>
-            <h3 className="text-2xl font-['Playfair_Display'] text-[#333333] mb-2">
-              {venue.name}
+          <div className="p-8">
+            <p className="text-theme-primary text-lg mb-4 font-bold tracking-tight">{hero.time}</p>
+            <h3 className="text-3xl font-serif text-theme-primary mb-3 font-bold">
+              {location.venueName}
             </h3>
-            <p className="text-[#333333] mb-2 font-['Noto_Sans_KR']">{venue.floor}</p>
-            <p className="text-[#333333] mb-4 font-['Noto_Sans_KR']">{venue.address}</p>
+            <p className="text-black/80 mb-1 font-medium">{location.floor}</p>
+            <p className="text-black/60 mb-8 leading-relaxed">{location.address}</p>
 
-            {/* Optimized Naver Map Embed */}
-            <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-4">
-              {isValidCoordinate(venue.lat, venue.lng) ? (
-                <iframe
-                  src="https://m.map.naver.com/menu/location.naver?pinId=12023277&pinType=site"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Naver Map for The White Veil"
-                ></iframe>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-500">
-                  지도를 불러올 수 없습니다.
+            {/* ✅ 지도 이미지 영역 */}
+            <div className="aspect-video bg-gray-100 rounded-xl overflow-hidden mb-8 relative group shadow-inner">
+              <a
+                href={location.naverMapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full h-full cursor-pointer"
+              >
+                <img
+                  src={location.mapImage}
+                  alt="예식장 약도"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-300" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="bg-white/95 px-6 py-2.5 rounded-full text-sm font-bold text-[#03C75A] shadow-xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <img
+                      src="https://i.namu.wiki/i/p_1IEyQ8rYenO9YgAFp_LHIAW46kn6DXT0VKmZ_jKNijvYth9DieYZuJX_E_H_4GkCER_sVKhMqSyQYoW94JKA.svg"
+                      alt="Naver Map"
+                      className="w-4 h-4"
+                    />
+                    네이버 지도로 보기 ↗
+                  </span>
                 </div>
-              )}
+              </a>
             </div>
 
-            <div className="space-y-2">
-              <a
-                href={`nmap://route/public?dlat=${location.coordinates.lat}&dlng=${location.coordinates.lng}&dname=${encodeURIComponent(location.venueName)}&appname=wedding-invitation`}
-                className="block md:hidden"
-              >
-                <Button variant="primary" className="w-full bg-[#03C75A] border-[#03C75A] hover:bg-[#02b351]">
-                  네이버 지도 앱 열기 (길찾기)
+            {/* ✅ 네비게이션 버튼 세트 */}
+            <div className="flex flex-col gap-4">
+              <a href={kakaoMapUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="primary" className="w-full flex items-center justify-center gap-3 py-4 rounded-xl">
+                  <img
+                    src="https://lh3.google.com/u/0/d/1-G7VISzuwKv0OSzlcY8O2qH6nbVRN2PL=w1920-h868-iv1?auditContext=prefetch"
+                    alt="Kakao Map"
+                    className="w-5 h-5"
+                  />
+                  카카오맵으로 보기
                 </Button>
               </a>
-              <a
-                href={venue.mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button variant="primary" className="w-full">
-                  네이버 지도 (웹)
-                </Button>
-              </a>
-              <a
-                href={venue.tmapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button variant="secondary" className="w-full">
-                  T-Map 앱 열기
-                </Button>
-              </a>
+
               <Button
-                variant="outline"
-                className="w-full"
+                variant="primary"
+                className="w-full py-4 rounded-xl"
                 onClick={handleCopyAddress}
               >
-                {isCopied ? '✓ 주소 복사 완료!' : '주소 복사하기'}
+                {isCopied ? '주소가 복사되었습니다!' : '📋 주소 텍스트 복사'}
               </Button>
             </div>
           </div>
         </motion.div>
 
-        {/* Transportation info */}
+        {/* 교통편 안내 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-8 bg-white rounded-xl shadow-lg p-6"
+          className="mt-10 bg-white/80 backdrop-blur-md rounded-2xl p-8 text-left border border-white/20 shadow-xl"
         >
-          <h3 className="text-2xl font-['Playfair_Display'] text-[#333333] mb-4">
+          <h3 className="text-2xl font-serif text-theme-primary mb-8 border-b pb-3 border-theme-primary/20 font-bold">
             교통수단 안내
           </h3>
-          <div className="space-y-4 text-[#333333] font-['Noto_Sans_KR']">
+          <div className="space-y-8">
             <div>
-              <h4 className="font-semibold mb-2">지하철/버스</h4>
-              <p className="text-[#333333]">
+              <h4 className="font-bold text-theme-secondary mb-3 flex items-center gap-2 text-lg">
+                <span className="w-1.5 h-1.5 rounded-full bg-theme-secondary" />
+                지하철 이용 시
+              </h4>
+              <p className="text-black/70 leading-relaxed font-medium pl-3.5 whitespace-pre-wrap">
                 {location.transportation.subway}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">자가용/주차</h4>
-              <p className="text-[#333333]">
+              <h4 className="font-bold text-theme-secondary mb-3 flex items-center gap-2 text-lg">
+                <span className="w-1.5 h-1.5 rounded-full bg-theme-secondary" />
+                버스 이용 시
+              </h4>
+              <p className="text-black/70 leading-relaxed font-medium pl-3.5 whitespace-pre-wrap">
+                {location.transportation.bus}
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold text-theme-secondary mb-3 flex items-center gap-2 text-lg">
+                <span className="w-1.5 h-1.5 rounded-full bg-theme-secondary" />
+                승용차 이용 시
+              </h4>
+              <p className="text-black/70 leading-relaxed font-medium pl-3.5 whitespace-pre-wrap">
+                {location.transportation.car}
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold text-theme-secondary mb-3 flex items-center gap-2 text-lg">
+                <span className="w-1.5 h-1.5 rounded-full bg-theme-secondary" />
+                주차 안내
+              </h4>
+              <p className="text-black/70 leading-relaxed font-medium pl-3.5 whitespace-pre-wrap">
                 {location.transportation.parking}
               </p>
             </div>
