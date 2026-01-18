@@ -9,6 +9,7 @@ const GoldDustEffect = () => {
         if (!canvas) return;
 
         const ctx = canvas.getContext('2d');
+        if (!ctx) return;
         let animationFrameId;
 
         // Canvas 크기 설정
