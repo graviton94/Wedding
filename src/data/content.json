@@ -1,0 +1,89 @@
+{
+  "hero": {
+    "title": "We are getting married",
+    "groomName": "John",
+    "brideName": "Jane",
+    "date": "June 15, 2026",
+    "time": "2:00 PM",
+    "location": "Seoul, South Korea"
+  },
+  "greeting": {
+    "messages": [
+      "두 사람이 사랑으로 하나 되는 날,",
+      "저희의 소중한 시작을 함께 축복해 주시면 큰 기쁨이 되겠습니다.",
+      "여러분의 따뜻한 마음과 격려가 저희에게 큰 힘이 됩니다."
+    ],
+    "closing": "진심을 담아 초대합니다."
+  },
+  "gallery": {
+    "title": "Our Moments",
+    "subtitle": "Precious memories we've shared together",
+    "images": [
+      {
+        "id": 1,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 1"
+      },
+      {
+        "id": 2,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 2"
+      },
+      {
+        "id": 3,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 3"
+      },
+      {
+        "id": 4,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 4"
+      },
+      {
+        "id": 5,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 5"
+      },
+      {
+        "id": 6,
+        "url": "https://placehold.co/400x600",
+        "alt": "Wedding photo 6"
+      }
+    ]
+  },
+  "location": {
+    "title": "Location",
+    "subtitle": "Join us at this beautiful venue",
+    "venueName": "Grand Hotel Seoul",
+    "address": "123 Gangnam-daero, Gangnam-gu, Seoul, South Korea",
+    "floor": "5th Floor, Grand Ballroom",
+    "coordinates": {
+      "lat": 37.4979,
+      "lng": 127.0276
+    },
+    "transportation": {
+      "subway": "Gangnam Station (Line 2), Exit 10 - 5 minutes walk",
+      "parking": "Free parking available - B1-B3 floors"
+    }
+  },
+  "accounts": {
+    "title": "Money Gift",
+    "subtitle": "Your presence is the greatest gift, but if you wish to bless us",
+    "groom": {
+      "title": "Groom's Side",
+      "name": "John Doe",
+      "bank": "KB Bank",
+      "accountNumber": "123-456-789012"
+    },
+    "bride": {
+      "title": "Bride's Side",
+      "name": "Jane Smith",
+      "bank": "Shinhan Bank",
+      "accountNumber": "987-654-321098"
+    }
+  },
+  "share": {
+    "title": "Share Our Joy",
+    "subtitle": "소중한 분들과 이 기쁨을 나누어 주세요"
+  }
+}
