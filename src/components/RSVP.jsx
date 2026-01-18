@@ -12,6 +12,7 @@ const RSVP = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [copyFeedback, setCopyFeedback] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +25,7 @@ const RSVP = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // In a real app, this would send data to a backend
-    console.log('RSVP Data:', formData);
+    // Validate and process form data here
     setSubmitted(true);
     
     // Reset after 3 seconds
@@ -39,6 +40,12 @@ const RSVP = () => {
         message: ''
       });
     }, 3000);
+  };
+
+  const handleCopyAccount = (accountNumber) => {
+    navigator.clipboard.writeText(accountNumber);
+    setCopyFeedback(accountNumber);
+    setTimeout(() => setCopyFeedback(null), 2000);
   };
 
   const accounts = [
@@ -230,13 +237,10 @@ const RSVP = () => {
                   <p className="font-mono text-lg">{account.accountNumber}</p>
                 </div>
                 <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(account.accountNumber);
-                    alert('Account number copied!');
-                  }}
-                  className="mt-4 w-full bg-white text-rose-400 border border-rose-400 py-2 px-4 rounded-lg hover:bg-rose-50 transition-colors"
+                  onClick={() => handleCopyAccount(account.accountNumber)}
+                  className="mt-4 w-full bg-white text-rose-400 border border-rose-400 py-2 px-4 rounded-lg hover:bg-rose-50 transition-colors relative"
                 >
-                  Copy Account Number
+                  {copyFeedback === account.accountNumber ? '✓ Copied!' : 'Copy Account Number'}
                 </button>
               </motion.div>
             ))}

@@ -23,6 +23,11 @@ const Location = () => {
     }
   ];
 
+  // Validate coordinates are within valid ranges
+  const isValidCoordinate = (lat, lng) => {
+    return lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+  };
+
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-white to-pink-50">
       <div className="max-w-6xl mx-auto">
@@ -63,16 +68,22 @@ const Location = () => {
                 
                 {/* Naver Map Embed - Using iframe with Naver Map */}
                 <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-4">
-                  <iframe
-                    src={`https://map.naver.com/v5/search/${encodeURIComponent(venue.name)}?c=${venue.lng},${venue.lat},15,0,0,0,dh`}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title={`Map for ${venue.name}`}
-                  ></iframe>
+                  {isValidCoordinate(venue.lat, venue.lng) ? (
+                    <iframe
+                      src={`https://map.naver.com/v5/search/${encodeURIComponent(venue.name)}?c=${venue.lng},${venue.lat},15,0,0,0,dh`}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title={`Map for ${venue.name}`}
+                    ></iframe>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-500">
+                      Map unavailable
+                    </div>
+                  )}
                 </div>
 
                 <a
