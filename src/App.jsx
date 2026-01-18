@@ -14,6 +14,7 @@ import PetalEffect from './components/ui/PetalEffect';
 import GoldDustEffect from './components/ui/GoldDustEffect';
 
 function App() {
+  console.log('Deployment Check: v1.0.1');
   return (
     <div className="min-h-screen bg-[#FDFCF0]">
       <GoldDustEffect />

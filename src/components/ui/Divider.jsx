@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Divider = () => {
-    const imageUrl = "https://lh3.google.com/u/0/d/126dB0r9U2lHBPSzFPM1KELgFhYcUwbZi=w1920-h868-iv1?auditContext=prefetch";
+    const imageUrl = "/Wedding/images/divider.png";
 
     return (
         <div className="w-full bg-theme-bg py-6 overflow-hidden">

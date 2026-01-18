@@ -20,7 +20,7 @@ const Hero = () => {
       {/* Background Image Area - Portrait Optimization */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <img
-          src="https://lh3.google.com/u/0/d/1IpTpXyrFksZLy4djGpaTrKqvQvVMOthc=w1920-h868-iv1?auditContext=prefetch"
+          src="/Wedding/images/main.jpg"
           alt="Wedding Hero"
           className="h-full w-full object-cover"
         />

@@ -74,7 +74,7 @@ const Map = () => {
               <a href={kakaoMapUrl} target="_blank" rel="noopener noreferrer" className="block">
                 <Button variant="primary" className="w-full py-4 rounded-xl flex items-center justify-center gap-3">
                   <img
-                    src="https://lh3.google.com/u/0/d/1-G7VISzuwKv0OSzlcY8O2qH6nbVRN2PL=w1920-h868-iv1?auditContext=prefetch"
+                    src="/Wedding/images/kakao_icon.png"
                     alt="Kakao Map"
                     className="w-5 h-5"
                   />
