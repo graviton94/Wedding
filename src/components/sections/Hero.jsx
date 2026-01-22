@@ -34,53 +34,69 @@ const Hero = () => {
       {/* Content Area */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4"
+        className="relative z-10 h-full w-full max-w-[430px] mx-auto"
       >
-        <div className="max-w-[430px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-          >
-            <p className="text-xs md:text-sm mb-5 tracking-[0.3em] uppercase text-white">
+        {/* 25% Position: Intro Text Group with Lines */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+          className="absolute top-[30%] left-0 w-full -translate-y-1/2 text-center"
+        >
+          <div className="inline-flex flex-col items-center">
+            {/* Top Line */}
+            <div className="w-full h-[1px] bg-white/60 mb-6"></div>
+
+            <p className="text-xs md:text-sm tracking-[0.3em] uppercase text-white font-light mb-4 px-2">
               We are getting <span className="italic font-bold" style={{ color: '#E16A7B' }}>married</span>
             </p>
-            <h1 className="text-4xl md:text-6xl text-white mb-6 leading-tight">
-              Our Wedding
-            </h1>
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <span className="text-2xl md:text-3xl font-light text-white">
+
+            {/* Names */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
+            >
+              <span className="text-2xl md:text-3xl font-light text-white tracking-widest">
                 {hero.groomName} & {hero.brideName}
               </span>
-            </div>
-            <div className="space-y-2">
-              <p className="text-lg md:text-xl text-white font-bold tracking-wide">
-                {hero.date} <span style={{ color: '#E16A7B' }}>{dayOfWeek}</span> {hero.time}
-              </p>
+            </motion.div>
 
-              {/* D-Day Counter */}
-              <DDayCounter targetDate="2026-09-20T12:30:00" />
-            </div>
-          </motion.div>
+            {/* Bottom Line */}
+            <div className="w-full h-[1px] bg-white/60 mt-6"></div>
+          </div>
+        </motion.div>
 
-          {/* Scroll Down Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            transition={{ duration: 1, delay: 1.5 }}
-            className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+        {/* 75% Position: Date & Countdown Box */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
+          className="absolute top-[75%] left-0 w-full -translate-y-1/2 text-center space-y-6"
+        >
+          <p className="text-lg md:text-xl text-white font-bold tracking-widest">
+            {hero.date} <span style={{ color: '#E16A7B' }}>{dayOfWeek}</span> {hero.time}
+          </p>
+          <DDayCounter targetDate="2026-09-20T12:30:00" />
+        </motion.div>
+
+        {/* Scroll Down Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ duration: 1, delay: 1.5 }}
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+        >
+          <span className="text-[9px] text-white uppercase tracking-widest mb-2">Scroll</span>
+          <svg
+            className="w-6 h-6 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <span className="text-[9px] text-white uppercase tracking-widest mb-2">Scroll</span>
-            <svg
-              className="w-6 h-6 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7" />
-            </svg>
-          </motion.div>
-        </div>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7" />
+          </svg>
+        </motion.div>
       </motion.div>
     </section>
   );

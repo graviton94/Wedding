@@ -5,7 +5,7 @@ const Greeting = () => {
   const { greeting } = content;
 
   return (
-    <section className="py-20 px-4 bg-theme-bg">
+    <section className="py-10 px-4 bg-theme-bg">
       <div className="max-w-[430px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

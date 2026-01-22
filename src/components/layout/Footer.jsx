@@ -9,7 +9,7 @@ const Footer = () => {
           We can't wait to celebrate with you!
         </p>
         <p className="text-xs mt-4 text-gray-400 font-['Noto_Sans_KR']">
-          © 2026 최준영 & 민수영
+          © 2026 Java Script by 최준영
         </p>
       </div>
     </footer>

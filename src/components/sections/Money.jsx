@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import content from '../../data/content.json';
 import Accordion from '../ui/Accordion';
 import Button from '../ui/Button';
@@ -8,9 +8,12 @@ import useCopyToClipboard from '../../hooks/useCopyToClipboard';
 const Money = () => {
   const { accounts } = content;
   const [copiedNumber, copyToClipboard] = useCopyToClipboard();
+  const [showToast, setShowToast] = useState(false);
 
   const handleCopyAccount = (accountNumber) => {
     copyToClipboard(accountNumber);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
   };
 
   // Render account list with custom color
@@ -27,13 +30,13 @@ const Money = () => {
             </div>
             <Button
               className="py-1 px-3 text-xs rounded-lg font-bold !bg-[#003764] !text-white hover:!bg-[#004080] transition-colors"
-              onClick={() => handleCopyAccount(account.accountNumber)}
+              onClick={() => handleCopyAccount(`${account.bank} ${account.accountNumber}`)}
             >
-              {copiedNumber === account.accountNumber ? '✓' : '복사'}
+              {copiedNumber === `${account.bank} ${account.accountNumber}` ? '✓' : '복사'}
             </Button>
           </div>
           <div className="p-4 rounded-2xl border border-black/5 bg-white/60 shadow-inner">
-            <p className="text-[10px] text-black/50 mb-1 font-medium uppercase tracking-widest">{account.bank}</p>
+            <p className="text-xs text-black/80 mb-1 font-bold uppercase tracking-widest">{account.bank}</p>
             <p className="text-black font-mono text-lg tracking-wider font-semibold">{account.accountNumber}</p>
           </div>
         </div>
@@ -55,13 +58,13 @@ const Money = () => {
             <Button
               variant="primary"
               className="py-1 px-3 text-xs rounded-lg font-bold !bg-[#E16A7B] hover:!bg-[#D15969]"
-              onClick={() => handleCopyAccount(account.accountNumber)}
+              onClick={() => handleCopyAccount(`${account.bank} ${account.accountNumber}`)}
             >
-              {copiedNumber === account.accountNumber ? '✓' : '복사'}
+              {copiedNumber === `${account.bank} ${account.accountNumber}` ? '✓' : '복사'}
             </Button>
           </div>
           <div className="p-4 rounded-2xl border border-black/5 bg-white/60 shadow-inner">
-            <p className="text-[10px] text-black/50 mb-1 font-medium uppercase tracking-widest">{account.bank}</p>
+            <p className="text-xs text-black/80 mb-1 font-bold uppercase tracking-widest">{account.bank}</p>
             <p className="text-black font-mono text-lg tracking-wider font-semibold">{account.accountNumber}</p>
           </div>
         </div>
@@ -70,7 +73,20 @@ const Money = () => {
   );
 
   return (
-    <section className="py-20 px-4 bg-theme-bg">
+    <section className="py-10 px-4 bg-theme-bg">
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[100] backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm whitespace-nowrap border border-white/20"
+            style={{ backgroundColor: 'rgba(214, 99, 92, 0.8)' }}
+          >
+            ✓ 복사가 완료되었습니다!
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="max-w-[430px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -86,15 +86,16 @@ const Guestbook = () => {
     };
 
     return (
-        <section className="py-20 bg-theme-bg overflow-hidden">
+        <section className="py-10 bg-theme-bg overflow-hidden">
             {/* Toast Notification */}
             <AnimatePresence>
                 {showToast && (
                     <motion.div
-                        initial={{ opacity: 0, y: -50 }}
+                        initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -50 }}
-                        className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-theme-primary text-white px-6 py-4 rounded-full shadow-2xl font-bold"
+                        exit={{ opacity: 0 }}
+                        className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[100] backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm whitespace-nowrap border border-white/20"
+                        style={{ backgroundColor: 'rgba(214, 99, 92, 0.8)' }}
                     >
                         ✓ 축하 메시지가 등록되었습니다!
                     </motion.div>

@@ -1,105 +1,108 @@
 import React, { useState, useRef, useEffect } from 'react';
-import YouTube from 'react-youtube';
 import { motion } from 'framer-motion';
 
 const BackgroundMusic = () => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [userStoppedMusic, setUserStoppedMusic] = useState(false); // Track if user manually stopped
-    const playerRef = useRef(null);
+    const audioRef = useRef(null);
+    const hasAutoPlayedRef = useRef(false);
 
-    // ✅ 영상 ID
-    const VIDEO_ID = "DYz-LjtiVOc";
-
-    const opts = {
-        height: '0',
-        width: '0',
-        playerVars: {
-            autoplay: 1, // 로드 시 자동재생 시도
-            loop: 1,
-            playlist: VIDEO_ID,
-            controls: 0,
-            showinfo: 0,
-            playsinline: 1,
-            rel: 0,
-            suggestedQuality: 'small',
-        },
-    };
-
-    const onReady = (event) => {
-        console.log('Music Ready');
-        playerRef.current = event.target;
-        event.target.setVolume(30);
-        // 로드 되자마자 일단 재생 시도 (운 좋으면 PC에서 바로 됨)
-        event.target.playVideo();
-    };
-
-    const onStateChange = (event) => {
-        // 1: 재생중 (PLAYING)
-        if (event.data === 1) {
-            setIsPlaying(true);
-            // 재생 성공했으므로 감지기 제거
-            removeInteractionListeners();
-        }
-        // 2: 일시정지 (PAUSED)
-        else if (event.data === 2) {
-            setIsPlaying(false);
+    // Select random music file with weighted probability
+    const selectRandomMusic = () => {
+        const random = Math.random();
+        if (random < 0.5) {
+            return '/Wedding/music/1.mp3'; // 50% probability
+        } else if (random < 0.75) {
+            return '/Wedding/music/2.mp3'; // 25% probability
+        } else {
+            return '/Wedding/music/3.mp3'; // 25% probability
         }
     };
 
-    // ✅ 사용자가 화면에 '닿는 순간' 실행 (PC클릭, 모바일터치 모두 포함)
-    const handleUserGesture = () => {
-        if (!playerRef.current) return;
-
-        // 사용자가 수동으로 중지했다면 자동 재생 안 함
-        if (userStoppedMusic) return;
-
-        // 이미 재생 중이면 패스
-        if (playerRef.current.getPlayerState() === 1) return;
-
-        console.log('Touch/Click Detected -> Play!');
-
-        // 재생 실행
-        playerRef.current.playVideo();
-    };
-
-    const removeInteractionListeners = () => {
-        window.removeEventListener('pointerdown', handleUserGesture);
-        window.removeEventListener('keydown', handleUserGesture); // 키보드 입력도 대응
-    };
-
+    // Initialize audio on mount
     useEffect(() => {
-        // ✅ 'pointerdown'은 마우스 클릭, 터치, 펜 입력을 모두 포함하는 가장 빠른 이벤트입니다.
-        window.addEventListener('pointerdown', handleUserGesture, { capture: true, once: false });
-        // 키보드로 스크롤 내리는 사람들을 위해 키보드 이벤트도 추가
-        window.addEventListener('keydown', handleUserGesture, { capture: true, once: false });
+        const playNextTrack = () => {
+            const nextSrc = selectRandomMusic();
+            if (audioRef.current) {
+                audioRef.current.src = nextSrc;
+                audioRef.current.play().catch(err => console.log('Auto-play next track prevented:', err));
+            }
+        };
 
+        const audio = new Audio(selectRandomMusic());
+        audio.loop = false; // Disable loop to trigger 'ended' event
+        audio.volume = 0.3;
+        audio.onended = playNextTrack; // When song ends, play next random
+        audioRef.current = audio;
+
+        // Try to auto-play on load (will likely fail due to browser policy)
+        audio.play()
+            .then(() => {
+                setIsPlaying(true);
+                hasAutoPlayedRef.current = true;
+                console.log('Music auto-playing');
+            })
+            .catch((error) => {
+                console.log('Auto-play prevented by browser, waiting for user interaction');
+            });
+
+        // Cleanup on unmount
         return () => {
-            removeInteractionListeners();
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.onended = null;
+                audioRef.current = null;
+            }
         };
     }, []);
 
+    // Auto-play on first user interaction
+    useEffect(() => {
+        const handleFirstInteraction = () => {
+            if (!audioRef.current || hasAutoPlayedRef.current) return;
+
+            audioRef.current.play()
+                .then(() => {
+                    setIsPlaying(true);
+                    hasAutoPlayedRef.current = true;
+                    console.log('Music started on user interaction');
+                })
+                .catch((error) => {
+                    console.log('Play failed:', error);
+                });
+        };
+
+        // Listen for any user interaction
+        window.addEventListener('click', handleFirstInteraction, { once: true });
+        window.addEventListener('touchstart', handleFirstInteraction, { once: true });
+        window.addEventListener('keydown', handleFirstInteraction, { once: true });
+
+        return () => {
+            window.removeEventListener('click', handleFirstInteraction);
+            window.removeEventListener('touchstart', handleFirstInteraction);
+            window.removeEventListener('keydown', handleFirstInteraction);
+        };
+    }, []);
+
+    // Toggle play/pause when user clicks the button
     const togglePlay = () => {
-        if (!playerRef.current) return;
+        if (!audioRef.current) return;
+
         if (isPlaying) {
-            playerRef.current.pauseVideo();
-            setUserStoppedMusic(true); // 사용자가 수동으로 중지함을 기록
+            audioRef.current.pause();
+            setIsPlaying(false);
         } else {
-            playerRef.current.playVideo();
-            setUserStoppedMusic(false); // 다시 재생하면 자동재생 허용
+            audioRef.current.play()
+                .then(() => {
+                    setIsPlaying(true);
+                })
+                .catch((error) => {
+                    console.log('Play failed:', error);
+                });
         }
     };
 
     return (
         <div className="fixed top-4 right-4 z-50">
-            <div className="hidden">
-                <YouTube
-                    videoId={VIDEO_ID}
-                    opts={opts}
-                    onReady={onReady}
-                    onStateChange={onStateChange}
-                />
-            </div>
-
             <motion.button
                 onClick={(e) => {
                     e.stopPropagation();

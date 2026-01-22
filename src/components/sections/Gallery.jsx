@@ -22,7 +22,7 @@ const Gallery = () => {
   const displayedImages = showAll ? images : images.slice(0, INITIAL_IMAGE_COUNT);
 
   return (
-    <section className="py-16 px-4 bg-theme-bg">
+    <section className="py-8 px-4 bg-theme-bg">
       <div className="max-w-[430px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

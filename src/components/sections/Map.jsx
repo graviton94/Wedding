@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../ui/Button';
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
 import content from '../../data/content.json';
@@ -8,13 +8,29 @@ const Map = () => {
   const { location } = content;
   const kakaoMapUrl = `https://map.kakao.com/link/map/${encodeURIComponent(location.venueName)},${location.coordinates.lat},${location.coordinates.lng}`;
   const [isCopied, copyToClipboard] = useCopyToClipboard();
+  const [showToast, setShowToast] = useState(false);
 
   const handleCopyAddress = () => {
     copyToClipboard(location.address);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
   };
 
   return (
-    <section className="py-20 px-4 bg-theme-bg">
+    <section className="py-10 px-4 bg-theme-bg">
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[100] backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm whitespace-nowrap border border-white/20"
+            style={{ backgroundColor: 'rgba(214, 99, 92, 0.8)' }}
+          >
+            ✓ 주소가 복사되었습니다!
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="max-w-[430px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -60,10 +76,10 @@ const Map = () => {
             </div>
 
             {/* 버튼들 - 2개만 일렬로 배치, 동일한 크기 */}
-            <div className="flex gap-2">
-              <a href={kakaoMapUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
-                <Button 
-                  variant="primary" 
+            <div className="flex gap-2 w-full">
+              <a href={kakaoMapUrl} target="_blank" rel="noopener noreferrer" className="basis-1/2">
+                <Button
+                  variant="primary"
                   className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm !bg-[#003764] hover:!bg-[#004080]"
                 >
                   <img
@@ -77,7 +93,7 @@ const Map = () => {
 
               <Button
                 variant="primary"
-                className="flex-1 py-3 rounded-xl text-sm !bg-[#E16A7B] hover:!bg-[#D15969]"
+                className="basis-1/2 py-3 rounded-xl text-sm !bg-[#E16A7B] hover:!bg-[#D15969]"
                 onClick={handleCopyAddress}
               >
                 {isCopied ? '복사완료!' : '📋 주소복사'}
