@@ -16,7 +16,7 @@ import GoldDustEffect from './components/ui/GoldDustEffect';
 function App() {
   console.log('Deployment Check: v1.0.1');
   return (
-    <div className="min-h-screen bg-[#FDFCF0] w-full">
+    <div className="min-h-screen bg-[#080808] w-full">
       <div className="max-w-screen-md mx-auto">
         <GoldDustEffect />
         <LoadingScreen />

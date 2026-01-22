@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import content from '../../data/content.json';
 import Accordion from '../ui/Accordion';
@@ -47,14 +47,14 @@ const Money = () => {
         <div key={index} className="pb-5 last:pb-0 border-b last:border-0 border-black/5">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] bg-theme-primary text-white px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">
+              <span className="text-[10px] text-white px-2 py-0.5 rounded-md font-bold uppercase tracking-wider" style={{ backgroundColor: '#E16A7B' }}>
                 {account.label}
               </span>
-              <p className="text-theme-primary font-bold text-lg">{account.name}</p>
+              <p className="font-bold text-lg" style={{ color: '#E16A7B' }}>{account.name}</p>
             </div>
             <Button
               variant="primary"
-              className="py-1 px-3 text-xs rounded-lg font-bold"
+              className="py-1 px-3 text-xs rounded-lg font-bold !bg-[#E16A7B] hover:!bg-[#D15969]"
               onClick={() => handleCopyAccount(account.accountNumber)}
             >
               {copiedNumber === account.accountNumber ? '✓' : '복사'}

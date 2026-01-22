@@ -5,7 +5,7 @@ import content from '../../data/content.json';
 
 const Share = () => {
   // gallery 데이터도 가져옵니다.
-  const { hero, gallery, share } = content;
+  const { gallery, share } = content;
 
   useEffect(() => {
     // 1. 카카오 SDK 초기화
@@ -104,7 +104,7 @@ const Share = () => {
             <Button
               variant="outline"
               onClick={handleCopyLink}
-              className="w-full border-theme-primary/30 text-theme-primary hover:bg-white/5 py-3 text-sm"
+              className="w-full py-3 text-sm !bg-gray-200 !text-black !border-gray-300 hover:!bg-gray-300"
             >
               링크 주소 복사하기
             </Button>

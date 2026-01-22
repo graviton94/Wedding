@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -15,8 +15,11 @@ const Gallery = () => {
   const [showAll, setShowAll] = useState(false);
   const images = gallery.images;
 
+  // Number of images to display initially
+  const INITIAL_IMAGE_COUNT = 9;
+
   // Show first 9 images by default, all when expanded
-  const displayedImages = showAll ? images : images.slice(0, 9);
+  const displayedImages = showAll ? images : images.slice(0, INITIAL_IMAGE_COUNT);
 
   return (
     <section className="py-16 px-4 bg-theme-bg">
@@ -43,27 +46,37 @@ const Gallery = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="grid grid-cols-3 gap-2 mb-6">
-            {displayedImages.map((image, index) => (
-              <motion.div
-                key={image.id}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="aspect-square overflow-hidden rounded-lg shadow-lg cursor-pointer"
-                onClick={() => setSelectedImageIndex(showAll ? index : index)}
-              >
-                <img
-                  src={image.url}
-                  alt={image.alt}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </motion.div>
-            ))}
-          </div>
+          <AnimatePresence>
+            <motion.div 
+              className="grid grid-cols-3 gap-2 mb-6"
+              layout
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              {displayedImages.map((image, index) => (
+                <motion.div
+                  key={image.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: showAll ? (index >= INITIAL_IMAGE_COUNT ? (index - INITIAL_IMAGE_COUNT) * 0.05 : 0) : 0 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="aspect-square overflow-hidden rounded-lg shadow-lg cursor-pointer"
+                  onClick={() => setSelectedImageIndex(showAll ? index : index)}
+                >
+                  <img
+                    src={image.url}
+                    alt={image.alt}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
 
           {/* Show More Button */}
-          {!showAll && images.length > 9 && (
+          {!showAll && images.length > INITIAL_IMAGE_COUNT && (
             <div className="text-center">
               <Button
                 variant="outline"

@@ -43,7 +43,7 @@ const Hero = () => {
             transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
           >
             <p className="text-xs md:text-sm mb-5 tracking-[0.3em] uppercase text-white">
-              We are getting <span className="italic text-theme-primary font-bold">married</span>
+              We are getting <span className="italic font-bold" style={{ color: '#E16A7B' }}>married</span>
             </p>
             <h1 className="text-4xl md:text-6xl text-white mb-6 leading-tight">
               Our Wedding
@@ -55,7 +55,7 @@ const Hero = () => {
             </div>
             <div className="space-y-2">
               <p className="text-lg md:text-xl text-white font-bold tracking-wide">
-                {hero.date} {dayOfWeek} {hero.time}
+                {hero.date} <span style={{ color: '#E16A7B' }}>{dayOfWeek}</span> {hero.time}
               </p>
 
               {/* D-Day Counter */}
