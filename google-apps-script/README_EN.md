@@ -15,7 +15,7 @@ When a Google Form is submitted with a name and congratulation message (both not
 
 Ensure your Google Form contains these fields:
 - **성함** (Name - question title should include "성함" or "이름")
-- **축하 메세지** (Congratulation message - question title should include "축하" and "메세지" or "메시지")
+- **축하 메시지** (Congratulation message - question title should include "축하" and "메시지" or "메세지")
 
 ### Step 2: Google Apps Script Setup
 
@@ -63,7 +63,7 @@ The script will automatically append new rows.
 
 ## ⚠️ Important Notes
 
-1. **Field Names**: Form question titles must include "성함" for name and "축하 메세지" for message
+1. **Field Names**: Form question titles must include "성함" for name and "축하 메시지" (or "축하 메세지") for message
 2. **Blank Values**: If either name or message is blank, the entry will not be added to the guestbook
 3. **Permissions**: The script needs authorization to access both the Form and Spreadsheet
 4. **Timezone**: Timestamps use the Google Apps Script timezone setting
@@ -72,7 +72,7 @@ The script will automatically append new rows.
 
 ### Data Not Being Added
 1. Check **"Execution log"** in the script editor
-2. Verify form field names include "성함" and "축하 메세지"
+2. Verify form field names include "성함" and "축하 메시지" (or "축하 메세지")
 3. Confirm the trigger is properly configured
 4. Verify the spreadsheet ID is correct
 
@@ -92,7 +92,7 @@ if (question.includes('성함') || question.includes('이름')) {
 }
 
 // Find message field
-if (question.includes('축하') && (question.includes('메세지') || question.includes('메시지'))) {
+if (question.includes('축하') && (question.includes('메시지') || question.includes('메세지'))) {
   message = answer;
 }
 ```

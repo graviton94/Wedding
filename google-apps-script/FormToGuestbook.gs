@@ -17,7 +17,7 @@
  * 
  * Form Field Names:
  * - "성함" (Name field)
- * - "축하 메세지" (Congratulation message field)
+ * - "축하 메시지" or "축하 메세지" (Congratulation message field)
  */
 
 // Replace this with your actual Guestbook Spreadsheet ID
