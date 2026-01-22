@@ -5,7 +5,7 @@ import useCopyToClipboard from '../../hooks/useCopyToClipboard';
 import content from '../../data/content.json';
 
 const Map = () => {
-  const { location, hero } = content;
+  const { location } = content;
   const kakaoMapUrl = `https://map.kakao.com/link/map/${encodeURIComponent(location.venueName)},${location.coordinates.lat},${location.coordinates.lng}`;
   const [isCopied, copyToClipboard] = useCopyToClipboard();
 

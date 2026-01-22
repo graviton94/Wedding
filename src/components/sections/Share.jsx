@@ -5,7 +5,7 @@ import content from '../../data/content.json';
 
 const Share = () => {
   // gallery 데이터도 가져옵니다.
-  const { hero, gallery, share } = content;
+  const { gallery, share } = content;
 
   useEffect(() => {
     // 1. 카카오 SDK 초기화

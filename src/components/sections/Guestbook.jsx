@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useAnimationControls } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import content from '../../data/content.json';
 import Button from '../ui/Button';
 
@@ -84,9 +84,6 @@ const Guestbook = () => {
             setIsLoading(false);
         }
     };
-
-    // 가로 흐르기 구성을 위한 메시지 복제 (무한 루프 효과)
-    const marqueeMessages = [...messages, ...messages];
 
     return (
         <section className="py-20 bg-theme-bg overflow-hidden">
