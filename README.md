@@ -2,6 +2,15 @@
 
 결혼식 초대장 웹사이트
 
+## 🆕 Google Forms ↔ 방명록 연동
+
+Google Form 제출 시 자동으로 방명록 스프레드시트에 업데이트되도록 설정할 수 있습니다.
+
+자세한 설정 방법은 [`google-apps-script/`](./google-apps-script/) 폴더를 참고하세요:
+- 📖 [한국어 가이드](./google-apps-script/README.md)
+- 📖 [English Guide](./google-apps-script/README_EN.md)
+- ✅ [빠른 설정 체크리스트](./google-apps-script/SETUP_CHECKLIST.md)
+
 ## 배포 방법
 
 1. GitHub에서 새 저장소 생성 (예: `wedding-invitation`)
