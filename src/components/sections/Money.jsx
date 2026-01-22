@@ -50,14 +50,14 @@ const Money = () => {
         <div key={index} className="pb-5 last:pb-0 border-b last:border-0 border-black/5">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-white px-2 py-0.5 rounded-md font-bold uppercase tracking-wider" style={{ backgroundColor: '#E16A7B' }}>
+              <span className="text-[10px] text-white px-2 py-0.5 rounded-md font-bold uppercase tracking-wider" style={{ backgroundColor: '#D6635C' }}>
                 {account.label}
               </span>
-              <p className="font-bold text-lg" style={{ color: '#E16A7B' }}>{account.name}</p>
+              <p className="font-bold text-lg" style={{ color: '#D6635C' }}>{account.name}</p>
             </div>
             <Button
               variant="primary"
-              className="py-1 px-3 text-xs rounded-lg font-bold !bg-[#E16A7B] hover:!bg-[#D15969]"
+              className="py-1 px-3 text-xs rounded-lg font-bold !bg-[#D6635C] hover:!bg-[#C5524B]"
               onClick={() => handleCopyAccount(`${account.bank} ${account.accountNumber}`)}
             >
               {copiedNumber === `${account.bank} ${account.accountNumber}` ? '✓' : '복사'}

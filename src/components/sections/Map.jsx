@@ -93,7 +93,7 @@ const Map = () => {
 
               <Button
                 variant="primary"
-                className="basis-1/2 py-3 rounded-xl text-sm !bg-[#E16A7B] hover:!bg-[#D15969]"
+                className="basis-1/2 py-3 rounded-xl text-sm !bg-[#D6635C] hover:!bg-[#C5524B]"
                 onClick={handleCopyAddress}
               >
                 {isCopied ? '복사완료!' : '📋 주소복사'}
