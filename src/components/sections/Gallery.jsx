@@ -16,7 +16,7 @@ const Gallery = () => {
   const images = gallery.images;
 
   // Number of images to display initially
-  const INITIAL_IMAGE_COUNT = 9;
+  const INITIAL_IMAGE_COUNT = 6;
 
   // Show first 9 images by default, all when expanded
   const displayedImages = showAll ? images : images.slice(0, INITIAL_IMAGE_COUNT);
@@ -47,7 +47,7 @@ const Gallery = () => {
           transition={{ duration: 0.6 }}
         >
           <AnimatePresence>
-            <motion.div 
+            <motion.div
               className="grid grid-cols-3 gap-2 mb-6"
               layout
               transition={{ duration: 0.5, ease: "easeInOut" }}
