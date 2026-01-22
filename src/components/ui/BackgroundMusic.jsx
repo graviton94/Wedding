@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 
 const BackgroundMusic = () => {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [userStoppedMusic, setUserStoppedMusic] = useState(false); // Track if user manually stopped
     const playerRef = useRef(null);
 
     // ✅ 영상 ID
@@ -49,6 +50,9 @@ const BackgroundMusic = () => {
     const handleUserGesture = () => {
         if (!playerRef.current) return;
 
+        // 사용자가 수동으로 중지했다면 자동 재생 안 함
+        if (userStoppedMusic) return;
+
         // 이미 재생 중이면 패스
         if (playerRef.current.getPlayerState() === 1) return;
 
@@ -78,8 +82,10 @@ const BackgroundMusic = () => {
         if (!playerRef.current) return;
         if (isPlaying) {
             playerRef.current.pauseVideo();
+            setUserStoppedMusic(true); // 사용자가 수동으로 중지함을 기록
         } else {
             playerRef.current.playVideo();
+            setUserStoppedMusic(false); // 다시 재생하면 자동재생 허용
         }
     };
 

@@ -14,7 +14,7 @@ const RSVP = () => {
                     transition={{ duration: 0.6 }}
                     className="mb-12"
                 >
-                    <h2 className="text-2xl md:text-3xl font-serif text-theme-primary mb-4">
+                    <h2 className="text-2xl text-theme-primary mb-3">
                         {rsvp.title}
                     </h2>
                 </motion.div>
@@ -24,10 +24,10 @@ const RSVP = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="bg-white/90 backdrop-blur-md rounded-2xl p-10 shadow-xl border border-white/20 space-y-10"
+                    className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/20 space-y-6"
                 >
-                    <div className="space-y-6">
-                        <p className="text-black/70 text-lg leading-relaxed font-['Noto_Sans_KR'] break-keep font-medium whitespace-pre-wrap">
+                    <div className="space-y-4">
+                        <p className="text-black/70 text-base leading-relaxed break-keep font-medium whitespace-pre-wrap">
                             {rsvp.description}
                         </p>
                     </div>
@@ -41,7 +41,7 @@ const RSVP = () => {
                             href={rsvp.formUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-block px-14 py-4.5 bg-theme-secondary text-white rounded-full text-lg font-bold font-['Noto_Sans_KR'] tracking-wider shadow-lg hover:brightness-110 transition-all duration-300"
+                            className="inline-block px-10 py-3.5 bg-theme-secondary text-white rounded-full text-base font-bold tracking-wider shadow-lg hover:brightness-110 transition-all duration-300"
                         >
                             {rsvp.buttonText}
                         </a>

@@ -112,10 +112,10 @@ const Guestbook = () => {
                     transition={{ duration: 0.6 }}
                     className="mb-12"
                 >
-                    <h2 className="text-2xl md:text-3xl font-serif text-theme-primary mb-4">
+                    <h2 className="text-2xl text-theme-primary mb-3">
                         {guestbook.title}
                     </h2>
-                    <p className="text-white/80 text-base font-['Noto_Sans_KR']">
+                    <p className="text-white/80 text-sm">
                         {guestbook.subtitle}
                     </p>
                 </motion.div>

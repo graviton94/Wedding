@@ -1,22 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500&display=swap');
 
 @import "tailwindcss";
 
-@theme {
-  --color-theme-bg: #0F0F0F;
-  --color-theme-primary: #FF6F61;
-  --color-theme-primary-active: #E66458;
-  --color-theme-secondary: #E37383;
-  --color-theme-accent: #FFB347;
-}
-
 @layer base {
+  :root {
+    --color-theme-bg: 15 15 15;
+    --color-theme-primary: 255 111 97;
+    --color-theme-primary-active: 230 100 88;
+    --color-theme-secondary: 227 115 131;
+    --color-theme-accent: 255 179 71;
+  }
+
   body {
-    background-color: var(--color-theme-bg);
-    color: var(--color-theme-secondary);
+    background-color: rgb(var(--color-theme-bg));
+    color: rgb(var(--color-theme-secondary));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
   }
 
   h1,
@@ -25,7 +26,8 @@
   h4,
   h5,
   h6 {
-    color: var(--color-theme-primary);
-    font-family: 'Playfair Display', serif;
+    color: rgb(var(--color-theme-primary));
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
   }
 }

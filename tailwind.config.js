@@ -7,10 +7,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        'theme-bg': '#0F0F0F',
-        'theme-primary': '#FF6F61', // Living Coral
-        'theme-secondary': '#E37383', // Indigo Pink
-        'theme-accent': '#FFB347', // Sunset Orange
+        'theme-bg': ({ opacityValue }) =>
+          opacityValue !== undefined
+            ? `rgb(var(--color-theme-bg) / ${opacityValue})`
+            : `rgb(var(--color-theme-bg))`,
+        'theme-primary': {
+          DEFAULT: ({ opacityValue }) =>
+            opacityValue !== undefined
+              ? `rgb(var(--color-theme-primary) / ${opacityValue})`
+              : `rgb(var(--color-theme-primary))`,
+          active: ({ opacityValue }) =>
+            opacityValue !== undefined
+              ? `rgb(var(--color-theme-primary-active) / ${opacityValue})`
+              : `rgb(var(--color-theme-primary-active))`,
+        },
+        'theme-secondary': ({ opacityValue }) =>
+          opacityValue !== undefined
+            ? `rgb(var(--color-theme-secondary) / ${opacityValue})`
+            : `rgb(var(--color-theme-secondary))`,
+        'theme-accent': ({ opacityValue }) =>
+          opacityValue !== undefined
+            ? `rgb(var(--color-theme-accent) / ${opacityValue})`
+            : `rgb(var(--color-theme-accent))`,
         'theme-text-dark': '#1A1A1A',
       },
     },

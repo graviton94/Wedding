@@ -46,7 +46,7 @@ const DDayCounter = ({ targetDate }) => {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center mt-6"
             >
-                <p className="text-white/80 text-lg font-['Noto_Sans_KR']">
+                <p className="text-white/80 text-base">
                     행복한 결혼 생활을 응원합니다! 🎉
                 </p>
             </motion.div>
@@ -60,7 +60,7 @@ const DDayCounter = ({ targetDate }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center mt-6"
             >
-                <p className="text-2xl font-bold text-[#FFD700] font-['Noto_Sans_KR'] mb-2">
+                <p className="text-xl font-bold text-[#FF6F61] mb-2">
                     🎊 오늘이 바로 그날입니다! 🎊
                 </p>
                 <div className="flex justify-center gap-4 text-white/90">
@@ -78,10 +78,10 @@ const DDayCounter = ({ targetDate }) => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mt-6"
         >
-            <p className="text-white/70 text-sm mb-3 font-['Noto_Sans_KR']">
+            <p className="text-white/70 text-xs mb-2">
                 결혼식까지
             </p>
-            <div className="flex justify-center gap-3">
+            <div className="flex justify-center gap-2">
                 <TimeUnit value={timeLeft.days} label="일" highlight />
                 <TimeUnit value={timeLeft.hours} label="시간" />
                 <TimeUnit value={timeLeft.minutes} label="분" />
@@ -100,15 +100,15 @@ const TimeUnit = ({ value, label, highlight }) => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.3 }}
                 className={`
-          ${highlight ? 'bg-[#FFD700] text-black' : 'bg-white/10 text-white'}
-          px-3 py-2 rounded-lg min-w-[50px] backdrop-blur-sm
+          ${highlight ? 'bg-[#FF6F61] text-white' : 'bg-white/10 text-white'}
+          px-2 py-1.5 rounded-lg min-w-[40px] backdrop-blur-sm
         `}
             >
-                <span className="text-2xl font-bold font-mono">
+                <span className="text-xl font-bold font-mono">
                     {String(value).padStart(2, '0')}
                 </span>
             </motion.div>
-            <span className="text-xs text-white/60 mt-1 font-['Noto_Sans_KR']">
+            <span className="text-[10px] text-white/60 mt-1">
                 {label}
             </span>
         </div>

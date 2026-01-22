@@ -16,27 +16,29 @@ import GoldDustEffect from './components/ui/GoldDustEffect';
 function App() {
   console.log('Deployment Check: v1.0.1');
   return (
-    <div className="min-h-screen bg-[#FDFCF0]">
-      <GoldDustEffect />
-      <LoadingScreen />
-      <PetalEffect />
-      <BackgroundMusic />
-      <Hero />
-      <Divider />
-      <Greeting />
-      <Divider />
-      <Gallery />
-      <Divider />
-      <Map />
-      <Divider />
-      <RSVP />
-      <Divider />
-      <Money />
-      <Divider />
-      <Guestbook />
-      <Divider />
-      <Share />
-      <Footer />
+    <div className="min-h-screen bg-[#FDFCF0] w-full">
+      <div className="max-w-screen-md mx-auto">
+        <GoldDustEffect />
+        <LoadingScreen />
+        <PetalEffect />
+        <BackgroundMusic />
+        <Hero />
+        <Divider />
+        <Greeting />
+        <Divider />
+        <Gallery />
+        <Divider />
+        <Map />
+        <Divider />
+        <RSVP />
+        <Divider />
+        <Money />
+        <Divider />
+        <Guestbook />
+        <Divider />
+        <Share />
+        <Footer />
+      </div>
     </div>
   );
 }

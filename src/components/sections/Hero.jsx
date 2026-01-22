@@ -11,6 +11,10 @@ const Hero = () => {
     offset: ["start start", "end start"]
   });
 
+  // Calculate day of week
+  const weddingDate = new Date('2026-09-20');
+  const dayOfWeek = weddingDate.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+
   // 배경 이미지만 스크롤에 따라 천천히 움직이게 설정 (Parallax 효과 유지)
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
@@ -38,23 +42,20 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
           >
-            <p className="text-white text-sm md:text-base mb-6 tracking-[0.3em] uppercase font-['Noto_Sans_KR']">
+            <p className="text-xs md:text-sm mb-5 tracking-[0.3em] uppercase text-white">
               We are getting <span className="italic text-theme-primary font-bold">married</span>
             </p>
-            <h1 className="text-5xl md:text-7xl font-['Playfair_Display'] text-white mb-8 leading-tight">
+            <h1 className="text-4xl md:text-6xl text-white mb-6 leading-tight">
               Our Wedding
             </h1>
-            <div className="flex items-center justify-center gap-4 mb-10">
-              <span className="text-3xl md:text-4xl font-light text-white font-['Playfair_Display']">
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <span className="text-2xl md:text-3xl font-light text-white">
                 {hero.groomName} & {hero.brideName}
               </span>
             </div>
-            <div className="space-y-3">
-              <p className="text-xl md:text-2xl text-white font-bold font-['Noto_Sans_KR'] tracking-wide">
-                {hero.date} {hero.time}
-              </p>
-              <p className="text-base md:text-lg text-white/90 font-light font-['Noto_Sans_KR']">
-                {hero.location}
+            <div className="space-y-2">
+              <p className="text-lg md:text-xl text-white font-bold tracking-wide">
+                {hero.date} {dayOfWeek} {hero.time}
               </p>
 
               {/* D-Day Counter */}
@@ -69,7 +70,7 @@ const Hero = () => {
             transition={{ duration: 1, delay: 1.5 }}
             className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
           >
-            <span className="text-[10px] text-white uppercase tracking-widest mb-2">Scroll</span>
+            <span className="text-[9px] text-white uppercase tracking-widest mb-2">Scroll</span>
             <svg
               className="w-6 h-6 text-white"
               fill="none"

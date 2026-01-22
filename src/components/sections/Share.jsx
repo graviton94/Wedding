@@ -92,30 +92,19 @@ const Share = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-serif text-theme-primary mb-4">
+          <h2 className="text-2xl text-theme-primary mb-3">
             {share.title}
           </h2>
-          <p className="text-white font-light text-lg font-['Noto_Sans_KR'] mb-10">
+          <p className="text-white font-light text-base mb-8">
             {share.subtitle}
           </p>
 
-          <div className="space-y-4">
-            {/* 카카오톡 공유 버튼 */}
-            <Button
-              onClick={handleKakaoShare}
-              className="w-full bg-[#FAE100] text-[#371D1E] border-[#FAE100] hover:bg-[#F9E000] font-bold flex items-center justify-center gap-2"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 3C6.48 3 2 6.48 2 10.76C2 13.62 3.93 16.14 6.86 17.54C6.67 18.23 6.27 19.69 6.22 19.89C6.16 20.15 6.44 20.3 6.64 20.16C6.73 20.1 9.38 18.28 10.63 17.41C11.08 17.46 11.53 17.49 12 17.49C17.52 17.49 22 14.01 22 9.73C22 5.45 17.52 3 12 3Z" />
-              </svg>
-              카카오톡으로 공유하기
-            </Button>
-
-            {/* 링크 복사 버튼 */}
+          <div>
+            {/* 링크 복사 버튼만 유지 */}
             <Button
               variant="outline"
               onClick={handleCopyLink}
-              className="w-full border-theme-primary/30 text-theme-primary hover:bg-white/5"
+              className="w-full border-theme-primary/30 text-theme-primary hover:bg-white/5 py-3 text-sm"
             >
               링크 주소 복사하기
             </Button>
