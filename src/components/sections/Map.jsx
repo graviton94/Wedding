@@ -62,7 +62,10 @@ const Map = () => {
             {/* 버튼들 - 2개만 일렬로 배치, 동일한 크기 */}
             <div className="flex gap-2">
               <a href={kakaoMapUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
-                <Button variant="primary" className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm">
+                <Button 
+                  variant="primary" 
+                  className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm !bg-[#003764] hover:!bg-[#004080]"
+                >
                   <img
                     src="/Wedding/images/kakao_icon.png"
                     alt="Kakao Map"
@@ -74,7 +77,7 @@ const Map = () => {
 
               <Button
                 variant="primary"
-                className="flex-1 py-3 rounded-xl text-sm"
+                className="flex-1 py-3 rounded-xl text-sm !bg-[#E16A7B] hover:!bg-[#D15969]"
                 onClick={handleCopyAddress}
               >
                 {isCopied ? '복사완료!' : '📋 주소복사'}
@@ -98,7 +101,7 @@ const Map = () => {
           <div className="space-y-5">
             {/* 지하철 */}
             <div className="pb-5 border-b border-black/5">
-              <h4 className="text-base font-bold text-theme-primary mb-2 flex items-center gap-2">
+              <h4 className="text-base font-bold mb-2 flex items-center gap-2" style={{ color: '#000000' }}>
                 <span className="text-xl">🚇</span>
                 지하철
               </h4>
@@ -109,7 +112,7 @@ const Map = () => {
 
             {/* 버스 */}
             <div className="pb-5 border-b border-black/5">
-              <h4 className="text-base font-bold text-theme-primary mb-2 flex items-center gap-2">
+              <h4 className="text-base font-bold mb-2 flex items-center gap-2" style={{ color: '#000000' }}>
                 <span className="text-xl">🚌</span>
                 버스
               </h4>
@@ -120,7 +123,7 @@ const Map = () => {
 
             {/* 자가용 */}
             <div className="pb-5 border-b border-black/5">
-              <h4 className="text-base font-bold text-theme-primary mb-2 flex items-center gap-2">
+              <h4 className="text-base font-bold mb-2 flex items-center gap-2" style={{ color: '#000000' }}>
                 <span className="text-xl">🚗</span>
                 자가용
               </h4>
@@ -131,7 +134,7 @@ const Map = () => {
 
             {/* 주차 */}
             <div>
-              <h4 className="text-base font-bold text-theme-primary mb-2 flex items-center gap-2">
+              <h4 className="text-base font-bold mb-2 flex items-center gap-2" style={{ color: '#000000' }}>
                 <span className="text-xl">🅿️</span>
                 주차
               </h4>

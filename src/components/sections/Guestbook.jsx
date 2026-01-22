@@ -145,7 +145,7 @@ const Guestbook = () => {
                         />
                         <Button
                             variant="primary"
-                            className="w-full py-4 rounded-xl font-bold"
+                            className="w-full py-4 rounded-xl font-bold !bg-[#E16A7B] hover:!bg-[#D15969]"
                             type="submit"
                             disabled={isLoading}
                         >
