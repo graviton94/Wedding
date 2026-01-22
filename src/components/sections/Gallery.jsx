@@ -15,8 +15,11 @@ const Gallery = () => {
   const [showAll, setShowAll] = useState(false);
   const images = gallery.images;
 
+  // Number of images to display initially
+  const INITIAL_IMAGE_COUNT = 9;
+
   // Show first 9 images by default, all when expanded
-  const displayedImages = showAll ? images : images.slice(0, 9);
+  const displayedImages = showAll ? images : images.slice(0, INITIAL_IMAGE_COUNT);
 
   return (
     <section className="py-16 px-4 bg-theme-bg">
@@ -55,7 +58,7 @@ const Gallery = () => {
                   layout
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: showAll ? (index >= 9 ? (index - 9) * 0.05 : 0) : 0 }}
+                  transition={{ duration: 0.3, delay: showAll ? (index >= INITIAL_IMAGE_COUNT ? (index - INITIAL_IMAGE_COUNT) * 0.05 : 0) : 0 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="aspect-square overflow-hidden rounded-lg shadow-lg cursor-pointer"
@@ -73,7 +76,7 @@ const Gallery = () => {
           </AnimatePresence>
 
           {/* Show More Button */}
-          {!showAll && images.length > 9 && (
+          {!showAll && images.length > INITIAL_IMAGE_COUNT && (
             <div className="text-center">
               <Button
                 variant="outline"
