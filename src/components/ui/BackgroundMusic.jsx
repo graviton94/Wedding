@@ -9,12 +9,14 @@ const BackgroundMusic = () => {
     // Select random music file with weighted probability
     const selectRandomMusic = () => {
         const random = Math.random();
-        if (random < 0.5) {
-            return '/Wedding/music/1.mp3'; // 50% probability
-        } else if (random < 0.75) {
-            return '/Wedding/music/2.mp3'; // 25% probability
+        if (random < 0.4) {
+            return '/Wedding/music/1.mp3'; // 40% probability
+        } else if (random < 0.6) {
+            return '/Wedding/music/2.mp3'; // 20% probability
+        } else if (random < 0.8) {
+            return '/Wedding/music/3.mp3'; // 20% probability
         } else {
-            return '/Wedding/music/3.mp3'; // 25% probability
+            return '/Wedding/music/4.mp3'; // 20% probability
         }
     };
 
