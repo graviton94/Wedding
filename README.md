@@ -1,6 +1,6 @@
 # Wedding Invitation
 
-결혼식 초대장 웹사이트 v.3
+결혼식 초대장 웹사이트 v.2
 
 ## 🆕 Google Forms ↔ 방명록 연동
 
