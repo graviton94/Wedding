@@ -12,14 +12,14 @@ const Guestbook = () => {
     const [isFetching, setIsFetching] = useState(true);
     const [showToast, setShowToast] = useState(false);
 
-    // 방명록 저장소: Supabase (구글 미사용). anon 공개키는 클라이언트 노출이 정상.
+    // 방명록 저장소: Supabase (구글 미사용). publishable 공개키는 클라이언트 노출이 정상.
     const SUPABASE_URL = guestbook.supabaseUrl;
-    const SUPABASE_ANON_KEY = guestbook.supabaseAnonKey;
-    const isConfigured = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
+    const SUPABASE_KEY = guestbook.supabaseKey;
+    const isConfigured = Boolean(SUPABASE_URL && SUPABASE_KEY);
     const REST_ENDPOINT = `${SUPABASE_URL}/rest/v1/guestbook`;
     const authHeaders = {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
     };
 
     const fetchMessages = async () => {
