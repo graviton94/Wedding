@@ -12,42 +12,32 @@ const Guestbook = () => {
     const [isFetching, setIsFetching] = useState(true);
     const [showToast, setShowToast] = useState(false);
 
-    const SPREADSHEET_ID = guestbook.spreadsheetId;
-    // 방명록 쓰기: 기존 Google Form에 직접 POST (Apps Script 배포/Drive 접근 불필요).
-    // 폼 제출 -> onFormSubmit 트리거 -> 방명록 시트 저장. entry ID는 content.json에 설정.
-    const FORM_URL = guestbook.formResponseUrl;
-    const NAME_ENTRY = guestbook.nameEntryId;
-    const MESSAGE_ENTRY = guestbook.messageEntryId;
-    const isWriteConfigured = Boolean(FORM_URL && NAME_ENTRY && MESSAGE_ENTRY);
+    // 방명록 저장소: Supabase (구글 미사용). anon 공개키는 클라이언트 노출이 정상.
+    const SUPABASE_URL = guestbook.supabaseUrl;
+    const SUPABASE_ANON_KEY = guestbook.supabaseAnonKey;
+    const isConfigured = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
+    const REST_ENDPOINT = `${SUPABASE_URL}/rest/v1/guestbook`;
+    const authHeaders = {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    };
 
     const fetchMessages = async () => {
+        if (!isConfigured) {
+            setIsFetching(false);
+            return;
+        }
         try {
-            const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
-            const response = await fetch(url);
-            const dataText = await response.text();
+            const url = `${REST_ENDPOINT}?select=name,message,created_at&order=created_at.desc`;
+            const response = await fetch(url, { headers: authHeaders });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const rows = await response.json();
 
-            const jsonString = dataText.substring(dataText.indexOf('{'), dataText.lastIndexOf('}') + 1);
-            const jsonData = JSON.parse(jsonString);
-
-            const rows = jsonData.table.rows;
-            // gviz가 헤더를 인식했으면(parsedNumHeaders>0) rows는 이미 데이터만 담고 있음.
-            // 인식하지 못한 경우에만, 첫 행이 헤더 문구처럼 보이면 직접 제거한다.
-            const numHeaders = jsonData.table.parsedNumHeaders ?? 0;
-            let dataRows = rows;
-            if (numHeaders === 0 && rows.length > 0) {
-                const HEADER_WORDS = ['from', '성함', '이름', 'name', '본문', 'ment', '내용', '메시지', '메세지', 'message', 'date', '날짜', '작성일', 'timestamp', '타임스탬프'];
-                const firstCells = (rows[0]?.c ?? []).map((cell) =>
-                    typeof cell?.v === 'string' ? cell.v.trim().toLowerCase() : ''
-                );
-                const looksLikeHeader = firstCells.some((v) => HEADER_WORDS.includes(v));
-                if (looksLikeHeader) dataRows = rows.slice(1);
-            }
-
-            const formattedMessages = dataRows.map(row => ({
-                name: row.c[0]?.f || row.c[0]?.v || '익명',
-                text: row.c[1]?.f || row.c[1]?.v || '',
-                date: row.c[2]?.f || row.c[2]?.v || ''
-            })).reverse();
+            const formattedMessages = rows.map((row) => ({
+                name: row.name || '익명',
+                text: row.message || '',
+                date: (row.created_at || '').split('T')[0],
+            }));
 
             setMessages(formattedMessages);
         } catch (error) {
@@ -65,41 +55,40 @@ const Guestbook = () => {
         e.preventDefault();
         if (!name.trim() || !text.trim()) return;
 
-        if (!isWriteConfigured) {
-            alert("방명록 폼 설정(entry ID)이 아직 완료되지 않았습니다.");
+        if (!isConfigured) {
+            alert("방명록 저장소(Supabase) 설정이 아직 완료되지 않았습니다.");
             return;
         }
 
         setIsLoading(true);
 
         try {
-            // Google Form은 필드명이 entry.XXXX 형식이다.
-            const formData = new URLSearchParams();
-            formData.append(NAME_ENTRY, name.trim());
-            formData.append(MESSAGE_ENTRY, text.trim());
-
-            await fetch(FORM_URL, {
+            const response = await fetch(REST_ENDPOINT, {
                 method: 'POST',
-                body: formData,
-                mode: 'no-cors'
+                headers: {
+                    ...authHeaders,
+                    'Content-Type': 'application/json',
+                    Prefer: 'return=minimal',
+                },
+                body: JSON.stringify({ name: name.trim(), message: text.trim() }),
             });
+
+            // no-cors와 달리 실제 성공/실패를 확인할 수 있다.
+            if (!response.ok) {
+                const detail = await response.text();
+                throw new Error(`HTTP ${response.status} ${detail}`);
+            }
 
             setName('');
             setText('');
-
-            // Show success toast
             setShowToast(true);
             setTimeout(() => setShowToast(false), 3000);
 
-            // 전송 후 데이터가 바로 반영되지 않을 수 있으므로 짧은 간격으로 재시도
-            setTimeout(async () => {
-                await fetchMessages();
-                setIsLoading(false);
-            }, 1500);
-
+            await fetchMessages();
         } catch (error) {
             console.error("Error submitting message:", error);
-            alert("전송 중 오류가 발생했습니다.");
+            alert("전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+        } finally {
             setIsLoading(false);
         }
     };
