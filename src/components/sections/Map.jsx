@@ -25,7 +25,7 @@ const Map = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[100] backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm whitespace-nowrap border border-white/20"
-            style={{ backgroundColor: 'rgba(214, 99, 92, 0.8)' }}
+            style={{ backgroundColor: 'rgb(var(--color-brand) / 0.8)' }}
           >
             ✓ 주소가 복사되었습니다!
           </motion.div>
@@ -80,7 +80,7 @@ const Map = () => {
               <a href={kakaoMapUrl} target="_blank" rel="noopener noreferrer" className="basis-1/2">
                 <Button
                   variant="primary"
-                  className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm !bg-[#003764] hover:!bg-[#004080]"
+                  className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm !bg-navy hover:!bg-navy-hover"
                 >
                   <img
                     src="/Wedding/images/kakao_icon.png"
@@ -93,7 +93,7 @@ const Map = () => {
 
               <Button
                 variant="primary"
-                className="basis-1/2 py-3 rounded-xl text-sm !bg-[#D6635C] hover:!bg-[#C5524B]"
+                className="basis-1/2 py-3 rounded-xl text-sm !bg-brand hover:!bg-brand-hover"
                 onClick={handleCopyAddress}
               >
                 {isCopied ? '복사완료!' : '📋 주소복사'}

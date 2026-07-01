@@ -29,6 +29,26 @@ export default {
           opacityValue !== undefined
             ? `rgb(var(--color-theme-accent) / ${opacityValue})`
             : `rgb(var(--color-theme-accent))`,
+        'brand': {
+          DEFAULT: ({ opacityValue }) =>
+            opacityValue !== undefined
+              ? `rgb(var(--color-brand) / ${opacityValue})`
+              : `rgb(var(--color-brand))`,
+          hover: ({ opacityValue }) =>
+            opacityValue !== undefined
+              ? `rgb(var(--color-brand-hover) / ${opacityValue})`
+              : `rgb(var(--color-brand-hover))`,
+        },
+        'navy': {
+          DEFAULT: ({ opacityValue }) =>
+            opacityValue !== undefined
+              ? `rgb(var(--color-navy) / ${opacityValue})`
+              : `rgb(var(--color-navy))`,
+          hover: ({ opacityValue }) =>
+            opacityValue !== undefined
+              ? `rgb(var(--color-navy-hover) / ${opacityValue})`
+              : `rgb(var(--color-navy-hover))`,
+        },
         'theme-text-dark': '#1A1A1A',
       },
     },

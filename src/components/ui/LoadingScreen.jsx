@@ -13,7 +13,7 @@ const LoadingScreen = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const deepRose = '#D6635C';
+    const deepRose = 'rgb(var(--color-brand))';
 
     return (
         <AnimatePresence>

@@ -27,7 +27,7 @@ const Share = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[100] backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm whitespace-nowrap border border-white/20"
-            style={{ backgroundColor: 'rgba(214, 99, 92, 0.8)' }}
+            style={{ backgroundColor: 'rgb(var(--color-brand) / 0.8)' }}
           >
             ✓ 청첩장 주소가 복사되었습니다!
           </motion.div>

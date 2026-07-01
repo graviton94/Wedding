@@ -42,7 +42,7 @@ const RSVP = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block px-10 py-3.5 text-white rounded-full text-base font-bold tracking-wider shadow-lg hover:brightness-110 transition-all duration-300"
-                            style={{ backgroundColor: '#D6635C' }}
+                            style={{ backgroundColor: 'rgb(var(--color-brand))' }}
                         >
                             {rsvp.buttonText}
                         </a>

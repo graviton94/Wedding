@@ -114,7 +114,7 @@ const Guestbook = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
                         className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[100] backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm whitespace-nowrap border border-white/20"
-                        style={{ backgroundColor: 'rgba(214, 99, 92, 0.8)' }}
+                        style={{ backgroundColor: 'rgb(var(--color-brand) / 0.8)' }}
                     >
                         ✓ 축하 메시지가 등록되었습니다!
                     </motion.div>
@@ -164,7 +164,7 @@ const Guestbook = () => {
                         />
                         <Button
                             variant="primary"
-                            className="w-full py-4 rounded-xl font-bold !bg-[#D6635C] hover:!bg-[#C5524B]"
+                            className="w-full py-4 rounded-xl font-bold !bg-brand hover:!bg-brand-hover"
                             type="submit"
                             disabled={isLoading}
                         >

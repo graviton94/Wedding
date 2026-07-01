@@ -9,6 +9,11 @@
     --color-theme-primary-active: 230 100 88;
     --color-theme-secondary: 227 115 131;
     --color-theme-accent: 255 179 71;
+    /* 브랜드 팔레트 (버튼/강조) */
+    --color-brand: 214 99 92;         /* #D6635C */
+    --color-brand-hover: 197 82 75;   /* #C5524B */
+    --color-navy: 0 55 100;           /* #003764 */
+    --color-navy-hover: 0 64 128;     /* #004080 */
   }
 
   body {
@@ -42,6 +47,6 @@
 
 /* 갤러리 모달 Swiper 색상 (Gallery.jsx) */
 .modal-swiper {
-  --swiper-navigation-color: #FF6F61;
-  --swiper-pagination-color: #FF6F61;
+  --swiper-navigation-color: rgb(var(--color-theme-primary));
+  --swiper-pagination-color: rgb(var(--color-theme-primary));
 }
