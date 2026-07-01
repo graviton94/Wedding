@@ -138,14 +138,14 @@
           "label": "신부 어머님",
           "name": "차귀현",
           "bank": "하나은행",
-          "accountNumber": "",
+          "accountNumber": "402-911525-85507",
           "phone": "010-3398-8753"
         },
         {
           "label": "신부",
           "name": "민수영",
-          "bank": "",
-          "accountNumber": "",
+          "bank": "카카오뱅크",
+          "accountNumber": "3333-18-7499118",
           "phone": "010-5227-2111"
         }
       ]
