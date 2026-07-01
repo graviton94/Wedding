@@ -13,7 +13,6 @@ import LoadingScreen from './components/ui/LoadingScreen';
 import GoldDustEffect from './components/ui/GoldDustEffect';
 import ThemeToggle from './components/ui/ThemeToggle';
 import ScrollProgress from './components/ui/ScrollProgress';
-import TapRipple from './components/ui/TapRipple';
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
         <GoldDustEffect />
         <LoadingScreen />
         <ScrollProgress />
-        <TapRipple />
         <ThemeToggle />
         <BackgroundMusic />
         <Hero />
