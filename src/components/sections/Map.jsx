@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../ui/Button';
+import CalendarButton from '../ui/CalendarButton';
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
 import content from '../../data/content.json';
 
@@ -97,6 +98,11 @@ const Map = () => {
               >
                 {isCopied ? '복사완료!' : '📋 주소복사'}
               </Button>
+            </div>
+
+            {/* 캘린더 일정 추가 (플랫폼 감지) */}
+            <div className="mt-2">
+              <CalendarButton />
             </div>
           </div>
         </motion.div>

@@ -80,3 +80,21 @@
   --swiper-navigation-color: var(--color-theme-primary);
   --swiper-pagination-color: var(--color-theme-primary);
 }
+
+/* 탭 물결(TapRipple.jsx) — 골드 파문 */
+.tap-ripple {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-theme-accent) 55%, transparent), transparent 70%);
+  animation: tap-ripple 0.6s ease-out forwards;
+}
+@keyframes tap-ripple {
+  from { transform: scale(0.4); opacity: 0.7; }
+  to { transform: scale(6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tap-ripple { display: none; }
+}
