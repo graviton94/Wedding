@@ -21,63 +21,58 @@
     "images": [
       {
         "id": 1,
-        "url": "/Wedding/images/gallery_1.jpg",
+        "url": "/Wedding/images/1.jpg",
         "alt": "Wedding photo 1"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/400x600",
+        "url": "/Wedding/images/2.jpg",
         "alt": "Wedding photo 2"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/400x600",
+        "url": "/Wedding/images/3.jpg",
         "alt": "Wedding photo 3"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/400x600",
+        "url": "/Wedding/images/4.jpg",
         "alt": "Wedding photo 4"
       },
       {
         "id": 5,
-        "url": "https://placehold.co/400x600",
+        "url": "/Wedding/images/5.jpg",
         "alt": "Wedding photo 5"
       },
       {
         "id": 6,
-        "url": "https://placehold.co/400x600",
+        "url": "/Wedding/images/6.jpg",
         "alt": "Wedding photo 6"
       },
       {
         "id": 7,
-        "url": "https://placehold.co/400x600",
-        "alt": "Wedding photo 6"
+        "url": "/Wedding/images/7.jpg",
+        "alt": "Wedding photo 7"
       },
       {
         "id": 8,
-        "url": "https://placehold.co/400x600",
-        "alt": "Wedding photo 6"
+        "url": "/Wedding/images/8.jpg",
+        "alt": "Wedding photo 8"
       },
       {
         "id": 9,
-        "url": "https://placehold.co/400x600",
-        "alt": "Wedding photo 6"
+        "url": "/Wedding/images/9.jpg",
+        "alt": "Wedding photo 9"
       },
       {
         "id": 10,
-        "url": "https://placehold.co/400x600",
-        "alt": "Wedding photo 6"
+        "url": "/Wedding/images/10.jpg",
+        "alt": "Wedding photo 10"
       },
       {
         "id": 11,
-        "url": "https://placehold.co/400x600",
-        "alt": "Wedding photo 6"
-      },
-      {
-        "id": 12,
-        "url": "https://placehold.co/400x600",
-        "alt": "Wedding photo 6"
+        "url": "/Wedding/images/11.jpg",
+        "alt": "Wedding photo 11"
       }
     ]
   },
