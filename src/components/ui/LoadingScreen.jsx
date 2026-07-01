@@ -38,7 +38,7 @@ const LoadingScreen = () => {
     const img = new Image();
     img.onload = tryFinish;
     img.onerror = tryFinish;
-    img.src = '/Wedding/images/main.jpg';
+    img.src = '/Wedding/images/main.webp';
     const maxTimer = setTimeout(finish, MAX_MS);
 
     return () => clearTimeout(maxTimer);

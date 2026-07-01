@@ -27,7 +27,7 @@ const Hero = () => {
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         {/* Ken Burns: 아주 느린 줌으로 커버에 생명감 */}
         <motion.img
-          src="/Wedding/images/main.jpg"
+          src="/Wedding/images/main.webp"
           alt="Wedding Hero"
           className="h-full w-full object-cover"
           initial={{ scale: 1.16 }}

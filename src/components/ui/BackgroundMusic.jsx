@@ -32,6 +32,7 @@ const BackgroundMusic = () => {
 
         const audio = new Audio(selectRandomMusic());
         audio.loop = false; // Disable loop to trigger 'ended' event
+        audio.preload = 'none'; // 데이터 절약: 재생 전까지 버퍼링 안 함
         audio.volume = 0.3;
         audio.onended = playNextTrack; // When song ends, play next random
         audioRef.current = audio;

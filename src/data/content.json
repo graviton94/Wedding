@@ -21,57 +21,57 @@
     "images": [
       {
         "id": 1,
-        "url": "/Wedding/images/1.jpg",
+        "url": "/Wedding/images/1.webp",
         "alt": "Wedding photo 1"
       },
       {
         "id": 2,
-        "url": "/Wedding/images/2.jpg",
+        "url": "/Wedding/images/2.webp",
         "alt": "Wedding photo 2"
       },
       {
         "id": 3,
-        "url": "/Wedding/images/3.jpg",
+        "url": "/Wedding/images/3.webp",
         "alt": "Wedding photo 3"
       },
       {
         "id": 4,
-        "url": "/Wedding/images/4.jpg",
+        "url": "/Wedding/images/4.webp",
         "alt": "Wedding photo 4"
       },
       {
         "id": 5,
-        "url": "/Wedding/images/5.jpg",
+        "url": "/Wedding/images/5.webp",
         "alt": "Wedding photo 5"
       },
       {
         "id": 6,
-        "url": "/Wedding/images/6.jpg",
+        "url": "/Wedding/images/6.webp",
         "alt": "Wedding photo 6"
       },
       {
         "id": 7,
-        "url": "/Wedding/images/7.jpg",
+        "url": "/Wedding/images/7.webp",
         "alt": "Wedding photo 7"
       },
       {
         "id": 8,
-        "url": "/Wedding/images/8.jpg",
+        "url": "/Wedding/images/8.webp",
         "alt": "Wedding photo 8"
       },
       {
         "id": 9,
-        "url": "/Wedding/images/9.jpg",
+        "url": "/Wedding/images/9.webp",
         "alt": "Wedding photo 9"
       },
       {
         "id": 10,
-        "url": "/Wedding/images/10.jpg",
+        "url": "/Wedding/images/10.webp",
         "alt": "Wedding photo 10"
       },
       {
         "id": 11,
-        "url": "/Wedding/images/11.jpg",
+        "url": "/Wedding/images/11.webp",
         "alt": "Wedding photo 11"
       }
     ]
@@ -87,7 +87,7 @@
       "lng": 127.0179212
     },
     "naverMapUrl": "https://m.place.naver.com/place/12023277",
-    "mapImage": "/Wedding/images/map.png",
+    "mapImage": "/Wedding/images/map.webp",
     "transportation": {
       "subway": "3호선 남부터미널역, 4번 출구 도보 2분",
       "bus": "지선버스(G, 초록색) : 4319\n간선버스(B, 파랑색) : 461, 641\n직행ㆍ공항버스 : 5300-1, 8501",
