@@ -15,10 +15,9 @@ const Gallery = () => {
   const [showAll, setShowAll] = useState(false);
   const images = gallery.images;
 
-  // Number of images to display initially
-  const INITIAL_IMAGE_COUNT = 6;
+  // 펼치기 전 표시 개수: 대표컷 1 + 썸네일 6 = 총 7 (1 / 3 / 3)
+  const INITIAL_IMAGE_COUNT = 7;
 
-  // Show first 9 images by default, all when expanded
   const displayedImages = showAll ? images : images.slice(0, INITIAL_IMAGE_COUNT);
 
   return (
