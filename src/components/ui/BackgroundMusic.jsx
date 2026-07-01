@@ -110,6 +110,8 @@ const BackgroundMusic = () => {
                     e.stopPropagation();
                     togglePlay();
                 }}
+                aria-label={isPlaying ? '배경 음악 일시정지' : '배경 음악 재생'}
+                aria-pressed={isPlaying}
                 whileTap={{ scale: 0.9 }}
                 className={`
           relative w-10 h-10 rounded-full flex items-center justify-center 

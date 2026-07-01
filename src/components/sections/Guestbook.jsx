@@ -12,11 +12,11 @@ const Guestbook = () => {
     const [isFetching, setIsFetching] = useState(true);
     const [showToast, setShowToast] = useState(false);
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhgQA0EVN5nYpKdNmGax1cjd1WzNz6lHV4jASBOvLChGPghibhgipegRbesJBYxnFtEw/exec";
+    const SCRIPT_URL = guestbook.scriptUrl;
+    const SPREADSHEET_ID = guestbook.spreadsheetId;
 
     const fetchMessages = async () => {
         try {
-            const SPREADSHEET_ID = '1-xtZaFSMU8ecMEzsCiWyplELJS9XRpET3SB_cUje1T4';
             const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
             const response = await fetch(url);
             const dataText = await response.text();
@@ -25,10 +25,18 @@ const Guestbook = () => {
             const jsonData = JSON.parse(jsonString);
 
             const rows = jsonData.table.rows;
-            // ✅ parsedNumHeaders가 1이면 첫 번째 줄부터 이미 데이터임
-            // 만약 첫 줄이 From, Ment 같은 글자면 제외하고 아니면 포함하도록 유연하게 수정
-            const firstRowIsHeader = rows[0]?.c[0]?.v === 'From' || rows[0]?.c[0]?.v === '성함';
-            const dataRows = firstRowIsHeader ? rows.slice(1) : rows;
+            // gviz가 헤더를 인식했으면(parsedNumHeaders>0) rows는 이미 데이터만 담고 있음.
+            // 인식하지 못한 경우에만, 첫 행이 헤더 문구처럼 보이면 직접 제거한다.
+            const numHeaders = jsonData.table.parsedNumHeaders ?? 0;
+            let dataRows = rows;
+            if (numHeaders === 0 && rows.length > 0) {
+                const HEADER_WORDS = ['from', '성함', '이름', 'name', '본문', 'ment', '내용', '메시지', '메세지', 'message', 'date', '날짜', '작성일', 'timestamp', '타임스탬프'];
+                const firstCells = (rows[0]?.c ?? []).map((cell) =>
+                    typeof cell?.v === 'string' ? cell.v.trim().toLowerCase() : ''
+                );
+                const looksLikeHeader = firstCells.some((v) => HEADER_WORDS.includes(v));
+                if (looksLikeHeader) dataRows = rows.slice(1);
+            }
 
             const formattedMessages = dataRows.map(row => ({
                 name: row.c[0]?.f || row.c[0]?.v || '익명',
@@ -131,6 +139,7 @@ const Guestbook = () => {
                             placeholder="성함"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            maxLength={30}
                             className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-theme-primary/50 transition-all bg-white placeholder:text-gray-600 text-black"
                             required
                         />
@@ -138,6 +147,7 @@ const Guestbook = () => {
                             placeholder="축하 메시지를 남겨주세요"
                             value={text}
                             onChange={(e) => setText(e.target.value)}
+                            maxLength={300}
                             className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-theme-primary/50 transition-all bg-white h-24 resize-none placeholder:text-gray-600 text-black"
                             required
                         />
@@ -213,16 +223,6 @@ const Guestbook = () => {
                     </div>
                 )}
             </div>
-
-            {/* 스크롤 스타일 가이드 (CSS) */}
-            <style jsx>{`
-                .line-clamp-3 {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                }
-            `}</style>
         </section>
     );
 };

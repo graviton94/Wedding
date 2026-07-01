@@ -11,8 +11,10 @@ const Hero = () => {
     offset: ["start start", "end start"]
   });
 
-  // Calculate day of week
-  const weddingDate = new Date('2026-09-20');
+  // content.json의 날짜/시간을 단일 소스로 사용 ("2026.09.20" -> "2026-09-20")
+  const isoDate = hero.date.replace(/\./g, '-');
+  const targetDate = `${isoDate}T${hero.time}:00`;
+  const weddingDate = new Date(isoDate);
   const dayOfWeek = weddingDate.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
 
   // 배경 이미지만 스크롤에 따라 천천히 움직이게 설정 (Parallax 효과 유지)
@@ -77,7 +79,7 @@ const Hero = () => {
           <p className="text-xs md:text-sm text-white font-bold tracking-widest">
             {hero.date} <span style={{ color: '#D6635C' }}>{dayOfWeek}</span> {hero.time}
           </p>
-          <DDayCounter targetDate="2026-09-20T12:30:00" />
+          <DDayCounter targetDate={targetDate} />
         </motion.div>
 
         {/* Scroll Down Indicator */}

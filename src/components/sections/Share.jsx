@@ -1,77 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../ui/Button';
 import content from '../../data/content.json';
 
 const Share = () => {
-  const { gallery, share } = content;
+  const { share } = content;
   const [showToast, setShowToast] = useState(false);
-
-  useEffect(() => {
-    // 1. 카카오 SDK 초기화
-    const KAKAO_KEY = import.meta.env.VITE_KAKAO_API_KEY;
-
-    if (!KAKAO_KEY) {
-      console.error('Kakao API Key is missing in .env file');
-      return;
-    }
-
-    if (window.Kakao) {
-      if (!window.Kakao.isInitialized()) {
-        try {
-          window.Kakao.init(KAKAO_KEY);
-          console.log('Kakao SDK Initialized successfully');
-        } catch (e) {
-          console.error('Kakao SDK Init Error:', e);
-        }
-      }
-    } else {
-      console.error('Kakao SDK script not loaded');
-    }
-  }, []);
-
-  const handleKakaoShare = () => {
-    if (!window.Kakao) {
-      alert('카카오 SDK 스크립트가 로드되지 않았습니다.');
-      return;
-    }
-    if (!window.Kakao.isInitialized()) {
-      alert('카카오 SDK 초기화에 실패했습니다. 다음을 확인해주세요:\n1. .env 파일의 VITE_KAKAO_API_KEY가 정확한지\n2. 카카오 개발자 콘솔에 현재 도메인이 등록되어 있는지');
-      return;
-    }
-
-    // 2. 카카오톡 공유 메시지 보내기
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        // ✅ 요청하신 문구 적용
-        title: "최준영🩷민수영 결혼합니다!",
-        description: "2026.09.20(일) 12:30 더화이트베일 홀",
-        // ✅ 갤러리 첫 번째 사진 자동 연동
-        imageUrl: gallery.images[0].url,
-        link: {
-          mobileWebUrl: window.location.href,
-          webUrl: window.location.href,
-        },
-      },
-      buttons: [
-        {
-          title: '모바일 청첩장 보기',
-          link: {
-            mobileWebUrl: window.location.href,
-            webUrl: window.location.href,
-          },
-        },
-        {
-          title: '위치 보기',
-          link: {
-            mobileWebUrl: window.location.href,
-            webUrl: window.location.href,
-          },
-        },
-      ],
-    });
-  };
 
   const handleCopyLink = async () => {
     try {
@@ -79,7 +13,8 @@ const Share = () => {
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2000);
     } catch (err) {
-      console.error('Failed to copy: ', err);
+      // 클립보드 API를 쓸 수 없는 환경(구형 브라우저/비보안 컨텍스트) 폴백
+      window.prompt('아래 주소를 복사해 주세요', window.location.href);
     }
   };
 
@@ -113,7 +48,6 @@ const Share = () => {
           </p>
 
           <div>
-            {/* 링크 복사 버튼만 유지 */}
             <Button
               variant="outline"
               onClick={handleCopyLink}

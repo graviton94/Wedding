@@ -116,13 +116,6 @@ const Gallery = () => {
           </div>
         )}
       </Modal>
-
-      <style jsx>{`
-        .modal-swiper {
-          --swiper-navigation-color: #FF6F61;
-          --swiper-pagination-color: #FF6F61;
-        }
-      `}</style>
     </section>
   );
 };

@@ -104,20 +104,23 @@
         {
           "label": "신랑 아버님",
           "name": "최봉락",
-          "bank": "OO은행",
-          "accountNumber": "000-000-000000"
+          "bank": "농협",
+          "accountNumber": "352-00493469-73",
+          "phone": "010-3841-1310"
         },
         {
           "label": "신랑 어머님",
           "name": "황미선",
-          "bank": "OO은행",
-          "accountNumber": "000-000-000000"
+          "bank": "부산은행",
+          "accountNumber": "258-12-000256-3",
+          "phone": "010-8380-1310"
         },
         {
           "label": "신랑",
           "name": "최준영",
           "bank": "우리은행",
-          "accountNumber": "000-000-000000"
+          "accountNumber": "1002-460-182434",
+          "phone": "010-5392-1320"
         }
       ]
     },
@@ -128,19 +131,22 @@
           "label": "신부 아버님",
           "name": "이름을 입력해주세요",
           "bank": "계좌번호를 입력해주세요",
-          "accountNumber": "000-000-000000"
+          "accountNumber": "000-000-000000",
+          "phone": ""
         },
         {
           "label": "신부 어머님",
           "name": "이름을 입력해주세요",
           "bank": "계좌번호를 입력해주세요",
-          "accountNumber": "000-000-000000"
+          "accountNumber": "000-000-000000",
+          "phone": ""
         },
         {
           "label": "신부",
           "name": "민수영",
           "bank": "계좌번호를 입력해주세요",
-          "accountNumber": "000-000-000000"
+          "accountNumber": "000-000-000000",
+          "phone": ""
         }
       ]
     }
@@ -153,7 +159,9 @@
   },
   "guestbook": {
     "title": "방명록",
-    "subtitle": "소중한 앞 날을 축복하는 따뜻한 한마디를 남겨주세요."
+    "subtitle": "소중한 앞 날을 축복하는 따뜻한 한마디를 남겨주세요.",
+    "scriptUrl": "https://script.google.com/macros/s/AKfycbxhgQA0EVN5nYpKdNmGax1cjd1WzNz6lHV4jASBOvLChGPghibhgipegRbesJBYxnFtEw/exec",
+    "spreadsheetId": "1-xtZaFSMU8ecMEzsCiWyplELJS9XRpET3SB_cUje1T4"
   },
   "share": {
     "title": "Share Our Joy",

@@ -31,3 +31,17 @@
     font-weight: 300;
   }
 }
+
+/* 방명록 메시지 3줄 말줄임 (Guestbook.jsx) */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 갤러리 모달 Swiper 색상 (Gallery.jsx) */
+.modal-swiper {
+  --swiper-navigation-color: #FF6F61;
+  --swiper-pagination-color: #FF6F61;
+}
