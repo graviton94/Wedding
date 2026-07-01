@@ -12,7 +12,7 @@ const RSVP = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="mb-12"
+                    className="mb-7"
                 >
                     <h2 className="text-2xl text-theme-primary mb-3">
                         {rsvp.title}

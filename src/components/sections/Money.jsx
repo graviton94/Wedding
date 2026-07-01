@@ -87,7 +87,7 @@ const Money = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="text-center mb-10">
+          <div className="text-center mb-6">
             <h2 className="text-2xl text-theme-primary mb-3">
               {accounts.title}
             </h2>

@@ -29,9 +29,9 @@ const Gallery = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="text-center mb-6"
         >
-          <h2 className="font-display text-4xl text-theme-primary mb-2">
+          <h2 className="font-display text-3xl text-theme-primary mb-1">
             {gallery.title}
           </h2>
           <p className="text-white text-base">

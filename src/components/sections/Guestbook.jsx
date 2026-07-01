@@ -115,7 +115,7 @@ const Guestbook = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="mb-12"
+                    className="mb-7"
                 >
                     <h2 className="text-2xl text-theme-primary mb-3">
                         {guestbook.title}
@@ -130,7 +130,7 @@ const Guestbook = () => {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/20 mb-12"
+                    className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/20 mb-8"
                 >
                     <form onSubmit={handleSubmit} className="space-y-4 text-left">
                         <input

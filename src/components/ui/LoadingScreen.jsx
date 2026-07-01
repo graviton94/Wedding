@@ -17,20 +17,31 @@ const LoadingScreen = () => {
   );
 
   useEffect(() => {
+    // 하트 드로잉(약 1.6s)이 끝나고 이니셜이 뜨는 걸 보여주기 위한 최소 노출 시간
+    const MIN_MS = 3000;
+    const MAX_MS = 4500;
+    const start = Date.now();
     let finished = false;
+
     const finish = () => {
       if (finished) return;
       finished = true;
       setIsLoading(false);
     };
+    const tryFinish = () => {
+      const elapsed = Date.now() - start;
+      if (elapsed >= MIN_MS) finish();
+      else setTimeout(finish, MIN_MS - elapsed);
+    };
 
-    // 메인 이미지가 실제로 로드되면 종료(살짝 여유), 아니면 최대 2.8초 후 종료
+    // 메인 이미지가 로드되면(최소 시간 보장 후) 종료, 최대 시간엔 무조건 종료
     const img = new Image();
-    img.onload = () => setTimeout(finish, 700);
+    img.onload = tryFinish;
+    img.onerror = tryFinish;
     img.src = '/Wedding/images/main.jpg';
-    const timer = setTimeout(finish, 2800);
+    const maxTimer = setTimeout(finish, MAX_MS);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(maxTimer);
   }, []);
 
   return (
@@ -63,12 +74,12 @@ const LoadingScreen = () => {
             />
           </motion.svg>
 
-          {/* 이니셜 (디스플레이 세리프) */}
+          {/* 이니셜 (필기체, 은은히 흩날리듯 등장) */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
-            className="font-display text-5xl md:text-6xl tracking-wide text-brand"
+            initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1.4, delay: 0.9, ease: 'easeOut' }}
+            className="font-script text-7xl md:text-8xl leading-none text-brand"
           >
             J <span className="text-theme-accent">&amp;</span> S
           </motion.div>
