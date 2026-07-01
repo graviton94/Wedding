@@ -65,7 +65,7 @@ const Hero = () => {
             <div className="w-full h-[1px] bg-white/60 mb-6"></div>
 
             <p className="font-display text-base md:text-lg tracking-[0.25em] uppercase text-white/90 mb-4 px-2">
-              We are getting <span className="italic font-semibold text-brand">married</span>
+              We are getting <span className="italic font-semibold text-[#ff9e7d]">married</span>
             </p>
 
             {/* Names */}
@@ -75,7 +75,7 @@ const Hero = () => {
               transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
             >
               <span className="text-2xl md:text-3xl font-light text-white tracking-widest">
-                {hero.groomName} <span className="text-theme-accent">&</span> {hero.brideName}
+                {hero.groomName} <span className="text-[#e8c877]">&</span> {hero.brideName}
               </span>
             </motion.div>
 
@@ -92,7 +92,7 @@ const Hero = () => {
           className="absolute top-[75%] left-0 w-full -translate-y-1/2 text-center space-y-6"
         >
           <p className="font-display text-base md:text-lg text-white tracking-[0.15em]">
-            {hero.date} <span className="text-brand">{dayOfWeek}</span> {hero.time}
+            {hero.date} <span className="text-[#ff9e7d]">{dayOfWeek}</span> {hero.time}
           </p>
           <DDayCounter targetDate={targetDate} />
         </motion.div>

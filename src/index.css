@@ -35,8 +35,8 @@
 
     --color-brand: #5f4433;                /* 버튼/강조 = 우드 브라운 */
     --color-brand-hover: #4a3427;
-    --color-navy: #274b66;
-    --color-navy-hover: #1f3d54;
+    --color-navy: #3a4d3f;                 /* 신랑측 = 딥 포레스트 그린 (우드+골드와 조화) */
+    --color-navy-hover: #2e3d32;
 
     --color-fg: #43382c;
     --color-fg-muted: #6f6250;
