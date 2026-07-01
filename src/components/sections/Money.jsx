@@ -34,17 +34,25 @@ const Money = () => {
                 </span>
                 <p className="font-bold text-lg" style={{ color: accentColor }}>{account.name}</p>
               </div>
-              <Button
-                variant="primary"
-                className={`py-1 px-3 text-xs rounded-lg font-bold !text-white ${labelBg} ${labelHover} transition-colors`}
-                onClick={() => handleCopyAccount(`${account.bank} ${account.accountNumber}`)}
-              >
-                {copiedNumber === `${account.bank} ${account.accountNumber}` ? '✓' : '복사'}
-              </Button>
+              {account.accountNumber && (
+                <Button
+                  variant="primary"
+                  className={`py-1 px-3 text-xs rounded-lg font-bold !text-white ${labelBg} ${labelHover} transition-colors`}
+                  onClick={() => handleCopyAccount(`${account.bank} ${account.accountNumber}`)}
+                >
+                  {copiedNumber === `${account.bank} ${account.accountNumber}` ? '✓' : '복사'}
+                </Button>
+              )}
             </div>
             <div className="p-4 rounded-2xl border border-black/5 bg-white/60 shadow-inner">
-              <p className="text-xs text-black/80 mb-1 font-bold uppercase tracking-widest">{account.bank}</p>
-              <p className="text-black font-mono text-lg tracking-wider font-semibold">{account.accountNumber}</p>
+              {account.accountNumber ? (
+                <>
+                  <p className="text-xs text-black/80 mb-1 font-bold uppercase tracking-widest">{account.bank}</p>
+                  <p className="text-black font-mono text-lg tracking-wider font-semibold">{account.accountNumber}</p>
+                </>
+              ) : (
+                <p className="text-sm text-black/40">추후 안내드리겠습니다</p>
+              )}
               {account.phone && (
                 <p className="mt-2 text-xs text-black/60 flex items-center gap-1">
                   <span>📞</span>
