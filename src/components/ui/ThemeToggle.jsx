@@ -8,7 +8,7 @@ const getInitialTheme = () => {
   try {
     const saved = localStorage.getItem('theme');
     if (saved === 'light' || saved === 'dark') return saved;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    return 'dark'; // 기본은 다크 (히어로 무드에 맞춤)
   } catch {
     return 'dark';
   }

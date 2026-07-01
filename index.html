@@ -39,13 +39,11 @@
 
 <body>
   <script>
-    // 페인트 전에 테마 설정(깜빡임 방지): 저장값 > 기기 설정 > 다크
+    // 페인트 전에 테마 설정(깜빡임 방지): 저장된 선택이 있으면 그걸, 없으면 다크 기본
     (function () {
       try {
         var t = localStorage.getItem('theme');
-        if (t !== 'light' && t !== 'dark') {
-          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        }
+        if (t !== 'light' && t !== 'dark') t = 'dark';
         document.documentElement.dataset.theme = t;
       } catch (e) {
         document.documentElement.dataset.theme = 'dark';
