@@ -84,7 +84,7 @@ const Guestbook = () => {
             setShowToast(true);
             setTimeout(() => setShowToast(false), 3000);
 
-            // 축하 꽃잎 버스트 (PetalEffect가 수신)
+            // 축하 골드 버스트 (GoldDustEffect가 수신)
             window.dispatchEvent(
                 new CustomEvent('celebrate', {
                     detail: { x: window.innerWidth / 2, y: window.innerHeight * 0.5 },
