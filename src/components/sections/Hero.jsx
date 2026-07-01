@@ -48,6 +48,12 @@ const Hero = () => {
         />
       </motion.div>
 
+      {/* 하단 페이드: 사진이 페이지 배경색(테마 대응)으로 자연스럽게 이어지도록 */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-1/4 z-[1] pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, transparent, var(--color-theme-bg))' }}
+      />
+
       {/* Content Area */}
       <motion.div
         style={{ opacity }}
