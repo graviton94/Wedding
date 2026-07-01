@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // 영문 디스플레이 세리프 (제목/날짜), 국문 본문 세리프
+        display: ['"Cormorant Garamond"', 'serif'],
+        serif: ['"Noto Serif KR"', 'serif'],
+      },
       // 색상은 index.css의 :root 변수를 단일 소스로 참조한다.
       colors: {
         'theme-bg': 'var(--color-theme-bg)',

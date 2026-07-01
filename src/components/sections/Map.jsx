@@ -37,7 +37,7 @@ const Map = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl text-theme-primary mb-3 text-center">
+          <h2 className="font-display text-4xl text-theme-primary mb-2 text-center">
             {location.title}
           </h2>
           <p className="text-white/80 text-sm text-center mb-8">

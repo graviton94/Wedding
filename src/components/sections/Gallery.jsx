@@ -31,7 +31,7 @@ const Gallery = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <h2 className="text-2xl text-theme-primary mb-3">
+          <h2 className="font-display text-4xl text-theme-primary mb-2">
             {gallery.title}
           </h2>
           <p className="text-white text-base">
