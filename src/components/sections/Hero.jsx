@@ -22,7 +22,7 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen w-full overflow-hidden bg-[#0F0F0F]">
+    <section ref={ref} className="relative h-screen w-full overflow-hidden bg-theme-bg">
       {/* Background Image Area - Portrait Optimization */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <img
@@ -50,7 +50,7 @@ const Hero = () => {
             <div className="w-full h-[1px] bg-white/60 mb-6"></div>
 
             <p className="text-xs md:text-sm tracking-[0.3em] uppercase text-white font-light mb-4 px-2">
-              We are getting <span className="italic font-bold" style={{ color: 'rgb(var(--color-brand))' }}>married</span>
+              We are getting <span className="italic font-bold text-brand">married</span>
             </p>
 
             {/* Names */}
@@ -77,7 +77,7 @@ const Hero = () => {
           className="absolute top-[75%] left-0 w-full -translate-y-1/2 text-center space-y-6"
         >
           <p className="text-xs md:text-sm text-white font-bold tracking-widest">
-            {hero.date} <span style={{ color: 'rgb(var(--color-brand))' }}>{dayOfWeek}</span> {hero.time}
+            {hero.date} <span className="text-brand">{dayOfWeek}</span> {hero.time}
           </p>
           <DDayCounter targetDate={targetDate} />
         </motion.div>

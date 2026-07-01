@@ -13,7 +13,7 @@ const LoadingScreen = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const deepRose = 'rgb(var(--color-brand))';
+    const deepRose = 'var(--color-brand)';
 
     return (
         <AnimatePresence>
@@ -22,7 +22,7 @@ const LoadingScreen = () => {
                     initial={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
                     transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] }}
-                    className="fixed inset-0 z-[9999] bg-[#0F0F0F] flex items-center justify-center"
+                    className="fixed inset-0 z-[9999] bg-theme-bg flex items-center justify-center"
                 >
                     <div className="text-center">
                         {/* 커플 이니셜 애니메이션 */}

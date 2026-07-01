@@ -1,24 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500&display=swap');
-
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 @layer base {
+  /* 디자인 토큰 단일 소스 (tailwind.config.js가 이 변수를 유틸로 매핑) */
   :root {
-    --color-theme-bg: 15 15 15;
-    --color-theme-primary: 255 111 97;
-    --color-theme-primary-active: 230 100 88;
-    --color-theme-secondary: 227 115 131;
-    --color-theme-accent: 255 179 71;
+    --color-theme-bg: #0f0f0f;
+    --color-theme-primary: #ff6f61;
+    --color-theme-primary-active: #e66458;
+    --color-theme-secondary: #e37383;
+    --color-theme-accent: #ffb347;
+
     /* 브랜드 팔레트 (버튼/강조) */
-    --color-brand: 214 99 92;         /* #D6635C */
-    --color-brand-hover: 197 82 75;   /* #C5524B */
-    --color-navy: 0 55 100;           /* #003764 */
-    --color-navy-hover: 0 64 128;     /* #004080 */
+    --color-brand: #d6635c;
+    --color-brand-hover: #c5524b;
+    --color-navy: #003764;
+    --color-navy-hover: #004080;
   }
 
   body {
-    background-color: rgb(var(--color-theme-bg));
-    color: rgb(var(--color-theme-secondary));
+    background-color: var(--color-theme-bg);
+    color: var(--color-theme-secondary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'Noto Serif KR', serif;
@@ -31,7 +32,7 @@
   h4,
   h5,
   h6 {
-    color: rgb(var(--color-theme-primary));
+    color: var(--color-theme-primary);
     font-family: 'Noto Serif KR', serif;
     font-weight: 300;
   }
@@ -47,6 +48,6 @@
 
 /* 갤러리 모달 Swiper 색상 (Gallery.jsx) */
 .modal-swiper {
-  --swiper-navigation-color: rgb(var(--color-theme-primary));
-  --swiper-pagination-color: rgb(var(--color-theme-primary));
+  --swiper-navigation-color: var(--color-theme-primary);
+  --swiper-pagination-color: var(--color-theme-primary);
 }

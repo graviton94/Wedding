@@ -19,9 +19,9 @@ const Money = () => {
   // 신랑측(navy) / 신부측(primary)에 따라 색상만 달라지는 계좌 리스트
   const renderAccountList = (accountList, side = 'bride') => {
     const isGroom = side === 'groom';
-    const labelBg = isGroom ? '!bg-[rgb(var(--color-navy))]' : '!bg-[rgb(var(--color-brand))]';
-    const labelHover = isGroom ? 'hover:!bg-[rgb(var(--color-navy-hover))]' : 'hover:!bg-[rgb(var(--color-brand-hover))]';
-    const accentColor = isGroom ? 'rgb(var(--color-navy))' : 'rgb(var(--color-brand))';
+    const labelBg = isGroom ? '!bg-navy' : '!bg-brand';
+    const labelHover = isGroom ? 'hover:!bg-navy-hover' : 'hover:!bg-brand-hover';
+    const accentColor = isGroom ? 'var(--color-navy)' : 'var(--color-brand)';
 
     return (
       <div className="space-y-5 pt-2">
@@ -66,8 +66,7 @@ const Money = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[100] backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm whitespace-nowrap border border-white/20"
-            style={{ backgroundColor: 'rgb(var(--color-brand) / 0.8)' }}
+            className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[100] backdrop-blur-md bg-brand/80 text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm whitespace-nowrap border border-white/20"
           >
             ✓ 복사가 완료되었습니다!
           </motion.div>
