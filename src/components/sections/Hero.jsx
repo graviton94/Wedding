@@ -25,12 +25,27 @@ const Hero = () => {
     <section ref={ref} className="relative h-screen w-full overflow-hidden bg-theme-bg">
       {/* Background Image Area - Portrait Optimization */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
-        <img
+        {/* Ken Burns: 아주 느린 줌으로 커버에 생명감 */}
+        <motion.img
           src="/Wedding/images/main.jpg"
           alt="Wedding Hero"
           className="h-full w-full object-cover"
+          initial={{ scale: 1.16 }}
+          animate={{ scale: [1.16, 1.06, 1.16] }}
+          transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <div className="absolute inset-0 bg-black/40"></div>
+        {/* 비네트: 가장자리를 살짝 어둡게 */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(115% 85% at 50% 32%, transparent 42%, rgba(0,0,0,0.55) 100%)' }}
+        />
+        {/* 톤 오버레이 */}
+        <div className="absolute inset-0 bg-black/30"></div>
+        {/* 필름 그레인 */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.12] mix-blend-overlay"
+          style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
+        />
       </motion.div>
 
       {/* Content Area */}

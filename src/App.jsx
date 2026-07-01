@@ -13,6 +13,7 @@ import LoadingScreen from './components/ui/LoadingScreen';
 import PetalEffect from './components/ui/PetalEffect';
 import GoldDustEffect from './components/ui/GoldDustEffect';
 import ThemeToggle from './components/ui/ThemeToggle';
+import ScrollProgress from './components/ui/ScrollProgress';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <GoldDustEffect />
         <LoadingScreen />
         <PetalEffect />
+        <ScrollProgress />
         <ThemeToggle />
         <BackgroundMusic />
         <Hero />

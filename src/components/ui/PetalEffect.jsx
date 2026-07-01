@@ -1,138 +1,153 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
+// 상시 낙하 + 인터랙션 흩날림 + 축하 버스트(window 'celebrate' 이벤트).
+// 테마에 따라 색/블렌드가 바뀌고, prefers-reduced-motion을 존중한다.
 const PetalEffect = () => {
-    const canvasRef = useRef(null);
-    const petalsRef = useRef([]);
-    const lastTouchRef = useRef({ x: 0, y: 0, time: 0 });
-    const [isActive, setIsActive] = useState(false);
+  const canvasRef = useRef(null);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-        let animationFrameId;
+    let raf, w, h;
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
-        // Canvas 크기 설정
-        const resizeCanvas = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+    // 테마 대응 색/블렌드
+    let theme = document.documentElement.dataset.theme || 'dark';
+    const applyBlend = () => {
+      canvas.style.mixBlendMode = theme === 'light' ? 'normal' : 'screen';
+    };
+    applyBlend();
+    const petalColor = () =>
+      theme === 'light' ? 'rgba(185,86,78,1)' : 'rgba(255,111,97,1)';
+    const themeObserver = new MutationObserver(() => {
+      theme = document.documentElement.dataset.theme || 'dark';
+      applyBlend();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
 
-        // 꽃잎 클래스
-        class Petal {
-            constructor(x, y, velocity = 1) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 8 + 4; // 4-12px
-                this.speedX = (Math.random() - 0.5) * 2;
-                this.speedY = Math.random() * 2 + 1;
-                this.rotation = Math.random() * 360;
-                this.rotationSpeed = (Math.random() - 0.5) * 5;
-                this.opacity = 1;
-                this.color = `rgba(255, 111, 97, ${Math.random() * 0.5 + 0.5})`; // theme-primary with varying opacity
-                this.life = 100;
-                this.velocity = velocity;
-            }
+    const petals = [];
+    const MAX = 70;
+    const makePetal = (o) => {
+      petals.push({
+        x: o.x,
+        y: o.y,
+        size: o.size ?? Math.random() * 7 + 4,
+        vx: o.vx ?? (Math.random() - 0.5) * 1.2,
+        vy: o.vy ?? Math.random() * 1.2 + 0.6,
+        rot: Math.random() * Math.PI * 2,
+        vrot: (Math.random() - 0.5) * 0.08,
+        sway: Math.random() * Math.PI * 2,
+        swaySpeed: Math.random() * 0.03 + 0.01,
+        life: 1,
+        fade: o.fade ?? 0.004,
+        alpha: Math.random() * 0.4 + 0.5,
+      });
+      if (petals.length > MAX) petals.splice(0, petals.length - MAX);
+    };
 
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY * this.velocity;
-                this.rotation += this.rotationSpeed;
-                this.life--;
-                this.opacity = this.life / 100;
-            }
+    // 인터랙션 흩날림
+    const last = { x: 0, y: 0, t: 0 };
+    const onMove = (e) => {
+      if (reduced) return;
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      const y = e.touches ? e.touches[0].clientY : e.clientY;
+      const now = Date.now();
+      const dt = now - last.t;
+      const dist = Math.hypot(x - last.x, y - last.y);
+      const v = dt > 0 ? Math.min(dist / dt, 3) : 1;
+      const n = Math.min(Math.ceil(v * 1.5), 4);
+      for (let i = 0; i < n; i++) makePetal({ x, y, vy: Math.random() * 2 + 1 });
+      last.x = x;
+      last.y = y;
+      last.t = now;
+    };
 
-            draw(ctx) {
-                ctx.save();
-                ctx.globalAlpha = this.opacity;
-                ctx.translate(this.x, this.y);
-                ctx.rotate((this.rotation * Math.PI) / 180);
+    // 축하 버스트
+    const onCelebrate = (e) => {
+      const cx = e.detail?.x ?? w / 2;
+      const cy = e.detail?.y ?? h * 0.4;
+      for (let i = 0; i < 28; i++) {
+        const ang = Math.random() * Math.PI * 2;
+        const sp = Math.random() * 4 + 2;
+        makePetal({
+          x: cx,
+          y: cy,
+          vx: Math.cos(ang) * sp,
+          vy: Math.sin(ang) * sp - 1,
+          size: Math.random() * 8 + 5,
+          fade: 0.008,
+        });
+      }
+    };
 
-                // 꽃잎 모양 그리기
-                ctx.beginPath();
-                ctx.ellipse(0, 0, this.size, this.size * 1.5, 0, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('celebrate', onCelebrate);
 
-                ctx.restore();
-            }
+    let tick = 0;
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
 
-            isDead() {
-                return this.life <= 0 || this.y > canvas.height;
-            }
+      // 상시 낙하(희소)
+      if (!reduced && ++tick % 80 === 0) {
+        makePetal({ x: Math.random() * w, y: -12, vy: Math.random() + 0.6, fade: 0.0025 });
+      }
+
+      const fill = petalColor();
+      for (let i = petals.length - 1; i >= 0; i--) {
+        const p = petals[i];
+        p.sway += p.swaySpeed;
+        p.x += p.vx + Math.sin(p.sway) * 0.6;
+        p.y += p.vy;
+        p.rot += p.vrot;
+        p.life -= p.fade;
+        if (p.life <= 0 || p.y > h + 20) {
+          petals.splice(i, 1);
+          continue;
         }
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, Math.min(1, p.life)) * p.alpha;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.size, p.size * 1.6, 0, 0, Math.PI * 2);
+        ctx.fillStyle = fill;
+        ctx.fill();
+        ctx.restore();
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
 
-        // 꽃잎 생성
-        const createPetals = (x, y, count, velocity) => {
-            for (let i = 0; i < count; i++) {
-                petalsRef.current.push(new Petal(x, y, velocity));
-            }
-            // 최대 100개로 제한
-            if (petalsRef.current.length > 50) {
-                petalsRef.current = petalsRef.current.slice(-50);
-            }
-        };
+    return () => {
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('celebrate', onCelebrate);
+      themeObserver.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
-        // 터치/마우스 이벤트 핸들러
-        const handleInteraction = (e) => {
-            const x = e.touches ? e.touches[0].clientX : e.clientX;
-            const y = e.touches ? e.touches[0].clientY : e.clientY;
-            const now = Date.now();
-
-            // 속도 계산 (터치 강도)
-            const timeDiff = now - lastTouchRef.current.time;
-            const distance = Math.sqrt(
-                Math.pow(x - lastTouchRef.current.x, 2) +
-                Math.pow(y - lastTouchRef.current.y, 2)
-            );
-            const velocity = timeDiff > 0 ? Math.min(distance / timeDiff, 3) : 1;
-
-            // 속도에 따라 꽃잎 개수 조절 (1-5개)
-            const petalCount = Math.ceil(velocity * 2);
-            createPetals(x, y, petalCount, velocity);
-
-            lastTouchRef.current = { x, y, time: now };
-            setIsActive(true);
-        };
-
-        // 애니메이션 루프
-        const animate = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // 꽃잎 업데이트 및 그리기
-            petalsRef.current = petalsRef.current.filter((petal) => {
-                petal.update();
-                petal.draw(ctx);
-                return !petal.isDead();
-            });
-
-            animationFrameId = requestAnimationFrame(animate);
-        };
-        animate();
-
-        // 이벤트 리스너
-        window.addEventListener('mousemove', handleInteraction);
-        window.addEventListener('touchmove', handleInteraction);
-
-        return () => {
-            window.removeEventListener('resize', resizeCanvas);
-            window.removeEventListener('mousemove', handleInteraction);
-            window.removeEventListener('touchmove', handleInteraction);
-            cancelAnimationFrame(animationFrameId);
-        };
-    }, []);
-
-    return (
-        <canvas
-            ref={canvasRef}
-            className="fixed inset-0 pointer-events-none z-40"
-            style={{ mixBlendMode: 'screen' }}
-        />
-    );
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-40"
+      style={{ mixBlendMode: 'screen' }}
+    />
+  );
 };
 
 export default PetalEffect;

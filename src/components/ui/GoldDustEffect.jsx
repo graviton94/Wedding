@@ -10,6 +10,8 @@ const GoldDustEffect = () => {
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
+        // 모션 최소화 설정이면 금가루 생략
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         let animationFrameId;
 
         // Canvas 크기 설정
@@ -19,6 +21,21 @@ const GoldDustEffect = () => {
         };
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
+
+        // 테마 대응 블렌드 (라이트에선 screen이 안 보여 normal로)
+        let theme = document.documentElement.dataset.theme || 'dark';
+        const applyBlend = () => {
+            canvas.style.mixBlendMode = theme === 'light' ? 'normal' : 'screen';
+        };
+        applyBlend();
+        const themeObserver = new MutationObserver(() => {
+            theme = document.documentElement.dataset.theme || 'dark';
+            applyBlend();
+        });
+        themeObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme'],
+        });
 
         // 금가루 파티클 클래스
         class GoldParticle {
@@ -93,6 +110,7 @@ const GoldDustEffect = () => {
 
         return () => {
             window.removeEventListener('resize', resizeCanvas);
+            themeObserver.disconnect();
             cancelAnimationFrame(animationFrameId);
         };
     }, []);
