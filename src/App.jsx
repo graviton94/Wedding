@@ -12,14 +12,16 @@ import Divider from './components/ui/Divider';
 import LoadingScreen from './components/ui/LoadingScreen';
 import PetalEffect from './components/ui/PetalEffect';
 import GoldDustEffect from './components/ui/GoldDustEffect';
+import ThemeToggle from './components/ui/ThemeToggle';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#080808] w-full">
+    <div className="min-h-screen bg-theme-bg w-full transition-colors duration-500">
       <div className="max-w-screen-md mx-auto">
         <GoldDustEffect />
         <LoadingScreen />
         <PetalEffect />
+        <ThemeToggle />
         <BackgroundMusic />
         <Hero />
         <Divider />

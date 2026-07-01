@@ -99,7 +99,7 @@ const Money = () => {
             <h2 className="text-2xl text-theme-primary mb-2">
               {accounts.title}
             </h2>
-            <p className="text-white/70 text-sm">
+            <p className="text-fg-muted text-sm">
               {accounts.subtitle}
             </p>
           </div>

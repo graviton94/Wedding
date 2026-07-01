@@ -34,7 +34,7 @@ const Gallery = () => {
           <h2 className="font-display text-3xl text-theme-primary mb-2">
             {gallery.title}
           </h2>
-          <p className="text-white/70 text-sm">
+          <p className="text-fg-muted text-sm">
             {gallery.subtitle}
           </p>
         </motion.div>

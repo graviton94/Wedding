@@ -40,7 +40,7 @@ const Map = () => {
           <h2 className="font-display text-3xl text-theme-primary mb-2 text-center">
             {location.title}
           </h2>
-          <p className="text-white/70 text-sm text-center mb-6">
+          <p className="text-fg-muted text-sm text-center mb-6">
             {location.subtitle}
           </p>
 

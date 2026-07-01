@@ -21,7 +21,7 @@ const Greeting = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 * (index + 1) }}
-              className="text-white text-[15px] leading-normal"
+              className="text-fg text-[15px] leading-normal"
             >
               {message}
             </motion.p>

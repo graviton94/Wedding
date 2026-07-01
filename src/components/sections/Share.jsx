@@ -42,7 +42,7 @@ const Share = () => {
           <h2 className="font-display text-3xl text-theme-primary mb-2">
             {share.title}
           </h2>
-          <p className="text-white/70 text-sm mb-6">
+          <p className="text-fg-muted text-sm mb-6">
             {share.subtitle}
           </p>
 

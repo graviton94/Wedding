@@ -30,6 +30,11 @@ export default {
           DEFAULT: 'var(--color-navy)',
           hover: 'var(--color-navy-hover)',
         },
+        // 배경 위 텍스트(테마 대응) + 방명록 글래스
+        'fg': 'var(--color-fg)',
+        'fg-muted': 'var(--color-fg-muted)',
+        'fg-subtle': 'var(--color-fg-subtle)',
+        'glass': 'var(--color-glass)',
       },
     },
   },
