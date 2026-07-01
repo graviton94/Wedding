@@ -25,16 +25,16 @@
     --color-glass: rgba(255, 255, 255, 0.08);
   }
 
-  /* ===== 라이트 & 골드 테마 ===== */
+  /* ===== 라이트 & 골드 테마 (로즈 대신 짙은 우드/고동색) ===== */
   [data-theme="light"] {
     --color-theme-bg: #fbf7ef;
-    --color-theme-primary: #b9564e;
-    --color-theme-primary-active: #a24c45;
-    --color-theme-secondary: #b9564e;
-    --color-theme-accent: #b18a34;
+    --color-theme-primary: #5f4433;        /* 짙은 우드 브라운 */
+    --color-theme-primary-active: #4a3427;
+    --color-theme-secondary: #5f4433;
+    --color-theme-accent: #b18a34;         /* 앤티크 골드 유지 */
 
-    --color-brand: #b9564e;
-    --color-brand-hover: #a24c45;
+    --color-brand: #5f4433;                /* 버튼/강조 = 우드 브라운 */
+    --color-brand-hover: #4a3427;
     --color-navy: #274b66;
     --color-navy-hover: #1f3d54;
 
