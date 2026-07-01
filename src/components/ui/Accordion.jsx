@@ -7,7 +7,7 @@ const AccordionItem = ({ title, children, defaultOpen = false, variant = 'defaul
   // 색상 variant 설정
   const colors = {
     default: 'text-theme-primary',
-    navy: 'text-navy'
+    navy: 'text-[rgb(var(--color-navy))]'
   };
 
   const textColor = colors[variant] || colors.default;

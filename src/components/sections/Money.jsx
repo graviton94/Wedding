@@ -19,8 +19,8 @@ const Money = () => {
   // 신랑측(navy) / 신부측(primary)에 따라 색상만 달라지는 계좌 리스트
   const renderAccountList = (accountList, side = 'bride') => {
     const isGroom = side === 'groom';
-    const labelBg = isGroom ? '!bg-navy' : '!bg-brand';
-    const labelHover = isGroom ? 'hover:!bg-navy-hover' : 'hover:!bg-brand-hover';
+    const labelBg = isGroom ? '!bg-[rgb(var(--color-navy))]' : '!bg-[rgb(var(--color-brand))]';
+    const labelHover = isGroom ? 'hover:!bg-[rgb(var(--color-navy-hover))]' : 'hover:!bg-[rgb(var(--color-brand-hover))]';
     const accentColor = isGroom ? 'rgb(var(--color-navy))' : 'rgb(var(--color-brand))';
 
     return (

@@ -80,7 +80,7 @@ const Map = () => {
               <a href={kakaoMapUrl} target="_blank" rel="noopener noreferrer" className="basis-1/2">
                 <Button
                   variant="primary"
-                  className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm !bg-navy hover:!bg-navy-hover"
+                  className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm !bg-[rgb(var(--color-navy))] hover:!bg-[rgb(var(--color-navy-hover))]"
                 >
                   <img
                     src="/Wedding/images/kakao_icon.png"
@@ -93,7 +93,7 @@ const Map = () => {
 
               <Button
                 variant="primary"
-                className="basis-1/2 py-3 rounded-xl text-sm !bg-brand hover:!bg-brand-hover"
+                className="basis-1/2 py-3 rounded-xl text-sm !bg-[rgb(var(--color-brand))] hover:!bg-[rgb(var(--color-brand-hover))]"
                 onClick={handleCopyAddress}
               >
                 {isCopied ? '복사완료!' : '📋 주소복사'}

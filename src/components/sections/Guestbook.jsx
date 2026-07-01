@@ -153,7 +153,7 @@ const Guestbook = () => {
                         />
                         <Button
                             variant="primary"
-                            className="w-full py-4 rounded-xl font-bold !bg-brand hover:!bg-brand-hover"
+                            className="w-full py-4 rounded-xl font-bold !bg-[rgb(var(--color-brand))] hover:!bg-[rgb(var(--color-brand-hover))]"
                             type="submit"
                             disabled={isLoading}
                         >
@@ -169,26 +169,8 @@ const Guestbook = () => {
                     <div className="text-center py-10 text-white/50">불러오는 중...</div>
                 ) : messages.length === 0 ? (
                     <div className="text-center py-10 text-white/50 px-4">첫 번째 축하의 주인공이 되어주세요!</div>
-                ) : messages.length <= 2 ? (
-                    /* ✅ 메시지가 적을 때는 중복 없이 중앙 정렬로 표시 */
-                    <div className="flex justify-center gap-4 px-4 overflow-x-auto pb-4">
-                        {messages.map((msg, idx) => (
-                            <div
-                                key={idx}
-                                className="bg-white/10 backdrop-blur-sm border border-white/10 p-5 rounded-2xl w-[280px] shrink-0 text-left"
-                            >
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="font-bold text-theme-primary text-sm">{msg.name}</span>
-                                    <span className="text-[10px] text-white/40">{msg.date.split(' ')[0]}</span>
-                                </div>
-                                <p className="text-white/90 text-sm leading-relaxed whitespace-pre-wrap line-clamp-3">
-                                    {msg.text}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
                 ) : (
-                    /* ✅ 메시지가 충분할 때만 무한 스크롤 마키(Marquee) 적용 */
+                    /* ✅ 메시지가 오른쪽 → 왼쪽으로 흐르는 무한 마키(Marquee). 1개만 있어도 흐름 */
                     <div className="flex whitespace-nowrap">
                         <motion.div
                             className="flex gap-4 px-4"
@@ -211,7 +193,7 @@ const Guestbook = () => {
                                     className="inline-block bg-white/10 backdrop-blur-sm border border-white/10 p-5 rounded-2xl w-[280px] shrink-0 text-left"
                                 >
                                     <div className="flex justify-between items-center mb-2">
-                                        <span className="font-bold text-theme-primary text-sm">{msg.name}</span>
+                                        <span className="font-bold text-[rgb(var(--color-theme-primary))] text-sm">{msg.name}</span>
                                         <span className="text-[10px] text-white/40">{msg.date.split(' ')[0]}</span>
                                     </div>
                                     <p className="text-white/90 text-sm leading-relaxed whitespace-pre-wrap line-clamp-3">
