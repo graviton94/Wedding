@@ -39,10 +39,10 @@ const Share = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-display text-3xl text-theme-primary mb-1">
+          <h2 className="font-display text-3xl text-theme-primary mb-2">
             {share.title}
           </h2>
-          <p className="text-white font-light text-base mb-8">
+          <p className="text-white/70 text-sm mb-6">
             {share.subtitle}
           </p>
 

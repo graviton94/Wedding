@@ -31,10 +31,10 @@ const Gallery = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-6"
         >
-          <h2 className="font-display text-3xl text-theme-primary mb-1">
+          <h2 className="font-display text-3xl text-theme-primary mb-2">
             {gallery.title}
           </h2>
-          <p className="text-white text-base">
+          <p className="text-white/70 text-sm">
             {gallery.subtitle}
           </p>
         </motion.div>
@@ -59,9 +59,9 @@ const Gallery = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: showAll ? (index >= INITIAL_IMAGE_COUNT ? (index - INITIAL_IMAGE_COUNT) * 0.05 : 0) : 0 }}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.95 }}
-                  className="aspect-square overflow-hidden rounded-lg shadow-lg cursor-pointer"
+                  className={`overflow-hidden rounded-lg shadow-lg cursor-pointer ${index === 0 ? 'col-span-3 aspect-[16/10]' : 'aspect-square'}`}
                   onClick={() => setSelectedImageIndex(showAll ? index : index)}
                 >
                   <img

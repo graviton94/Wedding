@@ -40,7 +40,15 @@ const Money = () => {
                   className={`py-1 px-3 text-xs rounded-lg font-bold !text-white ${labelBg} ${labelHover} transition-colors`}
                   onClick={() => handleCopyAccount(`${account.bank} ${account.accountNumber}`)}
                 >
-                  {copiedNumber === `${account.bank} ${account.accountNumber}` ? '✓' : '복사'}
+                  <motion.span
+                    key={copiedNumber === `${account.bank} ${account.accountNumber}` ? 'copied' : 'idle'}
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                    className="inline-block"
+                  >
+                    {copiedNumber === `${account.bank} ${account.accountNumber}` ? '✓ 복사됨' : '복사'}
+                  </motion.span>
                 </Button>
               )}
             </div>
@@ -88,10 +96,10 @@ const Money = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="text-center mb-6">
-            <h2 className="text-2xl text-theme-primary mb-3">
+            <h2 className="text-2xl text-theme-primary mb-2">
               {accounts.title}
             </h2>
-            <p className="text-white/80 text-sm">
+            <p className="text-white/70 text-sm">
               {accounts.subtitle}
             </p>
           </div>

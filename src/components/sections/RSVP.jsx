@@ -14,7 +14,7 @@ const RSVP = () => {
                     transition={{ duration: 0.6 }}
                     className="mb-7"
                 >
-                    <h2 className="text-2xl text-theme-primary mb-3">
+                    <h2 className="text-2xl text-theme-primary mb-2">
                         {rsvp.title}
                     </h2>
                 </motion.div>
@@ -27,7 +27,7 @@ const RSVP = () => {
                     className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/20 space-y-6"
                 >
                     <div className="space-y-4">
-                        <p className="text-black/70 text-base leading-relaxed break-keep font-medium whitespace-pre-wrap">
+                        <p className="text-black/70 text-[15px] leading-normal break-keep font-medium whitespace-pre-wrap">
                             {rsvp.description}
                         </p>
                     </div>

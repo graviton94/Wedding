@@ -37,17 +37,17 @@ const Map = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-display text-3xl text-theme-primary mb-1 text-center">
+          <h2 className="font-display text-3xl text-theme-primary mb-2 text-center">
             {location.title}
           </h2>
-          <p className="text-white/80 text-sm text-center mb-8">
+          <p className="text-white/70 text-sm text-center mb-6">
             {location.subtitle}
           </p>
 
           {/* 장소 정보 */}
           <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 mb-6 border border-white/20 shadow-xl">
             <div className="text-center mb-5">
-              <h3 className="text-xl font-bold text-theme-primary mb-2">
+              <h3 className="text-xl font-bold text-brand mb-2">
                 {location.venueName}
               </h3>
               <p className="text-base text-black/80 mb-1">
@@ -109,7 +109,7 @@ const Map = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-8 bg-white/80 backdrop-blur-md rounded-2xl p-6 text-left border border-white/20 shadow-xl"
         >
-          <h3 className="text-xl text-theme-primary mb-6 border-b pb-2 border-theme-primary/20 font-bold">
+          <h3 className="text-xl text-brand mb-6 border-b pb-2 border-brand/20 font-bold">
             교통편 안내
           </h3>
 
