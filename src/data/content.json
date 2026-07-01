@@ -160,8 +160,10 @@
   "guestbook": {
     "title": "방명록",
     "subtitle": "소중한 앞 날을 축복하는 따뜻한 한마디를 남겨주세요.",
-    "scriptUrl": "https://script.google.com/macros/s/AKfycbxhgQA0EVN5nYpKdNmGax1cjd1WzNz6lHV4jASBOvLChGPghibhgipegRbesJBYxnFtEw/exec",
-    "spreadsheetId": "1-xtZaFSMU8ecMEzsCiWyplELJS9XRpET3SB_cUje1T4"
+    "spreadsheetId": "1-xtZaFSMU8ecMEzsCiWyplELJS9XRpET3SB_cUje1T4",
+    "formResponseUrl": "https://docs.google.com/forms/d/e/1FAIpQLScWAQBDQWNlPMCtB0hX_2QNmvo8zrpsgsVnlLukDUgSSjY4GQ/formResponse",
+    "nameEntryId": "",
+    "messageEntryId": ""
   },
   "share": {
     "title": "Share Our Joy",

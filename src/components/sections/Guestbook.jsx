@@ -12,8 +12,13 @@ const Guestbook = () => {
     const [isFetching, setIsFetching] = useState(true);
     const [showToast, setShowToast] = useState(false);
 
-    const SCRIPT_URL = guestbook.scriptUrl;
     const SPREADSHEET_ID = guestbook.spreadsheetId;
+    // 방명록 쓰기: 기존 Google Form에 직접 POST (Apps Script 배포/Drive 접근 불필요).
+    // 폼 제출 -> onFormSubmit 트리거 -> 방명록 시트 저장. entry ID는 content.json에 설정.
+    const FORM_URL = guestbook.formResponseUrl;
+    const NAME_ENTRY = guestbook.nameEntryId;
+    const MESSAGE_ENTRY = guestbook.messageEntryId;
+    const isWriteConfigured = Boolean(FORM_URL && NAME_ENTRY && MESSAGE_ENTRY);
 
     const fetchMessages = async () => {
         try {
@@ -60,14 +65,20 @@ const Guestbook = () => {
         e.preventDefault();
         if (!name.trim() || !text.trim()) return;
 
+        if (!isWriteConfigured) {
+            alert("방명록 폼 설정(entry ID)이 아직 완료되지 않았습니다.");
+            return;
+        }
+
         setIsLoading(true);
 
         try {
+            // Google Form은 필드명이 entry.XXXX 형식이다.
             const formData = new URLSearchParams();
-            formData.append('name', name);
-            formData.append('text', text);
+            formData.append(NAME_ENTRY, name.trim());
+            formData.append(MESSAGE_ENTRY, text.trim());
 
-            await fetch(SCRIPT_URL, {
+            await fetch(FORM_URL, {
                 method: 'POST',
                 body: formData,
                 mode: 'no-cors'
