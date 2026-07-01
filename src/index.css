@@ -23,6 +23,9 @@
 
     /* 방명록 카드(반투명 글래스) */
     --color-glass: rgba(255, 255, 255, 0.08);
+
+    /* 탭 파문 색 (color-mix 미지원 대비) */
+    --color-ripple: rgba(224, 182, 78, 0.55);
   }
 
   /* ===== 라이트 & 골드 테마 ===== */
@@ -43,6 +46,7 @@
     --color-fg-subtle: #9b8d76;
 
     --color-glass: rgba(255, 255, 255, 0.7);
+    --color-ripple: rgba(177, 138, 52, 0.5);
   }
 
   body {
@@ -84,16 +88,17 @@
 /* 탭 물결(TapRipple.jsx) — 골드 파문 */
 .tap-ripple {
   position: absolute;
-  width: 16px;
-  height: 16px;
-  margin: -8px 0 0 -8px;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
   border-radius: 9999px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-theme-accent) 55%, transparent), transparent 70%);
-  animation: tap-ripple 0.6s ease-out forwards;
+  background: radial-gradient(circle, var(--color-ripple) 0%, rgba(224, 182, 78, 0) 70%);
+  animation: tap-ripple 0.65s ease-out forwards;
+  will-change: transform, opacity;
 }
 @keyframes tap-ripple {
-  from { transform: scale(0.4); opacity: 0.7; }
-  to { transform: scale(6); opacity: 0; }
+  from { transform: scale(0.35); opacity: 0.85; }
+  to { transform: scale(7); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tap-ripple { display: none; }

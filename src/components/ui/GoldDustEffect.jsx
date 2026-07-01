@@ -52,10 +52,10 @@ const GoldDustEffect = () => {
             reset(init) {
                 this.x = Math.random() * canvas.width;
                 this.y = init ? Math.random() * canvas.height : Math.random() * canvas.height;
-                this.size = Math.random() * 1.3 + 0.4; // 0.4 - 1.7px (기존보다 작게)
-                this.speedX = (Math.random() - 0.5) * 0.25;
-                this.speedY = (Math.random() - 0.4) * 0.25;
-                this.opacity = Math.random() * 0.4 + 0.25; // 0.25 - 0.65
+                this.size = Math.random() * 1.8 + 0.8; // 0.8 - 2.6px
+                this.speedX = (Math.random() - 0.5) * 0.28;
+                this.speedY = (Math.random() - 0.4) * 0.28;
+                this.opacity = Math.random() * 0.4 + 0.4; // 0.4 - 0.8
                 this.twSpeed = Math.random() * 0.02 + 0.01;
                 this.tw = Math.random() * Math.PI * 2;
             }
@@ -73,7 +73,7 @@ const GoldDustEffect = () => {
 
         const isMobile = window.innerWidth < 768;
         const particles = [];
-        const count = isMobile ? 20 : 38; // 기존 30/60 -> 감소
+        const count = isMobile ? 28 : 48;
         for (let i = 0; i < count; i++) particles.push(new GoldParticle());
 
         // 축하 골드 버스트 (일시적, 소멸)
