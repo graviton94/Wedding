@@ -20,6 +20,11 @@
     "subtitle": "소중한 우리의 추억들",
     "images": [
       {
+        "id": 0,
+        "url": "/Wedding/images/hero.webp",
+        "alt": "Wedding photo main"
+      },
+      {
         "id": 1,
         "url": "/Wedding/images/1.webp",
         "alt": "Wedding photo 1"

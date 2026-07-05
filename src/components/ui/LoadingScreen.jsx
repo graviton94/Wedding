@@ -16,9 +16,9 @@ const LoadingScreen = () => {
   );
 
   useEffect(() => {
-    // 현상(2.4s) + 라이트 스윕(~3.7s) 연출이 끝난 뒤 종료되도록 보장
-    const MIN_MS = 3800;
-    const MAX_MS = 5200;
+    // 현상(2.4s) 연출 후 사진을 충분히 감상할 여유를 주고 종료
+    const MIN_MS = 5000;
+    const MAX_MS = 6500;
     const start = Date.now();
     let finished = false;
 
@@ -48,8 +48,8 @@ const LoadingScreen = () => {
       {isLoading && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
-          transition={{ duration: 1, ease: [0.43, 0.13, 0.23, 0.96] }}
+          exit={{ opacity: 0, scale: 1.03 }}
+          transition={{ duration: 1.8, ease: [0.4, 0, 0.2, 1] }}
           className="fixed inset-0 z-[9999] overflow-hidden bg-[#b7c6e9]"
         >
           {/* 사진 레이어: 바깥 = 느린 줌(Ken Burns), 안쪽 = 필름 현상(develop) 효과.
@@ -70,17 +70,6 @@ const LoadingScreen = () => {
               transition={{ duration: 2.4, ease: 'easeOut' }}
             />
           </motion.div>
-
-          {/* 라이트 스윕: 현상이 끝난 직후 빛줄기가 한 번 쓸고 지나감 */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <motion.div
-              className="absolute top-0 bottom-0 w-1/2"
-              style={{ background: 'linear-gradient(105deg, transparent 15%, rgba(255,255,255,0.32) 50%, transparent 85%)' }}
-              initial={{ x: '-130%' }}
-              animate={{ x: '330%' }}
-              transition={{ duration: 1.4, delay: 2.3, ease: 'easeInOut' }}
-            />
-          </div>
 
           {/* 필름 그레인: 원본 사진의 날 것 느낌을 눌러주는 질감 */}
           <div
