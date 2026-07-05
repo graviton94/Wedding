@@ -17,9 +17,9 @@ const LoadingScreen = () => {
   );
 
   useEffect(() => {
-    // 사진과 텍스트 연출을 충분히 보여주기 위한 최소 노출 시간
-    const MIN_MS = 3000;
-    const MAX_MS = 4500;
+    // 현상(2.4s) + 라이트 스윕(~3.7s) 연출이 끝난 뒤 종료되도록 보장
+    const MIN_MS = 3800;
+    const MAX_MS = 5200;
     const start = Date.now();
     let finished = false;
 
@@ -49,19 +49,46 @@ const LoadingScreen = () => {
       {isLoading && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, filter: 'blur(10px)' }}
+          exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
           transition={{ duration: 1, ease: [0.43, 0.13, 0.23, 0.96] }}
           className="fixed inset-0 z-[9999] overflow-hidden bg-[#b7c6e9]"
         >
-          {/* 풀스크린 커플 사진 — 커플이 하단에 있어 아래 기준으로 크롭 */}
-          <motion.img
-            src="/Wedding/images/load.webp"
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover object-bottom"
-            initial={{ scale: 1.08, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
+          {/* 사진 레이어: 바깥 = 느린 줌(Ken Burns), 안쪽 = 필름 현상(develop) 효과.
+              transform 충돌을 피하려고 줌과 현상을 레이어로 분리 */}
+          <motion.div
+            className="absolute inset-0"
+            initial={{ scale: 1.12 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 4.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* 커플이 하단에 있어 아래 기준으로 크롭. 뿌옇고 밝은 상태에서 서서히 현상됨 */}
+            <motion.img
+              src="/Wedding/images/load.webp"
+              alt=""
+              className="h-full w-full object-cover object-bottom"
+              initial={{ opacity: 0, filter: 'blur(18px) brightness(1.2) saturate(0.7)' }}
+              animate={{ opacity: 1, filter: 'blur(0px) brightness(1) saturate(1)' }}
+              transition={{ duration: 2.4, ease: 'easeOut' }}
+            />
+          </motion.div>
+
+          {/* 라이트 스윕: 현상이 끝난 직후 빛줄기가 한 번 쓸고 지나감 */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <motion.div
+              className="absolute top-0 bottom-0 w-1/2"
+              style={{ background: 'linear-gradient(105deg, transparent 15%, rgba(255,255,255,0.32) 50%, transparent 85%)' }}
+              initial={{ x: '-130%' }}
+              animate={{ x: '330%' }}
+              transition={{ duration: 1.4, delay: 2.3, ease: 'easeInOut' }}
+            />
+          </div>
+
+          {/* 필름 그레인: 원본 사진의 날 것 느낌을 눌러주는 질감 */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.09] mix-blend-overlay"
+            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
           />
+
           {/* 상단 하늘을 살짝 더 밝혀 텍스트 가독성 확보 */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -74,7 +101,7 @@ const LoadingScreen = () => {
             <motion.div
               initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 1.4, delay: 0.5, ease: 'easeOut' }}
+              transition={{ duration: 1.4, delay: 1.0, ease: 'easeOut' }}
               className="font-script text-2xl md:text-3xl leading-none"
               style={{ color: SLATE }}
             >
@@ -85,7 +112,7 @@ const LoadingScreen = () => {
             <motion.div
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: '6rem', opacity: 0.5 }}
-              transition={{ duration: 1.2, delay: 0.9, ease: 'easeInOut' }}
+              transition={{ duration: 1.2, delay: 1.4, ease: 'easeInOut' }}
               className="h-px my-5"
               style={{ backgroundColor: SLATE }}
             />
@@ -94,7 +121,7 @@ const LoadingScreen = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.1 }}
+              transition={{ duration: 1, delay: 1.6 }}
               className="text-center"
               style={{ color: SLATE }}
             >
