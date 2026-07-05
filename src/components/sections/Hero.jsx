@@ -22,7 +22,7 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen w-full overflow-hidden bg-theme-bg">
+    <section ref={ref} className="relative h-svh w-full overflow-hidden bg-theme-bg">
       {/* Background Image Area - Portrait Optimization */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         {/* Ken Burns: 아주 느린 줌으로 커버에 생명감. v2: 소프트 블러로 몽환적 배경 처리 */}
@@ -88,6 +88,11 @@ const Hero = () => {
 
             {/* Bottom Line */}
             <div className="w-full h-[1px] bg-white/60 mt-6"></div>
+
+            {/* 날짜/시간 — 하단은 배경에 묻혀서 상단 어두운 수풀 위에 흰색으로 배치 */}
+            <p className="mt-5 font-display text-base md:text-lg text-white/95 tracking-[0.2em]">
+              {hero.date} <span className="text-[#f2b491]">{dayOfWeek}</span> {hero.time}
+            </p>
           </div>
         </motion.div>
 
@@ -96,11 +101,8 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
-          className="absolute top-[75%] left-0 w-full -translate-y-1/2 text-center space-y-6"
+          className="absolute top-[75%] left-0 w-full -translate-y-1/2 text-center"
         >
-          <p className="font-display text-base md:text-lg text-fg tracking-[0.15em]">
-            {hero.date} <span className="text-theme-accent">{dayOfWeek}</span> {hero.time}
-          </p>
           <DDayCounter targetDate={targetDate} />
         </motion.div>
 

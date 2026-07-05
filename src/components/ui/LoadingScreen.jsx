@@ -68,14 +68,14 @@ const LoadingScreen = () => {
             style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.28), transparent 42%)' }}
           />
 
-          {/* 하늘 영역(상단)에 얹는 텍스트 블록 */}
-          <div className="absolute inset-x-0 top-[11vh] flex flex-col items-center px-6">
+          {/* 하늘 영역(상단)에 얹는 텍스트 블록 — svh로 모바일 주소창 유무와 무관하게 고정 */}
+          <div className="absolute inset-x-0 top-[10svh] flex flex-col items-center px-6">
             {/* 이니셜 (필기체, 은은히 흩날리듯 등장) */}
             <motion.div
               initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 1.4, delay: 0.5, ease: 'easeOut' }}
-              className="font-script text-7xl md:text-8xl leading-none"
+              className="font-script text-2xl md:text-3xl leading-none"
               style={{ color: SLATE }}
             >
               J <span className="opacity-60">&amp;</span> S

@@ -34,8 +34,8 @@
   /* ===== 다크 테마 "Midnight Sky" ===== */
   [data-theme="dark"] {
     --color-theme-bg: #131418;             /* 블루 틴트 블랙 (의상) */
-    --color-theme-primary: #c3cfec;        /* 페리윙클 (하늘) */
-    --color-theme-primary-active: #aebde2;
+    --color-theme-primary: #d7ab97;        /* 웜 로즈 베이지 (헤딩/강조) */
+    --color-theme-primary-active: #c79683;
     --color-theme-secondary: #d9a892;      /* 소프트 피치 로즈 */
     --color-theme-accent: #dcb083;         /* 샴페인 피치 */
 

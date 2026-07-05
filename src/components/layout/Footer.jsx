@@ -14,7 +14,7 @@ const Footer = () => {
         className="max-w-[430px] mx-auto flex flex-col items-center gap-3"
       >
         {/* 모노그램 */}
-        <div className="font-script text-5xl leading-none text-theme-accent">J &amp; S</div>
+        <div className="font-script text-2xl leading-none text-theme-accent">J &amp; S</div>
 
         {/* 골드 ❦ 라인 */}
         <div className="flex items-center justify-center gap-2 my-1">
