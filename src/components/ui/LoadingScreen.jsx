@@ -3,8 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import content from '../../data/content.json';
 
 // v2: 커플 사진(load.webp)을 풀스크린으로 보여주는 인트로.
-// 사진 상단 절반이 밝은 페리윙클 하늘이라 텍스트는 상단에 딥 슬레이트 톤으로 얹는다.
-const SLATE = '#3d4964';
+// 텍스트는 상단 하늘 위에 흰색으로 — 상단 스크림 + 소프트 섀도로 가독성 확보.
 
 const LoadingScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -89,32 +88,33 @@ const LoadingScreen = () => {
             style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
           />
 
-          {/* 상단 하늘을 살짝 더 밝혀 텍스트 가독성 확보 */}
+          {/* 상단 스크림: 밝은 하늘 위 흰색 텍스트가 묻히지 않게 살짝 어둡게 */}
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.28), transparent 42%)' }}
+            style={{ background: 'linear-gradient(to bottom, rgba(38,48,72,0.34), transparent 45%)' }}
           />
 
           {/* 하늘 영역(상단)에 얹는 텍스트 블록 — svh로 모바일 주소창 유무와 무관하게 고정 */}
-          <div className="absolute inset-x-0 top-[10svh] flex flex-col items-center px-6">
-            {/* 이니셜 (필기체, 은은히 흩날리듯 등장) */}
+          <div
+            className="absolute inset-x-0 top-[10svh] flex flex-col items-center px-6 text-white"
+            style={{ textShadow: '0 1px 14px rgba(35,45,70,0.55)' }}
+          >
+            {/* 이니셜 — 미니멀 세리프 (캘리그라피 X) */}
             <motion.div
               initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 1.4, delay: 1.0, ease: 'easeOut' }}
-              className="font-script text-2xl md:text-3xl leading-none"
-              style={{ color: SLATE }}
+              className="font-display text-base md:text-lg tracking-[0.5em] leading-none pl-[0.5em]"
             >
-              J <span className="opacity-60">&amp;</span> S
+              J <span className="opacity-70">&amp;</span> S
             </motion.div>
 
             {/* 헤어라인 */}
             <motion.div
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: '6rem', opacity: 0.5 }}
+              animate={{ width: '6rem', opacity: 0.7 }}
               transition={{ duration: 1.2, delay: 1.4, ease: 'easeInOut' }}
-              className="h-px my-5"
-              style={{ backgroundColor: SLATE }}
+              className="h-px my-5 bg-white"
             />
 
             {/* 날짜 + D-day */}
@@ -123,12 +123,11 @@ const LoadingScreen = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.6 }}
               className="text-center"
-              style={{ color: SLATE }}
             >
-              <p className="font-display text-lg tracking-[0.35em]">
+              <p className="font-display text-lg tracking-[0.35em] text-white/95">
                 {content.hero.date.replace(/\./g, '. ')}
               </p>
-              <p className="mt-2 text-[11px] tracking-[0.3em] uppercase opacity-60">
+              <p className="mt-2 text-[11px] tracking-[0.3em] uppercase text-white/75">
                 {dDay > 0 ? `D-${dDay}` : 'The Day'}
               </p>
             </motion.div>

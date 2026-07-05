@@ -49,10 +49,10 @@ const Hero = () => {
       </motion.div>
 
       {/* 하단 페이드: 사진이 페이지 배경색(테마 대응)으로 자연스럽게 이어지도록.
-          날짜/카운트다운(75% 지점)이 이 그라데이션 위에 놓이므로 h-2/5로 넉넉히 */}
+          카운트다운(75% 지점)은 흰색 텍스트라 사진 위에 있어야 함 — 페이드는 최하단에만 */}
       <div
         className="absolute bottom-0 left-0 right-0 h-2/5 z-[1] pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, var(--color-theme-bg) 78%)' }}
+        style={{ background: 'linear-gradient(to bottom, transparent 55%, var(--color-theme-bg) 96%)' }}
       />
 
       {/* Content Area */}
