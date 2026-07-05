@@ -57,7 +57,7 @@ const Money = () => {
                   <p className="text-black font-mono text-lg tracking-wider font-semibold">{account.accountNumber}</p>
                 </>
               ) : (
-                <p className="text-sm text-black/40">추후 안내드리겠습니다</p>
+                <p className="text-[13px] text-black/40">추후 안내드리겠습니다</p>
               )}
               {account.phone && (
                 <p className="mt-2 text-xs text-black/60 flex items-center gap-1">
@@ -97,7 +97,7 @@ const Money = () => {
             <h2 className="text-2xl text-theme-primary mb-2">
               {accounts.title}
             </h2>
-            <p className="text-fg-muted text-sm">
+            <p className="text-fg-muted text-xs">
               {accounts.subtitle}
             </p>
           </div>

@@ -41,7 +41,7 @@ const Map = () => {
           <h2 className="font-display text-3xl text-theme-primary mb-2 text-center">
             {location.title}
           </h2>
-          <p className="text-fg-muted text-sm text-center mb-6">
+          <p className="text-fg-muted text-xs text-center mb-6">
             {location.subtitle}
           </p>
 
@@ -51,10 +51,10 @@ const Map = () => {
               <h3 className="text-xl font-bold text-brand mb-2">
                 {location.venueName}
               </h3>
-              <p className="text-base text-black/80 mb-1">
+              <p className="text-[15px] text-black/80 mb-1">
                 {location.floor}
               </p>
-              <p className="text-sm text-black/60">
+              <p className="text-[13px] text-black/60">
                 {location.address}
               </p>
             </div>
@@ -126,7 +126,7 @@ const Map = () => {
                 <span className="text-xl">🚇</span>
                 지하철
               </h4>
-              <p className="text-black text-sm leading-relaxed pl-4">
+              <p className="text-black text-[13px] leading-relaxed pl-4">
                 {location.transportation.subway}
               </p>
             </div>
@@ -137,7 +137,7 @@ const Map = () => {
                 <span className="text-xl">🚌</span>
                 버스
               </h4>
-              <div className="text-black text-sm leading-relaxed pl-4 whitespace-pre-line">
+              <div className="text-black text-[13px] leading-relaxed pl-4 whitespace-pre-line">
                 {location.transportation.bus}
               </div>
             </div>
@@ -148,7 +148,7 @@ const Map = () => {
                 <span className="text-xl">🚗</span>
                 자가용
               </h4>
-              <p className="text-black text-sm leading-relaxed pl-4">
+              <p className="text-black text-[13px] leading-relaxed pl-4">
                 {location.transportation.car}
               </p>
             </div>
@@ -159,7 +159,7 @@ const Map = () => {
                 <span className="text-xl">🅿️</span>
                 주차
               </h4>
-              <div className="text-black text-sm leading-relaxed pl-4 whitespace-pre-line">
+              <div className="text-black text-[13px] leading-relaxed pl-4 whitespace-pre-line">
                 {location.transportation.parking}
               </div>
             </div>

@@ -23,8 +23,8 @@ const Footer = () => {
           <span className="h-px w-10 bg-gradient-to-l from-transparent to-theme-accent/50" />
         </div>
 
-        <p className="text-fg text-sm">함께해 주셔서 감사합니다.</p>
-        <p className="font-display italic text-fg-muted text-base">We can't wait to celebrate with you!</p>
+        <p className="text-fg text-[13px]">함께해 주셔서 감사합니다.</p>
+        <p className="font-display italic text-fg-muted text-[15px]">We can't wait to celebrate with you!</p>
         <p className="mt-3 text-xs text-fg-subtle tracking-wider tabular-nums">
           {hero.date.replace(/\./g, '. ')} · {hero.groomName} &amp; {hero.brideName}
         </p>

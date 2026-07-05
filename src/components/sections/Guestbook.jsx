@@ -127,7 +127,7 @@ const Guestbook = () => {
                     <h2 className="text-2xl text-theme-primary mb-2">
                         {guestbook.title}
                     </h2>
-                    <p className="text-fg-muted text-sm">
+                    <p className="text-fg-muted text-xs">
                         {guestbook.subtitle}
                     </p>
                 </motion.div>
@@ -203,7 +203,7 @@ const Guestbook = () => {
                                         <span className="font-bold text-theme-primary text-sm">{msg.name}</span>
                                         <span className="text-[10px] text-fg-subtle">{msg.date.split(' ')[0]}</span>
                                     </div>
-                                    <p className="text-fg text-sm leading-relaxed whitespace-pre-wrap line-clamp-3">
+                                    <p className="text-fg text-[13px] leading-relaxed whitespace-pre-wrap line-clamp-3">
                                         {msg.text}
                                     </p>
                                 </div>

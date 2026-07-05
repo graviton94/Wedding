@@ -21,7 +21,7 @@ const Greeting = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 * (index + 1) }}
-              className="text-fg text-[15px] leading-normal"
+              className="text-fg text-sm leading-normal"
             >
               {message}
             </motion.p>
@@ -33,7 +33,7 @@ const Greeting = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="pt-6"
           >
-            <p className="text-theme-primary text-lg font-bold tracking-wide">
+            <p className="text-theme-primary text-[17px] font-bold tracking-wide">
               {greeting.closing}
             </p>
           </motion.div>
