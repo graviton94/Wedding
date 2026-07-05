@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import content from '../../data/content.json';
 
 // v2: 커플 사진(load.webp)을 풀스크린으로 보여주는 인트로.
 // 텍스트는 상단 하늘 위에 흰색으로 — 상단 스크림 + 소프트 섀도로 가독성 확보.
+// 탭/스와이프로 즉시 열 수 있고(A안), 가만히 있으면 자동으로 넘어간다.
+// 탭 제스처는 BackgroundMusic의 첫 인터랙션 리스너를 겸해 음악도 함께 시작된다.
 
 const LoadingScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const finishedRef = useRef(false);
+  const touchStartYRef = useRef(null);
 
   // D-day: content.json 날짜를 단일 소스로 사용
   const isoDate = content.hero.date.replace(/\./g, '-');
@@ -15,18 +19,32 @@ const LoadingScreen = () => {
     Math.ceil((new Date(`${isoDate}T00:00:00`) - new Date()) / 86400000)
   );
 
+  const finish = () => {
+    if (finishedRef.current) return;
+    finishedRef.current = true;
+    setIsLoading(false);
+  };
+
+  // 탭 → 즉시 열기 (동시에 BackgroundMusic의 window 리스너가 음악 시작)
+  const handleTap = () => finish();
+
+  // 스와이프(위/아래 무관) → 즉시 열기
+  const handleTouchStart = (e) => {
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+  const handleTouchEnd = (e) => {
+    if (touchStartYRef.current === null) return;
+    const dy = e.changedTouches[0].clientY - touchStartYRef.current;
+    touchStartYRef.current = null;
+    if (Math.abs(dy) > 40) finish();
+  };
+
   useEffect(() => {
-    // 현상(2.4s) 연출 후 사진을 충분히 감상할 여유를 주고 종료
+    // 현상(2.4s) 연출 후 사진을 충분히 감상할 여유를 주고 자동 종료
     const MIN_MS = 5000;
     const MAX_MS = 6500;
     const start = Date.now();
-    let finished = false;
 
-    const finish = () => {
-      if (finished) return;
-      finished = true;
-      setIsLoading(false);
-    };
     const tryFinish = () => {
       const elapsed = Date.now() - start;
       if (elapsed >= MIN_MS) finish();
@@ -50,7 +68,10 @@ const LoadingScreen = () => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.03 }}
           transition={{ duration: 1.8, ease: [0.4, 0, 0.2, 1] }}
-          className="fixed inset-0 z-[9999] overflow-hidden bg-[#b7c6e9]"
+          className="fixed inset-0 z-[9999] overflow-hidden bg-[#b7c6e9] cursor-pointer"
+          onClick={handleTap}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           {/* 사진 레이어: 바깥 = 느린 줌(Ken Burns), 안쪽 = 필름 현상(develop) 효과.
               transform 충돌을 피하려고 줌과 현상을 레이어로 분리 */}
@@ -85,7 +106,7 @@ const LoadingScreen = () => {
 
           {/* 하늘 영역(상단)에 얹는 텍스트 블록 — svh로 모바일 주소창 유무와 무관하게 고정 */}
           <div
-            className="absolute inset-x-0 top-[10svh] flex flex-col items-center px-6 text-white"
+            className="absolute inset-x-0 top-[10svh] flex flex-col items-center px-6 text-white pointer-events-none"
             style={{ textShadow: '0 1px 14px rgba(35,45,70,0.55)' }}
           >
             {/* 이니셜 — 미니멀 세리프 (캘리그라피 X) */}
@@ -121,6 +142,29 @@ const LoadingScreen = () => {
               </p>
             </motion.div>
           </div>
+
+          {/* 하단 안내: 현상이 끝난 뒤 은은하게 떠오름 — 탭/스와이프로 즉시 열기 */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, delay: 2.6 }}
+            className="absolute inset-x-0 bottom-[6svh] flex flex-col items-center gap-2 text-white pointer-events-none"
+            style={{ textShadow: '0 1px 10px rgba(0,0,0,0.45)' }}
+          >
+            <motion.svg
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-5 h-5 text-white/85"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 15l7-7 7 7" />
+            </motion.svg>
+            <p className="text-[11px] tracking-[0.3em] uppercase text-white/85">
+              탭하여 초대장 열기
+            </p>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
