@@ -27,7 +27,9 @@ const RSVP = () => {
                     transition={{ duration: 0.8 }}
                     className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/20 space-y-6"
                 >
-                    <div className="space-y-4">
+                    <Calendar />
+
+                    <div className="space-y-4 pt-5 border-t border-black/5">
                         <p className="text-black/70 text-sm leading-normal break-keep font-medium whitespace-pre-wrap">
                             {rsvp.description}
                         </p>
@@ -47,10 +49,6 @@ const RSVP = () => {
                             {rsvp.buttonText}
                         </a>
                     </motion.div>
-
-                    <div className="pt-5 border-t border-black/5">
-                        <Calendar />
-                    </div>
                 </motion.div>
             </div>
         </section>
