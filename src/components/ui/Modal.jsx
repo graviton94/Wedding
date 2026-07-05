@@ -1,7 +1,20 @@
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const Modal = ({ isOpen, onClose, children }) => {
+  // 아래로 스와이프해서 닫기 (인스타그램식) — 수평 스와이프(Swiper 넘김)와 구분
+  const touchStartRef = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+  const handleTouchEnd = (e) => {
+    if (!touchStartRef.current) return;
+    const dx = e.changedTouches[0].clientX - touchStartRef.current.x;
+    const dy = e.changedTouches[0].clientY - touchStartRef.current.y;
+    touchStartRef.current = null;
+    if (dy > 80 && dy > Math.abs(dx) * 1.5) onClose();
+  };
   useEffect(() => {
     // 열렸을 때만 잠그고, 자신이 잠근 것만 되돌린다
     // (닫힌 상태에서 건드리면 LoadingScreen의 스크롤 잠금을 덮어씀)
@@ -21,6 +34,8 @@ const Modal = ({ isOpen, onClose, children }) => {
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
       onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <motion.div
         initial={{ scale: 0.9 }}

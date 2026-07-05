@@ -1,5 +1,6 @@
 import Hero from './components/sections/Hero';
 import Greeting from './components/sections/Greeting';
+import Calendar from './components/sections/Calendar';
 import Gallery from './components/sections/Gallery';
 import Map from './components/sections/Map';
 import RSVP from './components/sections/RSVP';
@@ -26,6 +27,8 @@ function App() {
         <Hero />
         <Divider />
         <Greeting />
+        <Divider />
+        <Calendar />
         <Divider />
         <Gallery />
         <Divider />
