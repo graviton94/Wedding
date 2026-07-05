@@ -25,22 +25,22 @@ const Hero = () => {
     <section ref={ref} className="relative h-screen w-full overflow-hidden bg-theme-bg">
       {/* Background Image Area - Portrait Optimization */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
-        {/* Ken Burns: 아주 느린 줌으로 커버에 생명감 */}
+        {/* Ken Burns: 아주 느린 줌으로 커버에 생명감. v2: 소프트 블러로 몽환적 배경 처리 */}
         <motion.img
-          src="/Wedding/images/main.webp"
+          src="/Wedding/images/hero.webp"
           alt="Wedding Hero"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover blur-[6px]"
           initial={{ scale: 1.16 }}
           animate={{ scale: [1.16, 1.06, 1.16] }}
           transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
         />
-        {/* 비네트: 가장자리를 살짝 어둡게 */}
+        {/* 비네트: 가장자리를 살짝 어둡게 (밝은 무드에 맞게 강도 완화) */}
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(115% 85% at 50% 32%, transparent 42%, rgba(0,0,0,0.55) 100%)' }}
+          style={{ background: 'radial-gradient(115% 85% at 50% 32%, transparent 48%, rgba(0,0,0,0.38) 100%)' }}
         />
         {/* 톤 오버레이 */}
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-black/15"></div>
         {/* 필름 그레인 */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.12] mix-blend-overlay"
@@ -48,10 +48,11 @@ const Hero = () => {
         />
       </motion.div>
 
-      {/* 하단 페이드: 사진이 페이지 배경색(테마 대응)으로 자연스럽게 이어지도록 */}
+      {/* 하단 페이드: 사진이 페이지 배경색(테마 대응)으로 자연스럽게 이어지도록.
+          날짜/카운트다운(75% 지점)이 이 그라데이션 위에 놓이므로 h-2/5로 넉넉히 */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-1/4 z-[1] pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, var(--color-theme-bg))' }}
+        className="absolute bottom-0 left-0 right-0 h-2/5 z-[1] pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, transparent, var(--color-theme-bg) 78%)' }}
       />
 
       {/* Content Area */}
@@ -71,7 +72,7 @@ const Hero = () => {
             <div className="w-full h-[1px] bg-white/60 mb-6"></div>
 
             <p className="font-display text-base md:text-lg tracking-[0.25em] uppercase text-white/90 mb-4 px-2">
-              We are getting <span className="italic font-semibold text-[#ff9e7d]">married</span>
+              We are getting <span className="italic font-semibold text-[#f2b491]">married</span>
             </p>
 
             {/* Names */}
@@ -81,7 +82,7 @@ const Hero = () => {
               transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
             >
               <span className="text-2xl md:text-3xl font-light text-white tracking-widest">
-                {hero.groomName} <span className="text-[#e8c877]">&</span> {hero.brideName}
+                {hero.groomName} <span className="text-[#e3c28f]">&</span> {hero.brideName}
               </span>
             </motion.div>
 
@@ -97,8 +98,8 @@ const Hero = () => {
           transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
           className="absolute top-[75%] left-0 w-full -translate-y-1/2 text-center space-y-6"
         >
-          <p className="font-display text-base md:text-lg text-white tracking-[0.15em]">
-            {hero.date} <span className="text-[#ff9e7d]">{dayOfWeek}</span> {hero.time}
+          <p className="font-display text-base md:text-lg text-fg tracking-[0.15em]">
+            {hero.date} <span className="text-theme-accent">{dayOfWeek}</span> {hero.time}
           </p>
           <DDayCounter targetDate={targetDate} />
         </motion.div>
@@ -110,9 +111,9 @@ const Hero = () => {
           transition={{ duration: 1, delay: 1.5 }}
           className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
         >
-          <span className="text-[9px] text-white uppercase tracking-widest mb-2">Scroll</span>
+          <span className="text-[9px] text-fg-muted uppercase tracking-widest mb-2">Scroll</span>
           <svg
-            className="w-6 h-6 text-white"
+            className="w-6 h-6 text-fg-muted"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

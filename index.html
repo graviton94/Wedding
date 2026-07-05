@@ -39,14 +39,15 @@
 
 <body>
   <script>
-    // 페인트 전에 테마 설정(깜빡임 방지): 저장된 선택이 있으면 그걸, 없으면 다크 기본
+    // 페인트 전에 테마 설정(깜빡임 방지): 저장된 선택이 있으면 그걸, 없으면 라이트 기본
+    // v2 리뉴얼: 밝은 기본 테마로 전환하며 저장 키를 theme:v2로 변경 (구버전 선택값 리셋)
     (function () {
       try {
-        var t = localStorage.getItem('theme');
-        if (t !== 'light' && t !== 'dark') t = 'dark';
+        var t = localStorage.getItem('theme:v2');
+        if (t !== 'light' && t !== 'dark') t = 'light';
         document.documentElement.dataset.theme = t;
       } catch (e) {
-        document.documentElement.dataset.theme = 'dark';
+        document.documentElement.dataset.theme = 'light';
       }
     })();
   </script>

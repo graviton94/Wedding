@@ -6,11 +6,11 @@ const getInitialTheme = () => {
   const current = document.documentElement.dataset.theme;
   if (current === 'light' || current === 'dark') return current;
   try {
-    const saved = localStorage.getItem('theme');
+    const saved = localStorage.getItem('theme:v2');
     if (saved === 'light' || saved === 'dark') return saved;
-    return 'dark'; // 기본은 다크 (히어로 무드에 맞춤)
+    return 'light'; // v2 기본은 라이트 (밝은 가든 무드)
   } catch {
-    return 'dark';
+    return 'light';
   }
 };
 
@@ -20,7 +20,7 @@ const ThemeToggle = () => {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     try {
-      localStorage.setItem('theme', theme);
+      localStorage.setItem('theme:v2', theme);
     } catch {
       /* localStorage 불가 환경 무시 */
     }

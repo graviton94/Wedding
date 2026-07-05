@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component {
     render() {
         if (this.state.hasError) {
             return (
-                <div className="flex flex-col items-center justify-center min-h-screen bg-[#FDFCF0] text-theme-primary p-4 text-center">
+                <div className="flex flex-col items-center justify-center min-h-screen bg-theme-bg text-theme-primary p-4 text-center">
                     <h1 className="text-2xl font-bold mb-4">앗! 문제가 발생했습니다.</h1>
                     <p className="text-black/70 mb-4">페이지를 새로고침 해보시거나 잠시 후 다시 시도해주세요.</p>
                     <button

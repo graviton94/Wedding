@@ -46,7 +46,7 @@ const DDayCounter = ({ targetDate }) => {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center mt-6"
             >
-                <p className="text-white/80 text-base">
+                <p className="text-fg-muted text-base">
                     행복한 결혼 생활을 응원합니다! 🎉
                 </p>
             </motion.div>
@@ -63,7 +63,7 @@ const DDayCounter = ({ targetDate }) => {
                 <p className="text-xl font-bold text-theme-primary mb-2">
                     🎊 오늘이 바로 그날입니다! 🎊
                 </p>
-                <div className="flex justify-center gap-4 text-white/90">
+                <div className="flex justify-center gap-4 text-fg">
                     <TimeUnit value={timeLeft.hours} label="시간" />
                     <TimeUnit value={timeLeft.minutes} label="분" />
                     <TimeUnit value={timeLeft.seconds} label="초" />
@@ -78,7 +78,7 @@ const DDayCounter = ({ targetDate }) => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mt-6"
         >
-            <p className="text-white/70 text-xs mb-2">
+            <p className="text-fg-muted text-xs mb-2">
                 결혼식까지
             </p>
             <div className="flex justify-center gap-2">
@@ -100,7 +100,7 @@ const TimeUnit = ({ value, label, highlight }) => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.3 }}
                 className={`
-          ${highlight ? 'bg-theme-primary text-white' : 'bg-white/10 text-white'}
+          ${highlight ? 'bg-brand text-white' : 'bg-glass text-fg'}
           px-2 py-1.5 rounded-lg min-w-[40px] backdrop-blur-sm
         `}
             >
@@ -108,7 +108,7 @@ const TimeUnit = ({ value, label, highlight }) => {
                     {String(value).padStart(2, '0')}
                 </span>
             </motion.div>
-            <span className="text-[10px] text-white/60 mt-1">
+            <span className="text-[10px] text-fg-subtle mt-1">
                 {label}
             </span>
         </div>
