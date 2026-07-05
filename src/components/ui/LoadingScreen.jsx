@@ -22,6 +22,8 @@ const LoadingScreen = () => {
   const finish = () => {
     if (finishedRef.current) return;
     finishedRef.current = true;
+    // 로딩 중 스와이프로 본문이 내려가 있어도 항상 최상단(히어로)부터 시작
+    window.scrollTo(0, 0);
     setIsLoading(false);
   };
 
@@ -38,6 +40,23 @@ const LoadingScreen = () => {
     touchStartYRef.current = null;
     if (Math.abs(dy) > 40) finish();
   };
+
+  // 로딩 중에는 본문 스크롤 완전 잠금 — 스와이프해도 뒤의 메인 페이지가 내려가지 않게.
+  // body/html overflow + 터치·휠 이벤트 차단 3중 잠금 (스와이프 감지는 touchstart/end라 영향 없음)
+  useEffect(() => {
+    if (!isLoading) return;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    const block = (e) => e.preventDefault();
+    window.addEventListener('touchmove', block, { passive: false });
+    window.addEventListener('wheel', block, { passive: false });
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.removeEventListener('touchmove', block);
+      window.removeEventListener('wheel', block);
+    };
+  }, [isLoading]);
 
   useEffect(() => {
     // 현상(2.4s) 연출 후 사진을 충분히 감상할 여유를 주고 자동 종료

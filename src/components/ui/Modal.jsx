@@ -3,13 +3,12 @@ import { useEffect } from 'react';
 
 const Modal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    // 열렸을 때만 잠그고, 자신이 잠근 것만 되돌린다
+    // (닫힌 상태에서 건드리면 LoadingScreen의 스크롤 잠금을 덮어씀)
+    if (!isOpen) return;
+    document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     };
   }, [isOpen]);
 
