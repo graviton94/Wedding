@@ -133,9 +133,9 @@ const LoadingScreen = () => {
               initial={{ opacity: 0, y: 18, filter: 'blur(6px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 1.4, delay: 1.0, ease: 'easeOut' }}
-              className="font-display text-base md:text-lg tracking-[0.5em] leading-none pl-[0.5em]"
+              className="font-display text-sm md:text-base tracking-[0.2em] leading-none pl-[0.2em]"
             >
-              J <span className="opacity-70">&amp;</span> S
+              Junyeong <span className="opacity-70">&amp;</span> Sueyoung
             </motion.div>
 
             {/* 헤어라인 */}

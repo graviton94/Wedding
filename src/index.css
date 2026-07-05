@@ -81,9 +81,9 @@
   overflow: hidden;
 }
 
-/* 갤러리 모달 Swiper 색상 (Gallery.jsx) */
+/* 갤러리 모달 Swiper 색상 (Gallery.jsx) — 라이트박스 배경이 항상 검정이라 테마 무관 흰색 */
 .modal-swiper {
-  --swiper-navigation-color: var(--color-theme-primary);
-  --swiper-pagination-color: var(--color-theme-primary);
+  --swiper-navigation-color: #ffffff;
+  --swiper-pagination-color: #ffffff;
 }
 
