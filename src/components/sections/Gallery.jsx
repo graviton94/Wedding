@@ -89,7 +89,7 @@ const Gallery = () => {
               <Button
                 variant="outline"
                 onClick={() => setShowAll(true)}
-                className="border-theme-primary/30 text-theme-primary hover:bg-white/5 px-8 py-2 text-sm"
+                className="px-10"
               >
                 더보기
               </Button>

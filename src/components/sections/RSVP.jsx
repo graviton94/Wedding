@@ -41,7 +41,7 @@ const RSVP = () => {
                             href={rsvp.formUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-block px-10 py-3.5 bg-brand text-white rounded-full text-base font-bold tracking-wider shadow-lg hover:brightness-110 transition-all duration-300"
+                            className="inline-block px-10 py-3.5 bg-brand hover:bg-brand-hover text-white rounded-full text-base font-medium tracking-wider shadow-[0_4px_14px_rgba(0,0,0,0.15)] transition-colors duration-300"
                         >
                             {rsvp.buttonText}
                         </a>

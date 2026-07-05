@@ -19,8 +19,6 @@ const Money = () => {
   // 신랑측(navy) / 신부측(primary)에 따라 색상만 달라지는 계좌 리스트
   const renderAccountList = (accountList, side = 'bride') => {
     const isGroom = side === 'groom';
-    const labelBg = isGroom ? '!bg-navy' : '!bg-brand';
-    const labelHover = isGroom ? 'hover:!bg-navy-hover' : 'hover:!bg-brand-hover';
     const accentColor = isGroom ? 'var(--color-navy)' : 'var(--color-brand)';
 
     return (
@@ -36,8 +34,8 @@ const Money = () => {
               </div>
               {account.accountNumber && (
                 <Button
-                  variant="primary"
-                  className={`py-1 px-3 text-xs rounded-lg font-bold !text-white ${labelBg} ${labelHover} transition-colors`}
+                  variant={isGroom ? 'navy' : 'primary'}
+                  size="sm"
                   onClick={() => handleCopyAccount(`${account.bank} ${account.accountNumber}`)}
                 >
                   <motion.span

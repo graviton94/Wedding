@@ -50,7 +50,7 @@ const Share = () => {
             <Button
               variant="outline"
               onClick={handleCopyLink}
-              className="w-full py-3 text-sm !bg-gray-200 !text-black !border-gray-300 hover:!bg-gray-300"
+              className="w-full"
             >
               링크 주소 복사하기
             </Button>

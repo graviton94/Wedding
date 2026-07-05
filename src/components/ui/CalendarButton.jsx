@@ -68,9 +68,9 @@ const CalendarButton = ({ className = '' }) => {
 
   return (
     <Button
-      variant="primary"
+      variant="ghost"
       onClick={addToCalendar}
-      className={`w-full py-3 rounded-xl text-sm !bg-transparent border border-black/15 !text-black/70 hover:!bg-black/5 transition-colors ${className}`}
+      className={`w-full ${className}`}
     >
       📅 캘린더에 일정 추가
     </Button>
