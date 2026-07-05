@@ -25,24 +25,19 @@
         "alt": "Wedding photo main"
       },
       {
-        "id": 7,
-        "url": "/Wedding/images/7.webp",
-        "alt": "Wedding photo 7"
-      },
-      {
-        "id": 4,
-        "url": "/Wedding/images/4.webp",
-        "alt": "Wedding photo 4"
-      },
-      {
         "id": 15,
         "url": "/Wedding/images/15.webp",
         "alt": "Wedding photo 15"
       },
       {
-        "id": 8,
-        "url": "/Wedding/images/8.webp",
-        "alt": "Wedding photo 8"
+        "id": 5,
+        "url": "/Wedding/images/5.webp",
+        "alt": "Wedding photo 5"
+      },
+      {
+        "id": 4,
+        "url": "/Wedding/images/4.webp",
+        "alt": "Wedding photo 4"
       },
       {
         "id": 12,
@@ -55,9 +50,14 @@
         "alt": "Wedding photo 1"
       },
       {
-        "id": 13,
-        "url": "/Wedding/images/13.webp",
-        "alt": "Wedding photo 13"
+        "id": 9,
+        "url": "/Wedding/images/9.webp",
+        "alt": "Wedding photo 9"
+      },
+      {
+        "id": 6,
+        "url": "/Wedding/images/6.webp",
+        "alt": "Wedding photo 6"
       },
       {
         "id": 14,
@@ -65,14 +65,9 @@
         "alt": "Wedding photo 14"
       },
       {
-        "id": 9,
-        "url": "/Wedding/images/9.webp",
-        "alt": "Wedding photo 9"
-      },
-      {
-        "id": 5,
-        "url": "/Wedding/images/5.webp",
-        "alt": "Wedding photo 5"
+        "id": 13,
+        "url": "/Wedding/images/13.webp",
+        "alt": "Wedding photo 13"
       },
       {
         "id": 3,
@@ -80,9 +75,14 @@
         "alt": "Wedding photo 3"
       },
       {
-        "id": 6,
-        "url": "/Wedding/images/6.webp",
-        "alt": "Wedding photo 6"
+        "id": 7,
+        "url": "/Wedding/images/7.webp",
+        "alt": "Wedding photo 7"
+      },
+      {
+        "id": 8,
+        "url": "/Wedding/images/8.webp",
+        "alt": "Wedding photo 8"
       },
       {
         "id": 2,
@@ -178,7 +178,7 @@
   },
   "rsvp": {
     "title": "참석 의사 전달하기",
-    "description": "참석해 주시는 분들의 성함과 연락처를\n남겨주시면 정성껏 모시겠습니다.\n\n버스를 이용하실 분들은\n꼭 작성 요청드립니다.",
+    "description": "참석 여부와 성함을 남겨주세요.\n버스 이용 시 꼭 작성해 주세요.",
     "buttonText": "참석의사 전달하기",
     "formUrl": "https://forms.gle/TzPFhaZmZjv8A2bg7"
   },

@@ -112,11 +112,12 @@ const Gallery = () => {
             >
               {images.map((image) => (
                 <SwiperSlide key={image.id}>
-                  <div className="flex items-center justify-center h-full">
+                  {/* 높이를 고정하고 폭은 자연 비율로 — 세로 사진은 옆에 여백, 가로 사진은 좌우가 화면 밖으로 넘쳐 잘림 */}
+                  <div className="flex items-center justify-center h-full w-full overflow-hidden">
                     <img
                       src={image.url}
                       alt={image.alt}
-                      className="max-w-full max-h-full object-contain rounded-lg"
+                      className="h-[65vh] max-h-[560px] w-auto max-w-none object-cover rounded-lg"
                     />
                   </div>
                 </SwiperSlide>

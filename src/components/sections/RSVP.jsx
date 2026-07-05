@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Calendar from './Calendar';
 import content from '../../data/content.json';
 
 const RSVP = () => {
@@ -46,6 +47,10 @@ const RSVP = () => {
                             {rsvp.buttonText}
                         </a>
                     </motion.div>
+
+                    <div className="pt-5 border-t border-black/5">
+                        <Calendar />
+                    </div>
                 </motion.div>
             </div>
         </section>
