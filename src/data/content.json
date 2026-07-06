@@ -25,44 +25,19 @@
         "alt": "Wedding photo main"
       },
       {
-        "id": 13,
-        "url": "/Wedding/images/13.webp",
-        "alt": "Wedding photo 13"
-      },
-      {
-        "id": 15,
-        "url": "/Wedding/images/15.webp",
-        "alt": "Wedding photo 15"
-      },
-      {
-        "id": 14,
-        "url": "/Wedding/images/14.webp",
-        "alt": "Wedding photo 14"
-      },
-      {
-        "id": 6,
-        "url": "/Wedding/images/6.webp",
-        "alt": "Wedding photo 6"
-      },
-      {
         "id": 12,
         "url": "/Wedding/images/12.webp",
         "alt": "Wedding photo 12"
       },
       {
-        "id": 4,
-        "url": "/Wedding/images/4.webp",
-        "alt": "Wedding photo 4"
+        "id": 1,
+        "url": "/Wedding/images/1.webp",
+        "alt": "Wedding photo 1"
       },
       {
-        "id": 5,
-        "url": "/Wedding/images/5.webp",
-        "alt": "Wedding photo 5"
-      },
-      {
-        "id": 11,
-        "url": "/Wedding/images/11.webp",
-        "alt": "Wedding photo 11"
+        "id": 3,
+        "url": "/Wedding/images/3.webp",
+        "alt": "Wedding photo 3"
       },
       {
         "id": 2,
@@ -70,9 +45,34 @@
         "alt": "Wedding photo 2"
       },
       {
+        "id": 13,
+        "url": "/Wedding/images/13.webp",
+        "alt": "Wedding photo 13"
+      },
+      {
+        "id": 11,
+        "url": "/Wedding/images/11.webp",
+        "alt": "Wedding photo 11"
+      },
+      {
+        "id": 10,
+        "url": "/Wedding/images/10.webp",
+        "alt": "Wedding photo 10"
+      },
+      {
         "id": 9,
         "url": "/Wedding/images/9.webp",
         "alt": "Wedding photo 9"
+      },
+      {
+        "id": 6,
+        "url": "/Wedding/images/6.webp",
+        "alt": "Wedding photo 6"
+      },
+      {
+        "id": 14,
+        "url": "/Wedding/images/14.webp",
+        "alt": "Wedding photo 14"
       },
       {
         "id": 7,
@@ -85,19 +85,19 @@
         "alt": "Wedding photo 8"
       },
       {
-        "id": 10,
-        "url": "/Wedding/images/10.webp",
-        "alt": "Wedding photo 10"
+        "id": 5,
+        "url": "/Wedding/images/5.webp",
+        "alt": "Wedding photo 5"
       },
       {
-        "id": 3,
-        "url": "/Wedding/images/3.webp",
-        "alt": "Wedding photo 3"
+        "id": 4,
+        "url": "/Wedding/images/4.webp",
+        "alt": "Wedding photo 4"
       },
       {
-        "id": 1,
-        "url": "/Wedding/images/1.webp",
-        "alt": "Wedding photo 1"
+        "id": 15,
+        "url": "/Wedding/images/15.webp",
+        "alt": "Wedding photo 15"
       }
     ]
   },
