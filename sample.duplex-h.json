@@ -17,7 +17,7 @@
   "photos": {
     "items": [
       {
-        "src": "images/hero.webp",
+        "src": "images/sq/hero.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -25,7 +25,7 @@
         "panEnd": null
       },
       {
-        "src": "images/main.webp",
+        "src": "images/sq/main.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -33,7 +33,7 @@
         "panEnd": null
       },
       {
-        "src": "images/1.webp",
+        "src": "images/sq/1.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -41,7 +41,7 @@
         "panEnd": null
       },
       {
-        "src": "images/2.webp",
+        "src": "images/sq/2.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -49,7 +49,7 @@
         "panEnd": null
       },
       {
-        "src": "images/3.webp",
+        "src": "images/sq/3.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -57,7 +57,7 @@
         "panEnd": null
       },
       {
-        "src": "images/4.webp",
+        "src": "images/sq/4.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -65,7 +65,7 @@
         "panEnd": null
       },
       {
-        "src": "images/5.webp",
+        "src": "images/sq/5.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -73,7 +73,7 @@
         "panEnd": null
       },
       {
-        "src": "images/6.webp",
+        "src": "images/sq/6.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -81,7 +81,7 @@
         "panEnd": null
       },
       {
-        "src": "images/7.webp",
+        "src": "images/sq/7.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -89,7 +89,7 @@
         "panEnd": null
       },
       {
-        "src": "images/8.webp",
+        "src": "images/sq/8.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -97,7 +97,7 @@
         "panEnd": null
       },
       {
-        "src": "images/9.webp",
+        "src": "images/sq/9.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -105,7 +105,7 @@
         "panEnd": null
       },
       {
-        "src": "images/10.webp",
+        "src": "images/sq/10.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -113,7 +113,7 @@
         "panEnd": null
       },
       {
-        "src": "images/11.webp",
+        "src": "images/sq/11.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -121,7 +121,7 @@
         "panEnd": null
       },
       {
-        "src": "images/12.webp",
+        "src": "images/sq/12.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -129,7 +129,7 @@
         "panEnd": null
       },
       {
-        "src": "images/13.webp",
+        "src": "images/sq/13.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -137,7 +137,7 @@
         "panEnd": null
       },
       {
-        "src": "images/14.webp",
+        "src": "images/sq/14.webp",
         "focusX": 0.5,
         "focusY": 0.42,
         "duration": null,
@@ -265,8 +265,8 @@
       "textY": 0.42,
       "fontSize": 0.036,
       "trackInfo": "Our Wedding Playlist",
-      "cropTop": 0.2,
-      "cropBottom": 0.6
+      "cropTop": 0,
+      "cropBottom": 1
     }
   },
   "split": {
