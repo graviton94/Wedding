@@ -178,6 +178,37 @@ export const wrapText = (ctx, text, maxWidth) => {
 };
 
 /**
+ * 두 줄로 나눠야 할 때 "가운데"에서 끊는다.
+ *
+ * 일반 줄바꿈(greedy)은 첫 줄을 폭 끝까지 채우고 남은 한두 단어를 아래로 흘린다.
+ * 자막에서는 그게 제일 보기 싫은 형태다 — 아래 줄만 짧게 떨어져 문장이 잘린 것처럼 보인다.
+ * 폭의 절반에 가장 가까운 어절 경계를 찾으면 의미 단위와도 대체로 맞아떨어진다.
+ *
+ *   Inside the necklace you got when you were sixteen
+ *     greedy   → "Inside the necklace you got when you were" / "sixteen"
+ *     balanced → "Inside the necklace you got" / "when you were sixteen"
+ */
+export const balanceTwoLines = (ctx, text, maxWidth) => {
+  const src = String(text ?? '').trim();
+  const words = src.split(/\s+/);
+  if (words.length < 2) return wrapText(ctx, src, maxWidth);
+
+  const half = ctx.measureText(src).width / 2;
+  let best = null;
+  for (let i = 1; i < words.length; i++) {
+    const head = words.slice(0, i).join(' ');
+    const tail = words.slice(i).join(' ');
+    const wHead = ctx.measureText(head).width;
+    const wTail = ctx.measureText(tail).width;
+    // 두 줄 다 들어가야 하고, 그중 절반에 가장 가까운 지점
+    if (wHead > maxWidth || wTail > maxWidth) continue;
+    const cost = Math.abs(wHead - half);
+    if (!best || cost < best.cost) best = { cost, lines: [head, tail] };
+  }
+  return best ? best.lines : wrapText(ctx, src, maxWidth);
+};
+
+/**
  * CSS font 문자열 생성.
  *
  * 반드시 국문 폰트를 폴백으로 붙인다 — Cormorant Garamond 같은 라틴 전용 폰트에

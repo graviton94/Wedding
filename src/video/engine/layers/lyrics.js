@@ -8,7 +8,7 @@
  * 가사 텍스트 자체는 저장소에 포함하지 않는다. 사용자가 준비한 .lrc를 읽어 렌더한다.
  */
 
-import { clamp, cssFont, norm, rgba, smoothstep, wrapText } from '../util.js';
+import { balanceTwoLines, clamp, cssFont, norm, rgba, smoothstep, wrapText } from '../util.js';
 import { findLineIndex } from '../lrc.js';
 
 const fontFor = (scene, px, weight = 400, face = 'body') =>
@@ -139,8 +139,10 @@ export const drawLyrics = (ctx, scene, env, t, override = {}) => {
       if (r < 1) setFont((drawSize = size * r));
     }
 
-    // 줄인 크기로 재는 것이라, 바닥 배율까지 내려가도 안 들어가는 줄만 두 줄이 된다
-    const wrapped = wrapText(ctx, line.text, maxWidth);
+    // 줄인 크기로 재도 안 들어가는 줄만 두 줄이 된다 — 그때는 가운데에서 끊는다
+    const wrapped = ctx.measureText(line.text).width <= maxWidth
+      ? [line.text]
+      : balanceTwoLines(ctx, line.text, maxWidth);
     // 번역이 붙으면 원문을 그만큼 위로 올려 두 줄이 자막 영역 안에 들어오게 한다
     const tSize = size * (L.translationScale ?? 0.68);
     const shift = hasTranslation ? tSize * (L.translationGap ?? 1.5) : 0;

@@ -287,7 +287,7 @@
     "translationScale": 0.7,
     "translationOpacity": 0.68,
     "translationColor": "#d9cbb1",
-    "translationGap": 1.4,
+    "translationGap": 1.7,
     "translationFace": "body",
     "translationWeight": 300,
     "face": "body",
@@ -308,7 +308,7 @@
     "karaoke": true,
     "karaokeColor": "#f0c98a",
     "noWrap": true,
-    "noWrapMin": 0.6
+    "noWrapMin": 0.85
   },
   "intro": {
     "enabled": true,
