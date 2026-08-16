@@ -220,6 +220,7 @@ export const createDefaultProject = (overrides = {}) => ({
       fit: 'width',
       cropTop: 0.20,
       cropBottom: 0.60,
+      panEase: 'easeOut',  // 'easeOut'(빠르게→느리게) | 'smooth' | 'linear'
       pushIn: 0,
       brightness: 0.82,
       saturation: 0.88,

@@ -24,6 +24,7 @@ export const drawMarquee = (ctx, scene, env, t) => {
     fit: cfg.fit,
     cropTop: cfg.cropTop,
     cropBottom: cfg.cropBottom,
+    panEase: cfg.panEase,
     push: 0,
     transition: scene.project.photos.transition,
     panHold: scene.project.photos.crossfade,

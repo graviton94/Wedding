@@ -13,7 +13,7 @@
  *   'contain' 사진 전체를 담고 남는 자리는 그대로 둔다(단색 여백).
  */
 
-import { clamp, drawContain, drawCover, norm, rgba, roundRectPath, smoothstep } from '../util.js';
+import { clamp, drawContain, drawCover, easeOutCubic, norm, rgba, roundRectPath, smoothstep } from '../util.js';
 
 /**
  * fit='width' 배치 — 사진에서 쓸 구간만 잘라내고, 그 안에서만 훑는다.
@@ -52,7 +52,15 @@ const paintWidthPan = (ctx, img, slot, box, progress, opts, yOffset = 0) => {
 
   // 세로로 남는 만큼만 밀어올린다. 0이면 정지 — 구간이 상자 비율과 같다는 뜻
   const overflow = Math.max(0, drawH - h);
-  const eased = opts.panEase === 'linear' ? clamp(progress) : smoothstep(clamp(progress));
+  /*
+   * 감속(easeOut)이 기본 — 처음에 붙었다가 끝에서 천천히 멎는다.
+   * smoothstep(ease-in-out)은 시작도 느려서 "출발했다"는 느낌이 약하고,
+   * linear는 기계적으로 흐른다.
+   */
+  const e = clamp(progress);
+  const eased = opts.panEase === 'linear' ? e
+    : opts.panEase === 'smooth' ? smoothstep(e)
+    : easeOutCubic(e);
   const offsetY = -overflow * eased;
   // 세로가 기준이 되어 가로가 넘칠 때는 focusX로 좌우 위치를 잡는다
   const offsetX = (w - drawW) * (slot.photo?.focusX ?? 0.5);

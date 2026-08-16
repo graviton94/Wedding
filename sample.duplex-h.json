@@ -22,7 +22,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": null
       },
       {
         "src": "images/sq/main.webp",
@@ -30,7 +31,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": null
       },
       {
         "src": "images/sq/1.webp",
@@ -38,7 +40,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": null
       },
       {
         "src": "images/sq/2.webp",
@@ -46,7 +49,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": null
       },
       {
         "src": "images/sq/3.webp",
@@ -54,7 +58,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 1
       },
       {
         "src": "images/sq/4.webp",
@@ -62,7 +67,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.58
       },
       {
         "src": "images/sq/5.webp",
@@ -70,7 +76,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.82
       },
       {
         "src": "images/sq/6.webp",
@@ -78,7 +85,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.58
       },
       {
         "src": "images/sq/7.webp",
@@ -86,7 +94,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": null
       },
       {
         "src": "images/sq/8.webp",
@@ -94,7 +103,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 1
       },
       {
         "src": "images/sq/9.webp",
@@ -102,7 +112,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.58
       },
       {
         "src": "images/sq/10.webp",
@@ -110,7 +121,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.82
       },
       {
         "src": "images/sq/11.webp",
@@ -118,7 +130,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.58
       },
       {
         "src": "images/sq/12.webp",
@@ -126,7 +139,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.58
       },
       {
         "src": "images/sq/13.webp",
@@ -134,7 +148,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.58
       },
       {
         "src": "images/sq/14.webp",
@@ -142,7 +157,8 @@
         "focusY": 0.42,
         "duration": null,
         "panStart": null,
-        "panEnd": null
+        "panEnd": null,
+        "cropBottom": 0.6
       }
     ],
     "duration": 8,
@@ -266,7 +282,8 @@
       "fontSize": 0.036,
       "trackInfo": "Our Wedding Playlist",
       "cropTop": 0,
-      "cropBottom": 0.72
+      "cropBottom": 0.72,
+      "panEase": "easeOut"
     }
   },
   "split": {
@@ -281,7 +298,7 @@
   },
   "lyrics": {
     "enabled": true,
-    "lrcSrc": "video/lyrics/photograph.lrc",
+    "lrcSrc": "video/lyrics/photograph.bi.lrc",
     "lrcText": "",
     "offset": 0,
     "bilingual": true,

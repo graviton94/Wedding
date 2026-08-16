@@ -84,6 +84,7 @@ export const drawDuplex = (ctx, scene, env, t) => {
     fit: cfg.fit || (vertical ? 'cover' : 'width'),
     cropTop: cfg.cropTop,
     cropBottom: cfg.cropBottom,
+    panEase: cfg.panEase,
     push: cfg.pushIn,
     brightness: cfg.brightness,
     saturation: cfg.saturation,
