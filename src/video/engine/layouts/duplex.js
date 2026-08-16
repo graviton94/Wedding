@@ -91,6 +91,7 @@ export const drawDuplex = (ctx, scene, env, t) => {
     tintOpacity: cfg.tintOpacity,
     dim: cfg.photoDim,
     transition: scene.project.photos.transition,
+    panHold: scene.project.photos.crossfade,
     backdrop: panelHex,
   });
 

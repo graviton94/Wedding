@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "duplex-landscape",
+  "name": "duplex-h",
   "canvas": {
     "width": 1920,
     "height": 1280,
@@ -146,8 +146,8 @@
       }
     ],
     "duration": 10,
-    "crossfade": 2,
-    "transition": "slide",
+    "crossfade": 2.2,
+    "transition": "dip",
     "loop": true,
     "order": "sequence",
     "shuffleSeed": 20260920
@@ -253,8 +253,8 @@
       "photoSide": "left",
       "photoRatio": 0.78,
       "fit": "width",
-      "panStart": 0.14,
-      "panEnd": 0.86,
+      "panStart": 0.2,
+      "panEnd": 0.6,
       "pushIn": 0,
       "brightness": 0.82,
       "saturation": 0.88,

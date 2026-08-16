@@ -30,6 +30,7 @@ export const drawDefile = (ctx, scene, env, t) => {
     fit: cfg.fit,
     push: 0.09,
     transition: scene.project.photos.transition,
+    panHold: scene.project.photos.crossfade,
     brightness: cfg.brightness,
     saturation: cfg.saturation,
     tint: cfg.tint,

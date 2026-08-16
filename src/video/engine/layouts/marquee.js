@@ -26,6 +26,7 @@ export const drawMarquee = (ctx, scene, env, t) => {
     panEnd: cfg.panEnd,
     push: 0,
     transition: scene.project.photos.transition,
+    panHold: scene.project.photos.crossfade,
     brightness: cfg.brightness,
     saturation: cfg.saturation,
     tint: cfg.tint,

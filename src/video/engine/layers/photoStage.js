@@ -155,10 +155,17 @@ export const paintPhotoRect = (ctx, env, state, rect, opts = {}) => {
      * 크로스페이드 중에는 현재 슬롯이 팬 끝(0.85)에, 다음 슬롯이 팬 시작(0.15)에
      * 있어야 한다. 하나의 progress를 공유하면 슬롯이 바뀌는 순간 사진이 튄다.
      */
+    /*
+     * 팬은 전환이 시작되기 전에 끝나야 한다.
+     * 슬롯 끝까지 팬을 돌리면 사진이 아직 미끄러지는 중에 페이드가 겹쳐
+     * "다 보여주지 않고 넘어간" 느낌이 난다. panHold(=전환 시간)만큼
+     * 앞당겨 끝내고 그 뒤로는 멈춰 선 채로 넘어간다.
+     */
+    const hold = opts.panHold ?? 0;
     const slotProgress = (slot) => {
       if (!slot || env.time == null) return state.progress ?? 0;
-      const span = slot.end - slot.start;
-      return span > 0 ? clamp(norm(env.time, slot.start, slot.end)) : 0;
+      const stop = Math.max(slot.start + 0.1, slot.end - hold);
+      return clamp(norm(env.time, slot.start, stop));
     };
 
     /*
@@ -181,9 +188,14 @@ export const paintPhotoRect = (ctx, env, state, rect, opts = {}) => {
       nextY = dh * (1 - e);
       nextAlpha = mix > 0 ? 1 : 0;
     } else if (trans === 'dip') {
-      // 앞 절반에 현재 컷이 사라지고, 뒷 절반에 다음 컷이 올라온다
-      curAlpha = 1 - smoothstep(clamp(mix / 0.5));
-      nextAlpha = smoothstep(clamp((mix - 0.5) / 0.5));
+      /*
+       * 현재 컷이 먼저 빠지고 다음 컷이 올라온다.
+       * 완전히 검게 떨어뜨리면 뚝 끊기므로 overlap만큼 겹쳐서
+       * 잠깐 어두워졌다 밝아지는 정도로만 둔다.
+       */
+      const ov = opts.dipOverlap ?? 0.18;
+      curAlpha = 1 - smoothstep(clamp(mix / (0.5 + ov)));
+      nextAlpha = smoothstep(clamp((mix - (0.5 - ov)) / (0.5 + ov)));
     }
 
     const paint = (slot, alpha, yOff) => {

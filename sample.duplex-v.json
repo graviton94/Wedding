@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "name": "duplex-portrait",
+  "name": "duplex-v",
   "canvas": {
-    "width": 1280,
-    "height": 1920,
+    "width": 1920,
+    "height": 1280,
     "fps": 30
   },
   "audio": {
@@ -147,7 +147,7 @@
     ],
     "duration": 10,
     "crossfade": 2,
-    "transition": "slide",
+    "transition": "crossfade",
     "loop": true,
     "order": "sequence",
     "shuffleSeed": 20260920
@@ -249,10 +249,10 @@
       "fontSize": 0.04
     },
     "duplex": {
-      "orientation": "horizontal",
+      "orientation": "vertical",
       "photoSide": "left",
-      "photoRatio": 0.8,
-      "fit": "width",
+      "photoRatio": 0.5,
+      "fit": "cover",
       "panStart": 0.14,
       "panEnd": 0.86,
       "pushIn": 0,
@@ -264,7 +264,7 @@
       "panelColor": "",
       "feather": 0.045,
       "rule": 0.4,
-      "textY": 0.42,
+      "textY": 0.46,
       "fontSize": 0.036,
       "trackInfo": "Our Wedding Playlist"
     }
