@@ -253,8 +253,6 @@
       "photoSide": "left",
       "photoRatio": 0.78,
       "fit": "width",
-      "panStart": 0.2,
-      "panEnd": 0.6,
       "pushIn": 0,
       "brightness": 0.82,
       "saturation": 0.88,
@@ -266,7 +264,9 @@
       "rule": 0.4,
       "textY": 0.42,
       "fontSize": 0.036,
-      "trackInfo": "Our Wedding Playlist"
+      "trackInfo": "Our Wedding Playlist",
+      "cropTop": 0.2,
+      "cropBottom": 0.6
     }
   },
   "split": {

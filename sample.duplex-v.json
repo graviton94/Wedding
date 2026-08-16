@@ -253,8 +253,6 @@
       "photoSide": "left",
       "photoRatio": 0.5,
       "fit": "cover",
-      "panStart": 0.14,
-      "panEnd": 0.86,
       "pushIn": 0,
       "brightness": 0.82,
       "saturation": 0.88,

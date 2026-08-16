@@ -22,8 +22,8 @@ export const drawMarquee = (ctx, scene, env, t) => {
   // 사진은 화면 전체지만 거의 지워질 만큼 어둡게 — 형태만 남는다
   paintPhotoRect(ctx, env, state, { x: 0, y: 0, w: W, h: H }, {
     fit: cfg.fit,
-    panStart: cfg.panStart,
-    panEnd: cfg.panEnd,
+    cropTop: cfg.cropTop,
+    cropBottom: cfg.cropBottom,
     push: 0,
     transition: scene.project.photos.transition,
     panHold: scene.project.photos.crossfade,

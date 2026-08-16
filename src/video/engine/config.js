@@ -42,10 +42,13 @@ export const defaultPhotos = () =>
     focusY: 0.42,
     // 개별 노출 시간(초). null이면 photos.duration을 따른다.
     duration: null,
-    // 가로맞춤(fit='width')일 때 세로 팬 범위. null이면 레이아웃 기본값.
-    // 인물이 위쪽에 몰린 컷은 범위를 좁게 잡는다.
-    panStart: null,
-    panEnd: null,
+    /*
+     * fit='width'일 때 이 사진에서 쓸 세로 구간 (사진 높이 기준 0~1).
+     * 이 바깥은 아예 잘려서 화면에 안 나온다. null이면 레이아웃 기본값.
+     * 인물 위치가 컷마다 달라서 사진별로 잡아주는 게 가장 깔끔하다.
+     */
+    cropTop: null,
+    cropBottom: null,
   }));
 
 export const createDefaultProject = (overrides = {}) => ({
@@ -124,9 +127,9 @@ export const createDefaultProject = (overrides = {}) => ({
       // 가로를 꽉 채우고 세로로 훑는다. 한 컷엔 일부만 보이지만
       // 시간이 지나며 사진 전체를 지나간다 — 여백도 이음새도 없다.
       fit: 'width',
-      panStart: 0.12,
-      panEnd: 0.88,
-      pushIn: 0,           // 팬이 움직임을 담당하므로 확대는 끈다
+      cropTop: 0.12,       // 이 구간 바깥(위 12% / 아래 12%)은 잘라낸다
+      cropBottom: 0.88,
+      pushIn: 0,           // 슬라이드가 움직임을 담당하므로 확대는 끈다
       brightness: 0.72,    // 색 보정 — 검은 막보다 먼저 걸어야 밤 톤이 된다
       saturation: 0.82,
       tint: '#101828',
@@ -140,8 +143,8 @@ export const createDefaultProject = (overrides = {}) => ({
     /** 밤의 간판 — 가사가 화면 한가운데, 사진은 배경으로만 */
     marquee: {
       fit: 'width',
-      panStart: 0.12,
-      panEnd: 0.88,
+      cropTop: 0.12,
+      cropBottom: 0.88,
       // 다른 안들과 밝기를 맞춘다. 글자 가독성은 아래 textBand(자막 뒤
       // 가로 띠 그림자)로 확보하므로 사진 자체를 어둡게 누를 필요가 없다.
       brightness: 0.66,
@@ -213,9 +216,10 @@ export const createDefaultProject = (overrides = {}) => ({
        */
       photoRatio: 0.78,
       // 가로를 꽉 채우고 세로로 훑기 — 세로 사진을 가로 화면에 담는 가장 좋은 방법
+      // 사진 세로에서 쓸 구간 — 위 20% / 아래 40%는 잘라내고 안 보여준다
       fit: 'width',
-      panStart: 0.14,
-      panEnd: 0.86,
+      cropTop: 0.20,
+      cropBottom: 0.60,
       pushIn: 0,
       brightness: 0.82,
       saturation: 0.88,

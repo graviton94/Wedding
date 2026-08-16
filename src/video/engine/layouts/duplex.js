@@ -82,8 +82,8 @@ export const drawDuplex = (ctx, scene, env, t) => {
     // 가로 배치는 가로맞춤 + 세로 팬으로 사진 전체를 시간에 걸쳐 훑는다.
     // 세로 배치는 영역 자체가 세로로 길어 cover로 충분하다.
     fit: cfg.fit || (vertical ? 'cover' : 'width'),
-    panStart: cfg.panStart,
-    panEnd: cfg.panEnd,
+    cropTop: cfg.cropTop,
+    cropBottom: cfg.cropBottom,
     push: cfg.pushIn,
     brightness: cfg.brightness,
     saturation: cfg.saturation,

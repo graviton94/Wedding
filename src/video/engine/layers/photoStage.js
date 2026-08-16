@@ -13,42 +13,51 @@
  *   'contain' 사진 전체를 담고 남는 자리는 그대로 둔다(단색 여백).
  */
 
-import { clamp, drawContain, drawCover, lerp, norm, rgba, roundRectPath, smoothstep } from '../util.js';
+import { clamp, drawContain, drawCover, norm, rgba, roundRectPath, smoothstep } from '../util.js';
 
 /**
- * fit='width' 배치 — 가로를 꽉 채우고 세로는 넘치게 둔 뒤, 넘친 만큼을
- * 슬롯 진행에 따라 위아래로 훑는다.
+ * fit='width' 배치 — 사진에서 쓸 구간만 잘라내고, 그 안에서만 훑는다.
  *
- * 세로 사진을 가로 화면에 넣는 가장 좋은 방법이다. 가로가 꽉 차서 여백도
- * 이음새도 없고, 한 컷에 일부만 보이더라도 시간이 지나며 사진 전체를 훑는다.
- * (상자에 사진을 맞추는 대신 시간을 쓰는 셈)
+ * cropTop~cropBottom (사진 세로 높이 기준 비율)이 "쓸 구간"이다.
+ * 그 바깥 — 위쪽 천장·하늘, 아래쪽 치맛단·바닥 같은 무의미한 영역 — 은
+ * 아예 잘라버리고 화면에 한 번도 나오지 않는다.
  *
- * 사진이 상자보다 가로로 넓으면 세로가 남으므로 그때는 cover로 떨어뜨린다.
+ * 잘라낸 구간을 상자에 cover로 채운 뒤, 남는 세로만큼만 슬롯 진행에 따라
+ * 위로 밀어올린다. 가로는 항상 꽉 차므로 여백도 이음새도 없다.
+ *
+ *   cropTop 0.2 ─┐
+ *                │  ← 이 구간만 화면에 나온다. 시작은 위쪽,
+ *                │     시간이 지나며 아래쪽으로 밀려 올라간다.
+ *   cropBottom 0.6 ┘
  */
 const paintWidthPan = (ctx, img, slot, box, progress, opts, yOffset = 0) => {
   const { x, y: y0, w, h } = box;
   const y = y0 + yOffset;
-  const scale = w / img.width;
-  const drawH = img.height * scale;
 
-  if (drawH <= h + 0.5) {
-    // 가로가 넓은 사진 — 가로맞춤하면 위아래가 빈다. cover로 처리.
-    drawCover(ctx, img, x, y, w, h, slot.photo?.focusX ?? 0.5, slot.photo?.focusY ?? 0.45);
-    return;
-  }
+  // 사진별 값이 있으면 우선 — 인물 위치가 컷마다 달라서 구간도 달라져야 한다
+  const rawTop = slot.photo?.cropTop ?? opts.cropTop ?? 0.2;
+  const rawBottom = slot.photo?.cropBottom ?? opts.cropBottom ?? 0.6;
+  const top = clamp(Math.min(rawTop, rawBottom));
+  const bottom = clamp(Math.max(rawTop, rawBottom));
 
-  const overflow = drawH - h;
-  /*
-   * 0 = 사진 맨 위가 상자 위에, 1 = 사진 맨 아래가 상자 아래에.
-   * 사진별 값이 있으면 그걸 우선한다 — 인물이 위쪽에 몰린 컷은 범위를
-   * 좁혀야 끝에서 치맛단만 남는 걸 피할 수 있다.
-   */
-  const from = slot.photo?.panStart ?? opts.panStart ?? 0.15;
-  const to = slot.photo?.panEnd ?? opts.panEnd ?? 0.85;
+  // 잘라낸 소스 영역
+  const sy = top * img.height;
+  const sh = Math.max(1, (bottom - top) * img.height);
+  const sw = img.width;
+
+  // 그 조각으로 상자를 채운다 (가로가 모자라면 세로를 잘라서라도 채움)
+  const scale = Math.max(w / sw, h / sh);
+  const drawW = sw * scale;
+  const drawH = sh * scale;
+
+  // 세로로 남는 만큼만 밀어올린다. 0이면 정지 — 구간이 상자 비율과 같다는 뜻
+  const overflow = Math.max(0, drawH - h);
   const eased = opts.panEase === 'linear' ? clamp(progress) : smoothstep(clamp(progress));
-  const pan = lerp(from, to, eased);
+  const offsetY = -overflow * eased;
+  // 세로가 기준이 되어 가로가 넘칠 때는 focusX로 좌우 위치를 잡는다
+  const offsetX = (w - drawW) * (slot.photo?.focusX ?? 0.5);
 
-  ctx.drawImage(img, x, y - overflow * pan, w, drawH);
+  ctx.drawImage(img, 0, sy, sw, sh, x + offsetX, y + offsetY, drawW, drawH);
 };
 
 /**

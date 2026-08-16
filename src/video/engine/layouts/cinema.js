@@ -26,8 +26,8 @@ export const drawCinema = (ctx, scene, env, t) => {
 
   paintPhotoRect(ctx, env, state, frame, {
     fit: cfg.fit,
-    panStart: cfg.panStart,
-    panEnd: cfg.panEnd,
+    cropTop: cfg.cropTop,
+    cropBottom: cfg.cropBottom,
     push: cfg.pushIn,
     transition: scene.project.photos.transition,
     panHold: scene.project.photos.crossfade,

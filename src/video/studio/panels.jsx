@@ -487,13 +487,13 @@ export const LayoutPanel = ({ project, set }) => {
               {(cfg.fit || 'width') === 'width' && (
                 <>
                   <p className="text-[10px] text-white/35 leading-relaxed mb-2">
-                    가로를 꽉 채우고, 사진이 넘치는 세로만큼을 노출 시간 동안 훑습니다.
-                    0 = 사진 맨 위, 1 = 맨 아래.
+                    사진 세로에서 <b className="text-white/60">쓸 구간</b>만 잘라 가로를 꽉 채웁니다.
+                    이 바깥은 화면에 아예 안 나옵니다. 남는 세로만큼 천천히 밀려 올라갑니다.
                   </p>
-                  <Slider label="팬 시작" value={cfg.panStart ?? 0.15} min={0} max={1} step={0.01}
-                    format={pct} onChange={(v) => setL({ panStart: v })} />
-                  <Slider label="팬 끝" value={cfg.panEnd ?? 0.85} min={0} max={1} step={0.01}
-                    format={pct} onChange={(v) => setL({ panEnd: v })} />
+                  <Slider label="위 자르기 (구간 시작)" value={cfg.cropTop ?? 0.2} min={0} max={0.8} step={0.01}
+                    format={pct} onChange={(v) => setL({ cropTop: v })} />
+                  <Slider label="아래 자르기 (구간 끝)" value={cfg.cropBottom ?? 0.6} min={0.2} max={1} step={0.01}
+                    format={pct} onChange={(v) => setL({ cropBottom: v })} />
                 </>
               )}
             </>
