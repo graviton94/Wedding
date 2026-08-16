@@ -8,4 +8,5 @@ export {
   CANVAS_PRESETS, INVITATION_PHOTOS, PROJECT_VERSION,
 } from './config.js';
 export { THEME_PRESETS, applyTheme } from './themes.js';
+export { LAYOUTS } from './layouts/index.js';
 export { formatTime } from './util.js';

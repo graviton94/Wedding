@@ -18,6 +18,7 @@ export const THEME_PRESETS = {
     label: 'Minuit · 미드나잇 파리',
     description: '짙은 남색 밤에 놋쇠빛 가로등. 차분하고 깊은 톤.',
     patch: {
+      layout: 'vinyl3',
       theme: {
         accent: '#c9a063',
         ink: '#efe4cf',
@@ -64,6 +65,7 @@ export const THEME_PRESETS = {
     label: 'Salon · 촛불 살롱',
     description: '코냑빛 실내 조명. 따뜻하고 부드러운 세피아.',
     patch: {
+      layout: 'vinyl3',
       theme: {
         accent: '#c08a4e',
         ink: '#f8eeda',
@@ -110,6 +112,7 @@ export const THEME_PRESETS = {
     label: 'Pluie · 비 오는 창가',
     description: '3분할 없이 원 하나. 채도를 뺀 가장 조용한 안.',
     patch: {
+      layout: 'vinyl3',
       theme: {
         accent: '#a89377',
         ink: '#ece7df',
@@ -154,6 +157,7 @@ export const THEME_PRESETS = {
     label: 'Bobine · 오래된 필름',
     description: '바랜 아카이브 필름. 굵은 그레인과 넓은 레터박스.',
     patch: {
+      layout: 'vinyl3',
       theme: {
         accent: '#b5834a',
         ink: '#f0e4cd',
@@ -193,6 +197,162 @@ export const THEME_PRESETS = {
   },
 };
 
+/* ═══════════════════════════════════════════════════════════════
+ * 가사 중심 컨셉 — LP/3분할 없이 바닥부터 다시 짠 안들.
+ *
+ * 공통 전제
+ *   · 가사가 주인공, 사진은 받쳐주는 역할
+ *   · 미드나잇 파리 톤 — 짙은 밤색 + 놋쇠빛, 낮은 채도
+ *   · 장치를 줄이고 움직임을 느리게
+ * ═══════════════════════════════════════════════════════════════ */
+
+/** 네 안이 공유하는 밤 팔레트 — 안마다 조금씩만 비튼다 */
+const NUIT = {
+  accent: '#c9a063',
+  ink: '#f0e6d4',
+  bg: '#07090f',
+};
+
+Object.assign(THEME_PRESETS, {
+  cinema: {
+    label: 'Cinéma · 시네마 자막',
+    description: '2.39:1 풀샷에 영화 자막. 사진은 크게, 글자는 담백하게.',
+    patch: {
+      layout: 'cinema',
+      theme: {
+        ...NUIT, bg: '#050608',
+        fontDisplay: 'Cormorant Garamond',
+        fontBody: 'Nanum Myeongjo',
+        fontAccent: 'Cormorant Garamond', accentItalic: false,
+        fontScript: 'Great Vibes',
+      },
+      lyrics: {
+        fontSize: 0.036, maxWidthRatio: 0.74,
+        color: '#f6efe2', face: 'body', weight: 400, tracking: 0.015,
+        translationFace: 'body', translationScale: 0.68, translationOpacity: 0.72,
+        translationColor: '#e8dcc6', translationGap: 1.35,
+        glow: 0.7, plate: 0, animation: 'fade', showNext: false, lineHeight: 1.3,
+      },
+      effects: {
+        bokeh: 0.1, bokehCount: 8, grain: 0.07, lightLeak: 0.14,
+        progressBar: false, letterbox: 0, watermark: '',
+      },
+      photos: { duration: 8, crossfade: 1.8 },
+      intro: { caption: 'Reel One', duration: 5.5 },
+    },
+  },
+
+  marquee: {
+    label: 'Marquee · 밤의 간판',
+    description: '가사가 화면 한가운데 크게. 사진은 거의 지워진 배경.',
+    patch: {
+      layout: 'marquee',
+      theme: {
+        ...NUIT, accent: '#d0a76a', bg: '#06080e',
+        fontDisplay: 'Playfair Display',
+        fontBody: 'Nanum Myeongjo',
+        fontAccent: 'Cormorant Garamond', accentItalic: true,
+        fontScript: 'Great Vibes',
+      },
+      lyrics: {
+        color: '#f6eeda', face: 'accent', weight: 400, tracking: 0.02,
+        translationFace: 'body', translationScale: 0.44, translationOpacity: 0.55,
+        translationColor: '#dbcdb2', translationGap: 1.9,
+        glow: 0.5, plate: 0, animation: 'rise', showNext: false, lineHeight: 1.24,
+        maxWidthRatio: 0.68,
+      },
+      effects: {
+        bokeh: 0.4, bokehCount: 20, grain: 0.06, lightLeak: 0.3,
+        progressBar: false, letterbox: 0.05, watermark: '',
+      },
+      photos: { duration: 10, crossfade: 3 },
+      intro: { caption: 'Minuit à Paris', duration: 6 },
+    },
+  },
+
+  defile: {
+    label: 'Défilé · 흐르는 가사',
+    description: '가사 여러 줄이 세로로 흐름. 유튜브 가사 영상에 가장 가까움.',
+    patch: {
+      layout: 'defile',
+      theme: {
+        ...NUIT, accent: '#c2a074', bg: '#080a0f',
+        fontDisplay: 'Cormorant Garamond',
+        fontBody: 'Nanum Myeongjo',
+        fontAccent: 'Cormorant Garamond', accentItalic: true,
+        fontScript: 'Great Vibes',
+      },
+      lyrics: {
+        color: '#f5ecd9', dimColor: '#e8dcc4',
+        face: 'accent', weight: 400, tracking: 0.018,
+        translationFace: 'body', translationScale: 0.56, translationOpacity: 0.62,
+        translationColor: '#dccdb0',
+        glow: 0.45, plate: 0, showNext: false, lineHeight: 1.25,
+      },
+      effects: {
+        bokeh: 0.22, bokehCount: 14, grain: 0.065, lightLeak: 0.18,
+        progressBar: false, letterbox: 0, watermark: '',
+      },
+      photos: { duration: 9, crossfade: 2.4 },
+      intro: { caption: 'Side A', duration: 5.5 },
+    },
+  },
+
+  carte: {
+    label: 'Carte Postale · 엽서',
+    description: '기울인 사진 카드 + 옆 가사 컬럼. 잡지 지면 같은 편집 구성.',
+    patch: {
+      layout: 'carte',
+      theme: {
+        accent: '#bf9358', ink: '#f2e9d9', bg: '#0d0a08',
+        fontDisplay: 'Marcellus',
+        fontBody: 'Nanum Myeongjo',
+        fontAccent: 'Cormorant Garamond', accentItalic: true,
+        fontScript: 'Great Vibes',
+      },
+      lyrics: {
+        color: '#f5ecdb', face: 'accent', weight: 400, tracking: 0.012,
+        translationFace: 'body', translationScale: 0.6, translationOpacity: 0.62,
+        translationColor: '#ddcdb2', translationGap: 1.5,
+        glow: 0.4, plate: 0, animation: 'rise', showNext: false, lineHeight: 1.3,
+      },
+      effects: {
+        bokeh: 0.28, bokehCount: 16, grain: 0.075, lightLeak: 0.26,
+        progressBar: false, letterbox: 0, watermark: '',
+      },
+      photos: { duration: 9, crossfade: 1.6 },
+      intro: { caption: 'Carte Postale', duration: 5.5 },
+    },
+  },
+
+  duplex: {
+    label: 'Duplex · 2단',
+    description: '위 사진 / 아래 가사 패널. 가장 정돈되고 읽기 쉬움.',
+    patch: {
+      layout: 'duplex',
+      theme: {
+        accent: '#c49a62', ink: '#f1e8d8', bg: '#0a0c11',
+        fontDisplay: 'Italiana',
+        fontBody: 'Nanum Myeongjo',
+        fontAccent: 'Italiana', accentItalic: false,
+        fontScript: 'Great Vibes',
+      },
+      lyrics: {
+        color: '#f4ecdc', face: 'body', weight: 400, tracking: 0.014,
+        translationFace: 'body', translationScale: 0.64, translationOpacity: 0.6,
+        translationColor: '#d9cbb1', translationGap: 1.4,
+        glow: 0.25, plate: 0, animation: 'rise', showNext: false, lineHeight: 1.3,
+      },
+      effects: {
+        bokeh: 0.12, bokehCount: 9, grain: 0.05, lightLeak: 0.12,
+        progressBar: false, letterbox: 0, watermark: '',
+      },
+      photos: { duration: 7.5, crossfade: 1.5 },
+      intro: { caption: 'Our Wedding Playlist', duration: 5 },
+    },
+  },
+});
+
 /**
  * 테마 patch를 프로젝트에 얹는다.
  * 사진 목록·음원·자막 텍스트처럼 사용자가 고른 값은 건드리지 않고
@@ -204,6 +364,12 @@ export const applyTheme = (project, themeKey) => {
 
   const next = { ...project, themePreset: themeKey };
   for (const [section, values] of Object.entries(preset.patch)) {
+    // layout처럼 스칼라인 키는 그대로 대입한다.
+    // 객체로 취급해 펼치면 문자열이 인덱스별 문자로 쪼개진다.
+    if (values === null || typeof values !== 'object' || Array.isArray(values)) {
+      next[section] = values;
+      continue;
+    }
     next[section] = { ...project[section], ...values };
   }
   return next;

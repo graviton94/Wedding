@@ -87,7 +87,10 @@ const main = async () => {
   // 줄이 막 시작하는 시각은 페이드인 알파가 0이라 자막이 안 보인다 — 줄 중간을 잡는다
   const at = args.at ? Number(args.at) : 38;
   const total = Number(args.duration || 90);
-  const keys = typeof args.theme === 'string' ? [args.theme] : Object.keys(THEME_PRESETS);
+  // --theme a,b,c 로 여러 개 지정 가능
+  const keys = typeof args.theme === 'string'
+    ? args.theme.split(',').map((k) => k.trim()).filter(Boolean)
+    : Object.keys(THEME_PRESETS);
 
   const shots = [];
 
@@ -150,13 +153,14 @@ const main = async () => {
       const y = Math.floor(i / cols) * cellH;
       sctx.drawImage(shot.canvas, x, y, cellW, cellH);
       sctx.fillStyle = 'rgba(0,0,0,0.65)';
-      sctx.fillRect(x, y, 330, 34);
+      sctx.fillRect(x, y, 340, 32);
       sctx.fillStyle = '#fff';
-      sctx.font = '17px "Nanum Myeongjo", sans-serif';
+      // 라틴 폰트를 앞에 둬야 é 같은 글자가 나온다 (node에는 sans-serif 폴백이 없다)
+      sctx.font = '17px "Cormorant Garamond", "Nanum Myeongjo"';
       sctx.fillText(shot.preset.label, x + 12, y + 23);
     });
 
-    const sheetPath = path.join(OUT_DIR, 'theme-compare.png');
+    const sheetPath = path.join(OUT_DIR, `${args.sheet || 'theme-compare'}.png`);
     await writeFile(sheetPath, sheet.toBuffer('image/png'));
     console.log(`\n비교 시트 → ${path.relative(process.cwd(), sheetPath)}`);
   }

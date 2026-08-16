@@ -1,4 +1,4 @@
-import { CANVAS_PRESETS, INVITATION_PHOTOS, THEME_PRESETS } from '../engine/index.js';
+import { CANVAS_PRESETS, INVITATION_PHOTOS, LAYOUTS, THEME_PRESETS } from '../engine/index.js';
 import { publicUrl } from './useAssets.js';
 import {
   Btn, ColorInput, NumberInput, SectionTitle, Select, Slider, TextInput, Toggle,
@@ -358,9 +358,9 @@ export const LyricsStylePanel = ({ project, set }) => (
 
 export const MoodPanel = ({ project, applyPreset }) => (
   <>
-    <SectionTitle>무드 프리셋</SectionTitle>
+    <SectionTitle>컨셉 프리셋</SectionTitle>
     <p className="text-[10px] text-white/35 leading-relaxed mb-2">
-      색·서체·레이아웃·효과를 한 번에 바꿉니다. 사진·음원·가사는 그대로 유지됩니다.
+      화면 구조·색·서체·효과를 한 번에 바꿉니다. 사진·음원·가사는 그대로 유지됩니다.
     </p>
     <div className="space-y-1.5">
       {Object.entries(THEME_PRESETS).map(([key, preset]) => {
@@ -388,6 +388,9 @@ export const MoodPanel = ({ project, applyPreset }) => (
                 </span>
                 <span className="block text-[10px] text-white/40 leading-snug">
                   {preset.description}
+                </span>
+                <span className="block text-[9px] text-white/25 mt-0.5">
+                  구조: {LAYOUTS[preset.patch.layout]?.label || preset.patch.layout}
                 </span>
               </span>
             </div>

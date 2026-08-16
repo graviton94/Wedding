@@ -61,8 +61,15 @@ const paintKaraoke = (ctx, line, text, x, y, t, color, maxWidth, fontSize) => {
   ctx.restore();
 };
 
-export const drawLyrics = (ctx, scene, env, t) => {
-  const L = scene.project.lyrics;
+/**
+ * 자막 한 블록을 그린다.
+ *
+ * override로 위치·크기·색을 덮어쓸 수 있다 — 레이아웃마다 자막이 앉는 자리가
+ * 달라서(하단 자막 / 화면 중앙 / 좌측 컬럼) 배치는 레이아웃이 정하고,
+ * 글자를 그리는 일은 여기서 한 곳으로 모은다.
+ */
+export const drawLyrics = (ctx, scene, env, t, override = {}) => {
+  const L = { ...scene.project.lyrics, ...override };
   if (!L.enabled) return;
   const lines = scene.lyrics.lines;
   if (!lines.length) return;
@@ -73,11 +80,12 @@ export const drawLyrics = (ctx, scene, env, t) => {
 
   const line = lines[idx];
   const next = lines[idx + 1];
-  const maxWidth = W * L.maxWidthRatio;
-  const size = H * L.fontSize;
+  const maxWidth = override.maxWidth ?? W * L.maxWidthRatio;
+  const size = override.size ?? H * L.fontSize;
   const lineHeight = size * L.lineHeight;
-  const cx = L.align === 'left' ? W * 0.11 : L.align === 'right' ? W * 0.89 : W / 2;
-  const baseY = H * (1 - L.bottomRatio);
+  const cx = override.cx
+    ?? (L.align === 'left' ? W * 0.11 : L.align === 'right' ? W * 0.89 : W / 2);
+  const baseY = override.baseY ?? H * (1 - L.bottomRatio);
 
   // 줄 등장 애니메이션 (0.45초)
   const inT = smoothstep(norm(t, line.time, line.time + 0.45));

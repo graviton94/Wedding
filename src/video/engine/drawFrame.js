@@ -5,18 +5,19 @@
  * 브라우저 미리보기와 Node MP4 렌더러가 이 함수 하나를 공유하므로
  * "스튜디오에서 본 화면 = 최종 mp4"가 성립한다.
  *
+ * 구조는 두 층이다.
+ *   1. 레이아웃 (layouts/) — 사진과 가사가 화면에 앉는 방식. 안마다 완전히 다르다.
+ *   2. 공통 오버레이      — 보케·그레인·타이틀·페이드. 어느 레이아웃에나 똑같이 얹힌다.
+ *
  * env 계약:
  *   { width, height, createCanvas(w,h), getImage(src) -> image|null }
  *   getImage은 동기 함수여야 한다 (사전 로딩된 이미지 캐시 조회).
  */
 
 import { photoStateAt } from './timeline.js';
-import { drawBackground, drawVignette, drawBottomScrim } from './layers/background.js';
-import { drawSplitColumns } from './layers/splitColumns.js';
-import { drawVinyl } from './layers/vinyl.js';
-import { drawLyrics, drawInterlude } from './layers/lyrics.js';
+import { drawLayout } from './layouts/index.js';
 import {
-  drawBokeh, drawGrain, drawIntro, drawLetterbox, drawLightLeak,
+  drawBokeh, drawGrain, drawIntro, drawLetterbox,
   drawMasterFade, drawOutro, drawProgressBar, drawWatermark,
 } from './layers/overlays.js';
 
@@ -38,21 +39,11 @@ export const drawFrame = (ctx, scene, env, t) => {
   ctx.globalCompositeOperation = 'source-over';
   ctx.filter = 'none';
 
-  // 뒤 → 앞 순서
-  drawBackground(ctx, scene, env);
-  // 3분할 좌/우 컬럼이 배경 위를 덮는다 (중앙은 블러 배경이 그대로 보인다)
-  drawSplitColumns(ctx, scene, env, time);
-  drawLightLeak(ctx, scene, env, time);
-  drawVignette(ctx, scene, env);
-  drawVinyl(ctx, scene, env, time);
+  // ── 1. 레이아웃 ──
+  drawLayout(ctx, scene, env, time);
+
+  // ── 2. 공통 오버레이 ──
   drawBokeh(ctx, scene, env, time);
-
-  if (scene.project.lyrics.enabled) {
-    drawBottomScrim(ctx, env, 0.34, 0.72);
-    drawLyrics(ctx, scene, env, time);
-    drawInterlude(ctx, scene, env, time);
-  }
-
   drawIntro(ctx, scene, env, time);
   drawOutro(ctx, scene, env, time);
   drawWatermark(ctx, scene, env);
@@ -68,5 +59,6 @@ export const drawFrame = (ctx, scene, env, t) => {
 export const requiredSources = (scene) => {
   const set = new Set();
   for (const slot of scene.timeline.slots) set.add(slot.src);
+  if (scene.project.vinyl?.photo) set.add(scene.project.vinyl.photo);
   return [...set];
 };

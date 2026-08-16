@@ -99,7 +99,102 @@ export const createDefaultProject = (overrides = {}) => ({
     vignette: 0.55,
   },
 
-  /** 3분할 화면 — [사진 | 중앙 LP | 사진] */
+  /**
+   * 화면 구조. layouts/index.js의 키.
+   * 'cinema' | 'marquee' | 'defile' | 'carte' | 'duplex' | 'vinyl3'
+   */
+  layout: 'vinyl3',
+
+  /** 레이아웃별 세부 값. 쓰지 않는 레이아웃의 값은 무시된다. */
+  layouts: {
+    /** 시네마 자막 — 2.39:1 풀블리드 + 하단 자막 */
+    cinema: {
+      aspect: 2.39,
+      pushIn: 0.09,        // 슬롯 동안 서서히 확대
+      brightness: 0.72,    // 색 보정 — 검은 막보다 먼저 걸어야 밤 톤이 된다
+      saturation: 0.82,
+      tint: '#101828',
+      tintOpacity: 0.22,
+      dim: 0.14,           // 마지막으로 살짝 더 누르기
+      edgeShade: 0.45,     // 프레임 위아래 가장자리 음영
+      subtitleInset: 0.1,  // 프레임 아래에서 자막까지의 거리 (프레임 높이 대비)
+      slate: 'Our Wedding Playlist', // 좌상단 작은 라벨 (비우면 없음)
+    },
+
+    /** 밤의 간판 — 가사가 화면 한가운데, 사진은 배경으로만 */
+    marquee: {
+      // 흰 스튜디오 컷을 밤으로 내리려면 밝기를 확실히 떨어뜨려야 한다.
+      // dim(검은 막)만 올리면 밤이 아니라 회색이 된다.
+      brightness: 0.3,
+      saturation: 0.38,
+      tint: '#0b1220',
+      tintOpacity: 0.4,
+      dim: 0.1,
+      centerY: 0.5,
+      fontSize: 0.058,     // 캔버스 높이 대비 — 다섯 안 중 가장 큼
+      halo: 0.1,           // 글자 뒤 은은한 빛
+      rule: 0.35,          // 위아래 규칙선 진하기 (0=없음)
+      ruleWidth: 0.19,     // 규칙선 길이 (반폭 비율)
+      ruleGap: 0.135,      // 중심에서 규칙선까지 거리
+    },
+
+    /** 흐르는 가사 — 세로 스크롤 목록 + 옆 사진 컬럼 */
+    defile: {
+      photoSide: 'right',  // 'left' | 'right'
+      photoWidth: 0.36,
+      brightness: 0.66,
+      saturation: 0.7,
+      tint: '#0d1420',
+      tintOpacity: 0.26,
+      photoDim: 0.1,
+      blend: 0.75,         // 사진을 글자 쪽으로 녹이는 정도
+      rule: 0.16,
+      fontSize: 0.042,
+      lineGap: 2.15,       // 줄 간격 (글자 크기 배수)
+      visibleLines: 3,     // 현재 줄 위아래로 보여줄 줄 수
+    },
+
+    /** 엽서 — 기울인 사진 카드 + 옆 가사 컬럼 */
+    carte: {
+      cardSide: 'right',
+      cardWidth: 0.3,
+      cardAspect: 0.78,    // 카드 가로/세로
+      cardInset: 0.075,    // 화면 가장자리 여백
+      cardY: 0.47,
+      tilt: -2.6,          // 기울기(도)
+      matte: 0.045,        // 종이 여백 (카드 폭 대비)
+      matteBottom: 2.6,    // 아래 여백 배수 (폴라로이드 느낌)
+      paper: '#efe7d8',
+      caption: 'No. {n}',  // {n} → 사진 번호. 비우면 없음
+      groundBrightness: 0.42,  // 바탕에 깔린 사진
+      groundSaturation: 0.5,
+      groundDim: 0.42,
+      wash: 0.1,           // 위에서 떨어지는 조명
+      textWidth: 0.36,
+      textInset: 0.075,
+      textY: 0.55,
+      fontSize: 0.04,
+    },
+
+    /** 2단 — 위 사진 / 아래 가사 패널 */
+    duplex: {
+      photoRatio: 0.6,     // 사진이 차지하는 높이 비율
+      pushIn: 0.07,
+      brightness: 0.82,
+      saturation: 0.88,
+      tint: '#121a26',
+      tintOpacity: 0.16,
+      photoDim: 0.04,
+      panelColor: '',      // 비우면 theme.bg
+      feather: 0.06,       // 사진→패널 경계를 녹이는 높이
+      rule: 0.4,
+      textY: 0.44,         // 패널 안에서 가사 위치
+      fontSize: 0.04,
+      trackInfo: 'Our Wedding Playlist', // 패널 하단 라벨 (비우면 없음)
+    },
+  },
+
+  /** 3분할 화면 — [사진 | 중앙 LP | 사진] (layout='vinyl3'일 때만) */
   split: {
     enabled: true,
     centerRatio: 0.44,  // 중앙 컬럼 폭 비율 (나머지를 좌우가 반씩)
