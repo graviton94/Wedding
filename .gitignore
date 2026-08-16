@@ -11,3 +11,5 @@ out
 # 원곡 음원 — 공개 배포되는 저장소에 올리지 않는다 (로컬 렌더용)
 public/music/photograph.mp3
 public/video/lyrics/photograph.lrc
+public/video/lyrics/photograph.ko.txt
+public/video/lyrics/photograph.bi.lrc

@@ -12,7 +12,8 @@
     "video:render": "node tools/video/render.mjs",
     "video:preview": "node tools/video/render.mjs --preview",
     "video:themes": "node tools/video/themes-preview.mjs",
-    "video:crops": "node tools/video/make-crops.mjs"
+    "video:crops": "node tools/video/make-crops.mjs",
+    "video:lyrics": "node tools/video/merge-translation.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",
