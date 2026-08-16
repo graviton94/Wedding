@@ -21,6 +21,27 @@
 - 📍 오시는 길 — 카카오맵/네이버 링크, 주소 복사, **캘린더 일정 추가**(iOS `.ics` / 안드로이드 Google 캘린더)
 - 📝 참석 의사 — Google Form 링크
 - 🔗 링크 공유 · D-day 카운트다운 · 골드 파티클 / Ken Burns / 스크롤 진행바
+- 🎬 **웨딩 영상 스튜디오** — 청첩장 사진으로 플레이리스트 영상을 만들어 MP4로 렌더링 ([문서](docs/VIDEO.md))
+
+---
+
+## 🎬 웨딩 영상 만들기
+
+3분할 화면 [사진 | 회전하는 LP | 사진] + 하단 가사 자막 구성의 유튜브 플레이리스트 스타일
+영상을 만들고 MP4로 뽑을 수 있습니다.
+
+```bash
+npm run dev            # → http://localhost:5173/Wedding/#/studio 에서 구성 편집
+npm run video:fonts    # 최초 1회 — 렌더용 한글 폰트 다운로드
+npm run video:render   # video.project.json → out/*.mp4 (H.264 + AAC)
+```
+
+웹 디자이너와 CLI 렌더러가 **같은 캔버스 엔진**(`src/video/engine`)을 쓰기 때문에
+브라우저에서 본 미리보기가 그대로 최종 mp4로 나옵니다.
+자세한 사용법·옵션·자막(.lrc) 작성법은 **[docs/VIDEO.md](docs/VIDEO.md)** 참고.
+
+> 가사 텍스트와 음원은 저장소에 포함하지 않습니다. 직접 준비한 `.lrc`/음원을 쓰고,
+> 공개 배포 시에는 이용 권리를 확인하세요.
 
 ---
 
@@ -39,6 +60,10 @@ npm install
 npm run dev      # 개발 서버
 npm run build    # 프로덕션 빌드
 npm run lint     # 린트
+
+npm run video:fonts     # 영상 렌더용 폰트 받기 (최초 1회)
+npm run video:render    # MP4 렌더링
+npm run video:preview   # 640x360 저화질 빠른 렌더
 ```
 
 ## 배포 (자동)
@@ -62,7 +87,12 @@ src/
 │                   #  GoldDustEffect, ScrollProgress, DDayCounter, CalendarButton ...
 ├── data/content.json   # ⭐ 모든 콘텐츠
 ├── hooks/              # useCopyToClipboard, useScrollAnimation
+├── video/
+│   ├── engine/     # 캔버스 렌더 엔진 (브라우저·Node 공용)
+│   └── studio/     # 웹 디자이너 UI (#/studio)
 ├── index.css           # 디자인 토큰(테마별 CSS 변수)
+├── Root.jsx            # 해시 라우팅 (청첩장 / #/studio)
 └── App.jsx
+tools/video/                   # MP4 렌더러 CLI
 supabase/guestbook_setup.sql   # 방명록 테이블/정책
 ```
