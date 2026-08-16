@@ -11,7 +11,8 @@
 import { clamp, cssFont, norm, rgba, smoothstep, wrapText } from '../util.js';
 import { findLineIndex } from '../lrc.js';
 
-const fontFor = (scene, px, weight = 400) => cssFont(scene.project.theme, px, weight, 'body');
+const fontFor = (scene, px, weight = 400, face = 'body') =>
+  cssFont(scene.project.theme, px, weight, face);
 
 /** 한 줄을 그리고 그린 높이를 돌려준다 */
 const paintLines = (ctx, lines, cx, baselineY, lineHeight, align) => {
@@ -94,15 +95,20 @@ export const drawLyrics = (ctx, scene, env, t) => {
     ctx.fillRect(0, baseY - plateH * 0.72, W, plateH);
   }
 
-  // ---- 현재 줄 ----
+  const rise = L.animation === 'rise' ? (1 - inT) * size * 0.5 : 0;
+  const alpha = (L.animation === 'none' ? 1 : inT) * outT;
+  const hasTranslation = Boolean(line.translation);
+
+  // ---- 현재 줄 (원문) ----
   if (line.text) {
-    ctx.font = fontFor(scene, size, 500);
-    if ('letterSpacing' in ctx) ctx.letterSpacing = `${size * 0.012}px`;
+    ctx.font = fontFor(scene, size, L.weight ?? 500, L.face ?? 'body');
+    if ('letterSpacing' in ctx) ctx.letterSpacing = `${size * (L.tracking ?? 0.012)}px`;
 
     const wrapped = wrapText(ctx, line.text, maxWidth);
-    const rise = L.animation === 'rise' ? (1 - inT) * size * 0.5 : 0;
-    const alpha = (L.animation === 'none' ? 1 : inT) * outT;
-    const y = baseY - (wrapped.length - 1) * lineHeight + rise;
+    // 번역이 붙으면 원문을 그만큼 위로 올려 두 줄이 자막 영역 안에 들어오게 한다
+    const tSize = size * (L.translationScale ?? 0.68);
+    const shift = hasTranslation ? tSize * (L.translationGap ?? 1.5) : 0;
+    const y = baseY - (wrapped.length - 1) * lineHeight - shift + rise;
 
     ctx.globalAlpha = alpha;
 
@@ -123,10 +129,31 @@ export const drawLyrics = (ctx, scene, env, t) => {
 
     ctx.shadowBlur = 0;
     ctx.shadowColor = 'transparent';
+
+    // ---- 번역 줄 ----
+    if (hasTranslation) {
+      ctx.font = fontFor(scene, tSize, L.translationWeight ?? 300, L.translationFace ?? 'body');
+      if ('letterSpacing' in ctx) ctx.letterSpacing = `${tSize * 0.01}px`;
+      ctx.globalAlpha = alpha * (L.translationOpacity ?? 0.72);
+      ctx.shadowColor = `rgba(0,0,0,${0.7 * L.glow + 0.25})`;
+      ctx.shadowBlur = tSize * 0.5;
+      ctx.fillStyle = L.translationColor || L.color;
+      paintLines(
+        ctx,
+        wrapText(ctx, line.translation, maxWidth),
+        cx,
+        baseY + rise,
+        tSize * 1.3,
+        L.align,
+      );
+      ctx.shadowBlur = 0;
+      ctx.shadowColor = 'transparent';
+    }
   }
 
   // ---- 다음 줄 미리보기 ----
-  if (L.showNext && next?.text) {
+  // 번역까지 떠 있을 때는 생략한다 — 세 줄이 겹치면 산만해진다
+  if (L.showNext && !hasTranslation && next?.text) {
     const nSize = size * 0.68;
     ctx.font = fontFor(scene, nSize, 400);
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';

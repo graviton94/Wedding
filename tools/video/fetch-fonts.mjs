@@ -35,6 +35,36 @@ const FONTS = [
     url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/greatvibes/GreatVibes-Regular.ttf',
     note: '필기체',
   },
+  {
+    file: 'CormorantGaramond-Italic.ttf',
+    family: 'Cormorant Garamond',
+    url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/CormorantGaramond-Italic%5Bwght%5D.ttf',
+    note: '영문 이탤릭 (감성 강조)',
+  },
+  {
+    file: 'PlayfairDisplay.ttf',
+    family: 'Playfair Display',
+    url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/playfairdisplay/PlayfairDisplay%5Bwght%5D.ttf',
+    note: '고대비 디도네 (Minuit 테마)',
+  },
+  {
+    file: 'Italiana-Regular.ttf',
+    family: 'Italiana',
+    url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/italiana/Italiana-Regular.ttf',
+    note: '아르데코 (Pluie 테마)',
+  },
+  {
+    file: 'Marcellus-Regular.ttf',
+    family: 'Marcellus',
+    url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/marcellus/Marcellus-Regular.ttf',
+    note: '로만 캐피탈 (Bobine 테마)',
+  },
+  {
+    file: 'NanumMyeongjo-Regular.ttf',
+    family: 'Nanum Myeongjo',
+    url: 'https://raw.githubusercontent.com/google/fonts/main/ofl/nanummyeongjo/NanumMyeongjo-Regular.ttf',
+    note: '국문 감성 명조',
+  },
 ];
 
 const human = (bytes) => `${(bytes / 1024 / 1024).toFixed(1)}MB`;

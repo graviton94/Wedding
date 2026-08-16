@@ -1,4 +1,4 @@
-import { CANVAS_PRESETS, INVITATION_PHOTOS } from '../engine/index.js';
+import { CANVAS_PRESETS, INVITATION_PHOTOS, THEME_PRESETS } from '../engine/index.js';
 import { publicUrl } from './useAssets.js';
 import {
   Btn, ColorInput, NumberInput, SectionTitle, Select, Slider, TextInput, Toggle,
@@ -351,5 +351,94 @@ export const LyricsStylePanel = ({ project, set }) => (
       value={project.lyrics.karaoke} onChange={(v) => set('lyrics', { karaoke: v })} />
     <ColorInput label="하이라이트 색" value={project.lyrics.karaokeColor}
       onChange={(v) => set('lyrics', { karaokeColor: v })} />
+  </>
+);
+
+/* ─────────────────────────────── 무드 시안 ─────────────────────────────── */
+
+export const MoodPanel = ({ project, applyPreset }) => (
+  <>
+    <SectionTitle>무드 프리셋</SectionTitle>
+    <p className="text-[10px] text-white/35 leading-relaxed mb-2">
+      색·서체·레이아웃·효과를 한 번에 바꿉니다. 사진·음원·가사는 그대로 유지됩니다.
+    </p>
+    <div className="space-y-1.5">
+      {Object.entries(THEME_PRESETS).map(([key, preset]) => {
+        const active = project.themePreset === key;
+        return (
+          <button
+            key={key}
+            onClick={() => applyPreset(key)}
+            className={`w-full text-left rounded-lg border p-2.5 transition-colors ${
+              active
+                ? 'border-amber-300/60 bg-amber-400/10'
+                : 'border-white/10 bg-white/[0.03] hover:bg-white/[0.07]'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              {/* 테마 팔레트 미리보기 */}
+              <span className="flex shrink-0 rounded overflow-hidden ring-1 ring-white/15">
+                {[preset.patch.theme.bg, preset.patch.theme.accent, preset.patch.theme.ink].map((c) => (
+                  <span key={c} className="w-3.5 h-6 block" style={{ background: c }} />
+                ))}
+              </span>
+              <span className="min-w-0">
+                <span className={`block text-xs ${active ? 'text-amber-100' : 'text-white/85'}`}>
+                  {preset.label}
+                </span>
+                <span className="block text-[10px] text-white/40 leading-snug">
+                  {preset.description}
+                </span>
+              </span>
+            </div>
+          </button>
+        );
+      })}
+    </div>
+
+    <SectionTitle>시안 이미지 뽑기</SectionTitle>
+    <p className="text-[10px] text-white/35 leading-relaxed">
+      네 가지 시안을 정지 이미지로 한 번에 비교하려면:
+    </p>
+    <code className="block mt-1.5 text-[10px] bg-black/50 rounded px-2 py-1.5 text-amber-100/80 overflow-x-auto whitespace-nowrap">
+      npm run video:themes
+    </code>
+  </>
+);
+
+/* ──────────────────────────── 2개 국어 자막 ──────────────────────────── */
+
+export const BilingualPanel = ({ project, set }) => (
+  <>
+    <Toggle
+      label="2개 국어 자막"
+      hint="같은 시각의 두 줄을 원문+번역으로 묶음"
+      value={project.lyrics.bilingual}
+      onChange={(v) => set('lyrics', { bilingual: v })}
+    />
+    <p className="text-[10px] text-white/35 leading-relaxed mt-1 mb-2">
+      .lrc에 같은 타임스탬프로 두 줄을 넣으면 위=원문, 아래=번역으로 표시됩니다.
+    </p>
+    <pre className="text-[10px] bg-black/40 rounded px-2 py-1.5 text-white/50 overflow-x-auto">{`[00:24.10]English line here
+[00:24.10]여기에 한국어 번역`}</pre>
+
+    <Toggle label="번역을 위로" hint="국문을 크게 보여줍니다"
+      value={project.lyrics.translationFirst}
+      onChange={(v) => set('lyrics', { translationFirst: v })} />
+    <Slider label="번역 글자 크기" value={project.lyrics.translationScale} min={0.4} max={1} step={0.02}
+      format={pct} onChange={(v) => set('lyrics', { translationScale: v })} />
+    <Slider label="번역 투명도" value={project.lyrics.translationOpacity} min={0.2} max={1} step={0.02}
+      format={pct} onChange={(v) => set('lyrics', { translationOpacity: v })} />
+    <Slider label="두 줄 사이 간격" value={project.lyrics.translationGap} min={0.9} max={2.6} step={0.05}
+      format={(v) => v.toFixed(2)} onChange={(v) => set('lyrics', { translationGap: v })} />
+    <Select label="원문 서체" value={project.lyrics.face}
+      onChange={(v) => set('lyrics', { face: v })}
+      options={[
+        { value: 'body', label: '본문 (국문 명조)' },
+        { value: 'accent', label: '강조 (영문 이탤릭/디스플레이)' },
+        { value: 'display', label: '디스플레이' },
+      ]} />
+    <Slider label="원문 자간" value={project.lyrics.tracking} min={0} max={0.12} step={0.005}
+      format={(v) => v.toFixed(3)} onChange={(v) => set('lyrics', { tracking: v })} />
   </>
 );

@@ -1,25 +1,27 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  buildScene, createDefaultProject, mergeProject, requiredSources, formatTime,
+  applyTheme, buildScene, createDefaultProject, mergeProject, requiredSources, formatTime,
 } from '../engine/index.js';
 import PreviewCanvas from './PreviewCanvas.jsx';
 import LyricsPanel from './LyricsPanel.jsx';
 import { useAudio, useFontsReady, useImageCache, publicUrl } from './useAssets.js';
 import { Btn } from './controls.jsx';
 import {
-  BackgroundPanel, EffectsPanel, LyricsStylePanel, OutputPanel,
-  PhotosPanel, SplitPanel, TextPanel, VinylPanel,
+  BackgroundPanel, BilingualPanel, EffectsPanel, LyricsStylePanel, MoodPanel,
+  OutputPanel, PhotosPanel, SplitPanel, TextPanel, VinylPanel,
 } from './panels.jsx';
 
 const STORAGE_KEY = 'video-studio:project:v1';
 
 const TABS = [
+  { id: 'mood', label: '무드' },
   { id: 'output', label: '출력' },
   { id: 'photos', label: '사진' },
   { id: 'vinyl', label: 'LP' },
   { id: 'split', label: '3분할' },
   { id: 'background', label: '배경' },
   { id: 'lyrics', label: '가사' },
+  { id: 'bilingual', label: '2개 국어' },
   { id: 'lyricsStyle', label: '자막 스타일' },
   { id: 'text', label: '타이틀' },
   { id: 'effects', label: '효과' },
@@ -36,7 +38,7 @@ const VideoStudio = () => {
     return createDefaultProject();
   });
 
-  const [tab, setTab] = useState('output');
+  const [tab, setTab] = useState('mood');
   const [time, setTime] = useState(0);
   const [playing, setPlaying] = useState(false);
   const importRef = useRef(null);
@@ -168,6 +170,11 @@ const VideoStudio = () => {
       setTime(0);
     }
   };
+
+  /** 무드 프리셋 적용 — 사진·음원·가사는 유지하고 색/서체/레이아웃만 갈아끼운다 */
+  const applyPreset = useCallback((key) => {
+    setProject((prev) => applyTheme(prev, key));
+  }, []);
 
   const renderCmd = 'npm run video:render -- --project video.project.json';
 
@@ -301,6 +308,7 @@ const VideoStudio = () => {
           </nav>
 
           <div className="p-3 lg:h-[calc(100vh-98px)] lg:overflow-y-auto">
+            {tab === 'mood' && <MoodPanel project={project} applyPreset={applyPreset} />}
             {tab === 'output' && <OutputPanel {...panelProps} audioDuration={audioDuration} />}
             {tab === 'photos' && <PhotosPanel {...panelProps} />}
             {tab === 'vinyl' && <VinylPanel {...panelProps} />}
@@ -309,6 +317,7 @@ const VideoStudio = () => {
             {tab === 'lyrics' && (
               <LyricsPanel {...panelProps} time={time} seek={seek} playing={playing} togglePlay={togglePlay} />
             )}
+            {tab === 'bilingual' && <BilingualPanel {...panelProps} />}
             {tab === 'lyricsStyle' && <LyricsStylePanel {...panelProps} />}
             {tab === 'text' && <TextPanel {...panelProps} />}
             {tab === 'effects' && <EffectsPanel {...panelProps} />}

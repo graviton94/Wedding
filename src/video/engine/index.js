@@ -7,4 +7,5 @@ export {
   createDefaultProject, mergeProject, defaultPhotos,
   CANVAS_PRESETS, INVITATION_PHOTOS, PROJECT_VERSION,
 } from './config.js';
+export { THEME_PRESETS, applyTheme } from './themes.js';
 export { formatTime } from './util.js';

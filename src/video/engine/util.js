@@ -173,12 +173,23 @@ export const cssFont = (theme, px, weight = 400, face = 'body') => {
   const display = `"${theme.fontDisplay}"`;
   const body = `"${theme.fontBody}"`;
   const script = `"${theme.fontScript}"`;
-  const stack = face === 'display'
-    ? `${display}, ${body}, serif`
-    : face === 'script'
-      ? `${script}, ${display}, ${body}, serif`
-      : `${body}, ${display}, serif`;
-  return `${weight} ${px}px ${stack}`;
+  const accent = theme.fontAccent ? `"${theme.fontAccent}"` : display;
+
+  const stacks = {
+    display: `${display}, ${body}, serif`,
+    script: `${script}, ${display}, ${body}, serif`,
+    accent: `${accent}, ${display}, ${body}, serif`,
+    body: `${body}, ${display}, serif`,
+  };
+
+  /*
+   * 이탤릭은 가짜 패밀리명("... Italic")이 아니라 CSS font-style로 낸다.
+   * 브라우저에는 그런 패밀리가 없어서, 이름을 지어내면 미리보기는 로만으로
+   * 떨어지고 mp4만 이탤릭이 되어 둘이 어긋난다.
+   * Node 쪽은 로만/이탤릭 파일을 같은 패밀리명으로 등록해두면 이 키워드를 따른다.
+   */
+  const italic = face === 'accent' && theme.accentItalic ? 'italic ' : '';
+  return `${italic}${weight} ${px}px ${stacks[face] || stacks.body}`;
 };
 
 /** 초 → "M:SS" */

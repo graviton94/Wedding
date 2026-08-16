@@ -7,6 +7,47 @@
 import { clamp, makeRng, norm, smoothstep } from './util.js';
 import { parseLRC } from './lrc.js';
 
+/**
+ * 2개 국어 자막 병합.
+ *
+ * 같은 시각(오차 EPS 이내)에 놓인 두 줄을 "원문 + 번역" 한 쌍으로 묶는다.
+ * 이건 이중 언어 .lrc 파일의 사실상 표준 형태라, 밖에서 받아온 파일도 그대로 들어간다.
+ *
+ *   [00:24.10]Original line here
+ *   [00:24.10]여기에 번역
+ *
+ * translationFirst=true면 위아래를 뒤집어 국문을 크게 보여준다.
+ */
+const EPS = 0.06;
+
+const mergeBilingual = (lines, translationFirst) => {
+  const out = [];
+  for (let i = 0; i < lines.length; i++) {
+    const a = lines[i];
+    const b = lines[i + 1];
+    // 둘 다 내용이 있고 시각이 겹칠 때만 한 쌍으로 본다 (간주 빈 줄은 제외)
+    if (b && a.text && b.text && Math.abs(b.time - a.time) <= EPS) {
+      const [primary, secondary] = translationFirst ? [b, a] : [a, b];
+      out.push({
+        ...primary,
+        end: b.end,
+        translation: secondary.text,
+        // 가라오케 타이밍은 원문 쪽 것을 따른다
+        words: primary.words,
+      });
+      i++; // 짝지은 줄은 건너뛴다
+      continue;
+    }
+    out.push({ ...a, translation: '' });
+  }
+
+  // 짝짓느라 사라진 줄이 있으므로 end를 다시 이어 붙인다
+  for (let i = 0; i < out.length; i++) {
+    out[i].end = out[i + 1] ? out[i + 1].time : out[i].end;
+  }
+  return out;
+};
+
 /** order:'shuffle'일 때 시드 기반 Fisher-Yates (Math.random 미사용) */
 const shuffled = (arr, seed) => {
   const out = arr.slice();
@@ -161,12 +202,16 @@ export const buildScene = (project, totalDuration) => {
   const parsed = project.lyrics?.enabled ? parseLRC(lrcText) : { meta: {}, lines: [] };
 
   const offset = project.lyrics?.offset || 0;
-  const lines = parsed.lines.map((l) => ({
+  const shifted = parsed.lines.map((l) => ({
     ...l,
     time: l.time + offset,
     end: l.end + offset,
     words: l.words.map((w) => ({ ...w, time: w.time + offset })),
   }));
+
+  const lines = project.lyrics?.bilingual
+    ? mergeBilingual(shifted, project.lyrics.translationFirst)
+    : shifted.map((l) => ({ ...l, translation: '' }));
 
   return {
     project,

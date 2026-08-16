@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "video:fonts": "node tools/video/fetch-fonts.mjs",
     "video:render": "node tools/video/render.mjs",
-    "video:preview": "node tools/video/render.mjs --preview"
+    "video:preview": "node tools/video/render.mjs --preview",
+    "video:themes": "node tools/video/themes-preview.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",

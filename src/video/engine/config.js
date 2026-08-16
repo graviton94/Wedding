@@ -118,6 +118,26 @@ export const createDefaultProject = (overrides = {}) => ({
     lrcSrc: 'video/lyrics/sample.lrc',
     lrcText: '',
     offset: 0,          // 초 단위 미세 보정 (+면 자막이 늦게)
+
+    /**
+     * 2개 국어 자막. 같은 시각에 놓인 두 줄을 원문+번역 한 쌍으로 묶는다.
+     *   [00:24.10]English line
+     *   [00:24.10]한국어 번역
+     */
+    bilingual: true,
+    translationFirst: false,  // true면 번역을 위(큰 글씨)로
+    translationScale: 0.66,   // 원문 대비 번역 글자 크기
+    translationOpacity: 0.7,
+    translationColor: '',     // 비우면 원문 색을 따름
+    translationGap: 1.45,     // 두 줄 사이 간격 (번역 글자 크기 배수)
+    translationFace: 'body',
+    translationWeight: 300,
+
+    /** 원문 서체 — theme의 어느 폰트를 쓸지 ('body'|'display'|'accent'|'script') */
+    face: 'body',
+    weight: 500,
+    tracking: 0.012,          // 자간 (글자 크기 배수)
+
     fontSize: 0.042,    // 캔버스 높이 대비 비율
     lineHeight: 1.35,
     maxWidthRatio: 0.78,
@@ -161,12 +181,17 @@ export const createDefaultProject = (overrides = {}) => ({
     watermark: '',
   },
 
+  /** 적용된 무드 프리셋 키 (themes.js) — 참고용, 렌더에는 영향 없음 */
+  themePreset: 'salon',
+
   theme: {
     accent: '#b98a52',
     ink: '#f6f1e7',
     bg: '#0d0b09',
     fontDisplay: 'Cormorant Garamond',
     fontBody: 'Noto Serif KR',
+    fontAccent: 'Cormorant Garamond',
+    accentItalic: true,   // accent 서체를 이탤릭으로 (CSS font-style)
     fontScript: 'Great Vibes',
   },
 

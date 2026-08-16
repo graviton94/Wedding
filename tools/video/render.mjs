@@ -82,7 +82,13 @@ if (args.help || args.h) {
 const FAMILY_BY_FILE = {
   'NotoSerifKR-VF.ttf': 'Noto Serif KR',
   'NotoSansKR-VF.ttf': 'Noto Sans KR',
+  'NanumMyeongjo-Regular.ttf': 'Nanum Myeongjo',
   'CormorantGaramond.ttf': 'Cormorant Garamond',
+  // 로만과 같은 패밀리로 등록 → `italic` 키워드로 선택된다 (브라우저와 동일)
+  'CormorantGaramond-Italic.ttf': 'Cormorant Garamond',
+  'PlayfairDisplay.ttf': 'Playfair Display',
+  'Italiana-Regular.ttf': 'Italiana',
+  'Marcellus-Regular.ttf': 'Marcellus',
   'GreatVibes-Regular.ttf': 'Great Vibes',
 };
 
