@@ -99,6 +99,25 @@ export const drawCover = (ctx, img, x, y, w, h, focusX = 0.5, focusY = 0.5) => {
   ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
 };
 
+/**
+ * 이미지 전체가 들어가는 배치(contain) 계산.
+ * 사진 비율과 상자 비율이 다르면 남는 쪽에 여백이 생긴다.
+ */
+export const containRect = (imgW, imgH, boxW, boxH) => {
+  const scale = Math.min(boxW / imgW, boxH / imgH);
+  const w = imgW * scale;
+  const h = imgH * scale;
+  return { x: (boxW - w) / 2, y: (boxH - h) / 2, w, h };
+};
+
+/** 이미지 전체를 (x,y,w,h) 안에 담아 그린다. 그린 실제 사각형을 돌려준다. */
+export const drawContain = (ctx, img, x, y, w, h) => {
+  if (!img || !img.width || !img.height) return null;
+  const r = containRect(img.width, img.height, w, h);
+  ctx.drawImage(img, x + r.x, y + r.y, r.w, r.h);
+  return { x: x + r.x, y: y + r.y, w: r.w, h: r.h };
+};
+
 /** 둥근 사각형 path (roundRect 폴리필 겸용) */
 export const roundRectPath = (ctx, x, y, w, h, r) => {
   const radius = Math.min(r, w / 2, h / 2);

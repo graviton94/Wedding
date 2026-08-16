@@ -110,6 +110,11 @@ export const createDefaultProject = (overrides = {}) => ({
     /** 시네마 자막 — 2.39:1 풀블리드 + 하단 자막 */
     cinema: {
       aspect: 2.39,
+      // 2.39:1은 가장 납작한 틀이라 세로 사진을 cover로 넣으면 3배 넘게 확대된다.
+      // blur 채움이라야 사진 전체가 보인다.
+      fit: 'blur',
+      blurDim: 0.75,
+      edgeFeather: 0.06,
       pushIn: 0.09,        // 슬롯 동안 서서히 확대
       brightness: 0.72,    // 색 보정 — 검은 막보다 먼저 걸어야 밤 톤이 된다
       saturation: 0.82,
@@ -123,6 +128,11 @@ export const createDefaultProject = (overrides = {}) => ({
 
     /** 밤의 간판 — 가사가 화면 한가운데, 사진은 배경으로만 */
     marquee: {
+      // 세로 사진 전체를 가운데 두고 양옆은 같은 사진을 흐리게 늘려 메운다.
+      // cover로 자르면 인물이 잘리고, contain으로 두면 양옆이 텅 빈다.
+      fit: 'blur',
+      blurDim: 0.9,     // 배경과 본 사진의 밝기 차가 크면 이음새가 보인다
+      edgeFeather: 0.07,
       // 흰 스튜디오 컷을 밤으로 내리려면 밝기를 확실히 떨어뜨려야 한다.
       // dim(검은 막)만 올리면 밤이 아니라 회색이 된다.
       brightness: 0.3,
@@ -141,6 +151,8 @@ export const createDefaultProject = (overrides = {}) => ({
     /** 흐르는 가사 — 세로 스크롤 목록 + 옆 사진 컬럼 */
     defile: {
       photoSide: 'right',  // 'left' | 'right'
+      // 컬럼이 세로로 길어(0.36×1080 → 세로비 1.56) 2:3 사진이 잘 들어간다
+      fit: 'cover',
       photoWidth: 0.36,
       brightness: 0.66,
       saturation: 0.7,
@@ -176,9 +188,21 @@ export const createDefaultProject = (overrides = {}) => ({
       fontSize: 0.04,
     },
 
-    /** 2단 — 위 사진 / 아래 가사 패널 */
+    /**
+     * 2단 — 사진 / 가사 패널.
+     * vertical  : [사진(전체 높이) | 패널] — 세로 사진이 거의 안 잘린다 (기본)
+     * horizontal: [위 사진 / 아래 패널] — 가로 사진용
+     */
     duplex: {
-      photoRatio: 0.6,     // 사진이 차지하는 높이 비율
+      orientation: 'vertical',
+      photoSide: 'left',
+      /*
+       * vertical일 때는 사진 영역의 '가로' 비율.
+       * 0.42 × 1920 = 806 × 1080 → 세로비 0.75. 2:3(0.67) 사진이
+       * 세로의 90% 넘게 그대로 들어간다. (가로 띠였다면 25%만 남았다)
+       */
+      photoRatio: 0.42,
+      fit: '',             // 비우면 방향에 맞는 기본값 (vertical=cover, horizontal=blur)
       pushIn: 0.07,
       brightness: 0.82,
       saturation: 0.88,
@@ -186,9 +210,9 @@ export const createDefaultProject = (overrides = {}) => ({
       tintOpacity: 0.16,
       photoDim: 0.04,
       panelColor: '',      // 비우면 theme.bg
-      feather: 0.06,       // 사진→패널 경계를 녹이는 높이
+      feather: 0.05,       // 사진→패널 경계를 녹이는 폭/높이
       rule: 0.4,
-      textY: 0.44,         // 패널 안에서 가사 위치
+      textY: 0.46,         // 패널 안에서 가사 위치
       fontSize: 0.04,
       trackInfo: 'Our Wedding Playlist', // 패널 하단 라벨 (비우면 없음)
     },

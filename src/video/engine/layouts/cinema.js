@@ -25,6 +25,9 @@ export const drawCinema = (ctx, scene, env, t) => {
   ctx.fillRect(0, 0, W, H);
 
   paintPhotoRect(ctx, env, state, frame, {
+    fit: cfg.fit,
+    blurDim: cfg.blurDim,
+    edgeFeather: cfg.edgeFeather,
     push: cfg.pushIn,
     brightness: cfg.brightness,
     saturation: cfg.saturation,

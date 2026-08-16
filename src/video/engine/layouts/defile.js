@@ -27,6 +27,7 @@ export const drawDefile = (ctx, scene, env, t) => {
 
   // 사진 컬럼
   paintPhotoRect(ctx, env, state, photoRect, {
+    fit: cfg.fit,
     push: 0.09,
     brightness: cfg.brightness,
     saturation: cfg.saturation,
