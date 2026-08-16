@@ -90,6 +90,7 @@ export const drawDuplex = (ctx, scene, env, t) => {
     tint: cfg.tint,
     tintOpacity: cfg.tintOpacity,
     dim: cfg.photoDim,
+    transition: scene.project.photos.transition,
     backdrop: panelHex,
   });
 
@@ -150,7 +151,7 @@ export const drawDuplex = (ctx, scene, env, t) => {
     cx: panelRect.x + panelRect.w / 2,
     baseY: panelRect.y + panelRect.h * cfg.textY,
     maxWidth: panelRect.w * 0.82,
-    size: H * cfg.fontSize,
+    size: Math.min(W, H) * cfg.fontSize,
   });
 
   drawTrackInfo(ctx, scene, cfg, theme, panelRect, t);

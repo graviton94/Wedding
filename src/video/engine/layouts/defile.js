@@ -29,6 +29,7 @@ export const drawDefile = (ctx, scene, env, t) => {
   paintPhotoRect(ctx, env, state, photoRect, {
     fit: cfg.fit,
     push: 0.09,
+    transition: scene.project.photos.transition,
     brightness: cfg.brightness,
     saturation: cfg.saturation,
     tint: cfg.tint,
@@ -59,7 +60,7 @@ export const drawDefile = (ctx, scene, env, t) => {
     cx: textX,
     top: H * 0.1,
     height: H * 0.8,
-    size: H * cfg.fontSize,
+    size: Math.min(W, H) * cfg.fontSize,
     gap: cfg.lineGap,
     visible: cfg.visibleLines,
     align: 'center',

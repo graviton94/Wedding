@@ -116,6 +116,6 @@ export const drawCarte = (ctx, scene, env, t) => {
     cx: textX,
     baseY: H * cfg.textY,
     maxWidth: textW,
-    size: H * cfg.fontSize,
+    size: Math.min(W, H) * cfg.fontSize,
   });
 };

@@ -1,0 +1,348 @@
+{
+  "version": 1,
+  "name": "duplex-portrait",
+  "canvas": {
+    "width": 1280,
+    "height": 1920,
+    "fps": 30
+  },
+  "audio": {
+    "src": "music/1.mp3",
+    "startAt": 0,
+    "volume": 1,
+    "fadeIn": 1.5,
+    "fadeOut": 4
+  },
+  "duration": null,
+  "photos": {
+    "items": [
+      {
+        "src": "images/hero.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/main.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/1.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/2.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/3.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/4.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/5.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/6.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/7.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/8.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/9.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/10.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/11.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/12.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/13.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      },
+      {
+        "src": "images/14.webp",
+        "focusX": 0.5,
+        "focusY": 0.42,
+        "duration": null,
+        "panStart": null,
+        "panEnd": null
+      }
+    ],
+    "duration": 10,
+    "crossfade": 2,
+    "transition": "slide",
+    "loop": true,
+    "order": "sequence",
+    "shuffleSeed": 20260920
+  },
+  "vinyl": {
+    "enabled": true,
+    "photo": "images/hero.webp",
+    "rpm": 4,
+    "sizeRatio": 0.68,
+    "centerX": 0.5,
+    "centerY": 0.45,
+    "grooves": false,
+    "sheen": true,
+    "tonearm": true,
+    "spindle": true,
+    "ringColor": "#c9a267",
+    "beatPulse": 0.01,
+    "entrance": "drop"
+  },
+  "background": {
+    "enabled": true,
+    "blur": 46,
+    "scale": 1.18,
+    "brightness": 0.46,
+    "saturation": 1.12,
+    "kenBurns": 0.06,
+    "tint": "#1a1410",
+    "tintOpacity": 0.34,
+    "vignette": 0.55
+  },
+  "layout": "duplex",
+  "layouts": {
+    "cinema": {
+      "aspect": 2.39,
+      "fit": "width",
+      "panStart": 0.12,
+      "panEnd": 0.88,
+      "pushIn": 0,
+      "brightness": 0.72,
+      "saturation": 0.82,
+      "tint": "#101828",
+      "tintOpacity": 0.22,
+      "dim": 0.14,
+      "edgeShade": 0.45,
+      "subtitleInset": 0.1,
+      "slate": "Our Wedding Playlist"
+    },
+    "marquee": {
+      "fit": "width",
+      "panStart": 0.12,
+      "panEnd": 0.88,
+      "brightness": 0.66,
+      "saturation": 0.7,
+      "tint": "#0d1626",
+      "tintOpacity": 0.24,
+      "dim": 0.06,
+      "textBand": 0.55,
+      "textBandHeight": 0.34,
+      "centerY": 0.5,
+      "fontSize": 0.058,
+      "halo": 0.1,
+      "rule": 0.35,
+      "ruleWidth": 0.19,
+      "ruleGap": 0.135
+    },
+    "defile": {
+      "photoSide": "right",
+      "fit": "cover",
+      "photoWidth": 0.38,
+      "brightness": 0.66,
+      "saturation": 0.7,
+      "tint": "#0d1420",
+      "tintOpacity": 0.26,
+      "photoDim": 0.1,
+      "blend": 0.75,
+      "rule": 0.16,
+      "fontSize": 0.042,
+      "lineGap": 2.15,
+      "visibleLines": 3
+    },
+    "carte": {
+      "cardSide": "right",
+      "cardWidth": 0.3,
+      "cardAspect": 0.78,
+      "cardInset": 0.075,
+      "cardY": 0.47,
+      "tilt": -2.6,
+      "matte": 0.045,
+      "matteBottom": 2.6,
+      "paper": "#efe7d8",
+      "caption": "No. {n}",
+      "groundBrightness": 0.42,
+      "groundSaturation": 0.5,
+      "groundDim": 0.42,
+      "wash": 0.1,
+      "textWidth": 0.36,
+      "textInset": 0.075,
+      "textY": 0.55,
+      "fontSize": 0.04
+    },
+    "duplex": {
+      "orientation": "horizontal",
+      "photoSide": "left",
+      "photoRatio": 0.8,
+      "fit": "width",
+      "panStart": 0.14,
+      "panEnd": 0.86,
+      "pushIn": 0,
+      "brightness": 0.82,
+      "saturation": 0.88,
+      "tint": "#121a26",
+      "tintOpacity": 0.16,
+      "photoDim": 0.04,
+      "panelColor": "",
+      "feather": 0.045,
+      "rule": 0.4,
+      "textY": 0.42,
+      "fontSize": 0.036,
+      "trackInfo": "Our Wedding Playlist"
+    }
+  },
+  "split": {
+    "enabled": true,
+    "centerRatio": 0.44,
+    "gap": 0,
+    "divider": 0.3,
+    "brightness": 0.82,
+    "edgeFade": 0.35,
+    "kenBurns": 0.07,
+    "stagger": 0
+  },
+  "lyrics": {
+    "enabled": true,
+    "lrcSrc": "video/lyrics/sample.lrc",
+    "lrcText": "",
+    "offset": 0,
+    "bilingual": true,
+    "translationFirst": false,
+    "translationScale": 0.64,
+    "translationOpacity": 0.6,
+    "translationColor": "#d9cbb1",
+    "translationGap": 1.4,
+    "translationFace": "body",
+    "translationWeight": 300,
+    "face": "body",
+    "weight": 400,
+    "tracking": 0.014,
+    "fontSize": 0.042,
+    "lineHeight": 1.3,
+    "maxWidthRatio": 0.78,
+    "bottomRatio": 0.14,
+    "color": "#f4ecdc",
+    "dimColor": "#ffffff",
+    "dimOpacity": 0.38,
+    "showNext": false,
+    "align": "center",
+    "animation": "rise",
+    "glow": 0.25,
+    "plate": 0,
+    "karaoke": true,
+    "karaokeColor": "#f0c98a"
+  },
+  "intro": {
+    "enabled": true,
+    "duration": 5,
+    "title": "최준영 ♥ 민수영",
+    "subtitle": "2026. 09. 20",
+    "caption": "Our Wedding Playlist"
+  },
+  "outro": {
+    "enabled": true,
+    "duration": 6,
+    "title": "Thank You",
+    "subtitle": "함께해 주셔서 감사합니다",
+    "caption": ""
+  },
+  "effects": {
+    "bokeh": 0.12,
+    "bokehCount": 9,
+    "grain": 0.05,
+    "lightLeak": 0.12,
+    "progressBar": false,
+    "letterbox": 0,
+    "watermark": ""
+  },
+  "themePreset": "duplex",
+  "theme": {
+    "accent": "#c49a62",
+    "ink": "#f1e8d8",
+    "bg": "#0a0c11",
+    "fontDisplay": "Italiana",
+    "fontBody": "Nanum Myeongjo",
+    "fontAccent": "Italiana",
+    "accentItalic": false,
+    "fontScript": "Great Vibes"
+  },
+  "seed": 20260920
+}

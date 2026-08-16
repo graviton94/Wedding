@@ -29,6 +29,7 @@ export const drawCinema = (ctx, scene, env, t) => {
     panStart: cfg.panStart,
     panEnd: cfg.panEnd,
     push: cfg.pushIn,
+    transition: scene.project.photos.transition,
     brightness: cfg.brightness,
     saturation: cfg.saturation,
     tint: cfg.tint,

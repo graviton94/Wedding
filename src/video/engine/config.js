@@ -14,15 +14,18 @@ export const CANVAS_PRESETS = {
   youtube4k: { label: 'YouTube 가로 4K', width: 3840, height: 2160, fps: 30 },
   shorts: { label: 'Shorts/릴스 세로', width: 1080, height: 1920, fps: 30 },
   square: { label: '인스타 정사각', width: 1080, height: 1080, fps: 30 },
+  // 4:6 세로. 사진이 2:3 세로라 세로 화면에서는 거의 원본 그대로 담긴다.
+  tall46: { label: '4:6 세로 1280×1920', width: 1280, height: 1920, fps: 30 },
   // 6:4(3:2). 세로 사진을 가로맞춤할 때 16:9보다 세로 여유가 커서
   // 한 화면에 사진이 더 많이 담긴다.
   wide64: { label: '6:4 (3:2) 1920×1280', width: 1920, height: 1280, fps: 30 },
 };
 
 /** 청첩장 사이트에서 쓰는 사진들 (public/images) */
+// 15.webp는 세 컷을 세로로 이어붙인 콜라주라 한 화면에 세 장면이 겹쳐 보인다 — 제외.
 export const INVITATION_PHOTOS = [
   'hero.webp', 'main.webp', '1.webp', '2.webp', '3.webp', '4.webp', '5.webp', '6.webp',
-  '7.webp', '8.webp', '9.webp', '10.webp', '11.webp', '12.webp', '13.webp', '14.webp', '15.webp',
+  '7.webp', '8.webp', '9.webp', '10.webp', '11.webp', '12.webp', '13.webp', '14.webp',
 ];
 
 /**
@@ -66,7 +69,8 @@ export const createDefaultProject = (overrides = {}) => ({
   photos: {
     items: defaultPhotos(),
     duration: 7,        // 사진 1장당 기본 노출 시간
-    crossfade: 1.6,     // 사진 전환 크로스페이드
+    crossfade: 1.6,     // 전환에 쓰는 시간(초)
+    transition: 'crossfade', // 'crossfade' | 'slide' | 'dip'
     loop: true,         // 사진이 모자라면 처음부터 반복
     order: 'sequence',  // 'sequence' | 'shuffle'
     shuffleSeed: 20260920,

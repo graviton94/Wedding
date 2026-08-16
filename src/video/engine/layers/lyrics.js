@@ -81,7 +81,8 @@ export const drawLyrics = (ctx, scene, env, t, override = {}) => {
   const line = lines[idx];
   const next = lines[idx + 1];
   const maxWidth = override.maxWidth ?? W * L.maxWidthRatio;
-  const size = override.size ?? H * L.fontSize;
+  // 글자 크기는 짧은 변 기준 — 세로 화면에서 H를 쓰면 글자가 과하게 커진다
+  const size = override.size ?? Math.min(W, H) * L.fontSize;
   const lineHeight = size * L.lineHeight;
   const cx = override.cx
     ?? (L.align === 'left' ? W * 0.11 : L.align === 'right' ? W * 0.89 : W / 2);

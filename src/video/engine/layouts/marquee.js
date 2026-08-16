@@ -25,6 +25,7 @@ export const drawMarquee = (ctx, scene, env, t) => {
     panStart: cfg.panStart,
     panEnd: cfg.panEnd,
     push: 0,
+    transition: scene.project.photos.transition,
     brightness: cfg.brightness,
     saturation: cfg.saturation,
     tint: cfg.tint,
@@ -85,6 +86,6 @@ export const drawMarquee = (ctx, scene, env, t) => {
   drawLyrics(ctx, scene, env, t, {
     baseY: cy,
     maxWidth: W * 0.68,
-    size: H * cfg.fontSize,
+    size: Math.min(W, H) * cfg.fontSize,
   });
 };

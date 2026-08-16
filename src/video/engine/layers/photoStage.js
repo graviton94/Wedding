@@ -25,8 +25,9 @@ import { clamp, drawContain, drawCover, lerp, norm, rgba, roundRectPath, smooths
  *
  * 사진이 상자보다 가로로 넓으면 세로가 남으므로 그때는 cover로 떨어뜨린다.
  */
-const paintWidthPan = (ctx, img, slot, box, progress, opts) => {
-  const { x, y, w, h } = box;
+const paintWidthPan = (ctx, img, slot, box, progress, opts, yOffset = 0) => {
+  const { x, y: y0, w, h } = box;
+  const y = y0 + yOffset;
   const scale = w / img.width;
   const drawH = img.height * scale;
 
@@ -160,19 +161,50 @@ export const paintPhotoRect = (ctx, env, state, rect, opts = {}) => {
       return span > 0 ? clamp(norm(env.time, slot.start, slot.end)) : 0;
     };
 
-    const paint = (slot, alpha) => {
+    /*
+     * 전환 효과.
+     *   crossfade  겹쳐서 페이드 (기본)
+     *   slide      현재 컷이 위로 밀려나가고 다음 컷이 아래에서 올라온다.
+     *              세로 팬과 방향이 같아 움직임이 이어져 보인다.
+     *   dip        검게 떨어졌다가 다음 컷이 떠오른다. 가장 담백하다.
+     */
+    const mix = state.mix;
+    const trans = opts.transition || 'crossfade';
+    let curAlpha = 1;
+    let nextAlpha = mix;
+    let curY = 0;
+    let nextY = 0;
+
+    if (trans === 'slide') {
+      const e = smoothstep(mix);
+      curY = -dh * e;
+      nextY = dh * (1 - e);
+      nextAlpha = mix > 0 ? 1 : 0;
+    } else if (trans === 'dip') {
+      // 앞 절반에 현재 컷이 사라지고, 뒷 절반에 다음 컷이 올라온다
+      curAlpha = 1 - smoothstep(clamp(mix / 0.5));
+      nextAlpha = smoothstep(clamp((mix - 0.5) / 0.5));
+    }
+
+    const paint = (slot, alpha, yOff) => {
       if (!slot || alpha <= 0.002) return;
       const img = env.getImage(slot.src);
       if (!img) return;
       ctx.globalAlpha = alpha;
       if (fit === 'width') {
-        paintWidthPan(ctx, img, slot, { x: dx, y: dy, w: dw, h: dh }, slotProgress(slot), opts);
+        paintWidthPan(ctx, img, slot, { x: dx, y: dy, w: dw, h: dh }, slotProgress(slot), opts, yOff);
       } else {
-        drawCover(ctx, img, dx, dy, dw, dh, slot.photo?.focusX ?? 0.5, slot.photo?.focusY ?? 0.45);
+        drawCover(ctx, img, dx, dy + yOff, dw, dh, slot.photo?.focusX ?? 0.5, slot.photo?.focusY ?? 0.45);
       }
     };
-    paint(state.current, 1);
-    paint(state.next, state.mix);
+    // slide는 들어오는 컷이 위에 놓여야 자연스럽다
+    if (trans === 'slide') {
+      paint(state.current, curAlpha, curY);
+      paint(state.next, nextAlpha, nextY);
+    } else {
+      paint(state.current, curAlpha, 0);
+      paint(state.next, nextAlpha, 0);
+    }
     ctx.globalAlpha = 1;
   } else {
     /*
