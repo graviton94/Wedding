@@ -263,7 +263,7 @@
       "feather": 0.045,
       "rule": 0.4,
       "textY": 0.46,
-      "fontSize": 0.042,
+      "fontSize": 0.04,
       "trackInfo": "Our Wedding Playlist"
     }
   },
@@ -284,8 +284,8 @@
     "offset": 0,
     "bilingual": true,
     "translationFirst": false,
-    "translationScale": 0.64,
-    "translationOpacity": 0.6,
+    "translationScale": 0.7,
+    "translationOpacity": 0.68,
     "translationColor": "#d9cbb1",
     "translationGap": 1.4,
     "translationFace": "body",
@@ -306,7 +306,9 @@
     "glow": 0.25,
     "plate": 0,
     "karaoke": true,
-    "karaokeColor": "#f0c98a"
+    "karaokeColor": "#f0c98a",
+    "noWrap": true,
+    "noWrapMin": 0.6
   },
   "intro": {
     "enabled": true,

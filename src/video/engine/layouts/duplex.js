@@ -153,7 +153,7 @@ export const drawDuplex = (ctx, scene, env, t) => {
   env.lyricAnchor = {
     cx: panelRect.x + panelRect.w / 2,
     baseY: panelRect.y + panelRect.h * cfg.textY,
-    maxWidth: panelRect.w * 0.82,
+    maxWidth: panelRect.w * 0.9,
     size: Math.min(W, H) * cfg.fontSize,
     align: 'center',
   };

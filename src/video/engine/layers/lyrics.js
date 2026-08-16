@@ -14,6 +14,18 @@ import { findLineIndex } from '../lrc.js';
 const fontFor = (scene, px, weight = 400, face = 'body') =>
   cssFont(scene.project.theme, px, weight, face);
 
+/**
+ * 폭에 맞춰 글자를 줄이는 배율. 이미 들어가면 1.
+ *
+ * 호출 전에 ctx.font이 기준 크기로 맞춰져 있어야 한다 — 측정값을 그대로 쓴다.
+ * 자간(letterSpacing)도 크기에 비례하므로 배율 하나로 같이 줄어든다.
+ */
+const fitRatio = (ctx, text, maxWidth, min) => {
+  const w = ctx.measureText(text).width;
+  if (!(w > maxWidth)) return 1;
+  return Math.max(min, maxWidth / w);
+};
+
 /** 한 줄을 그리고 그린 높이를 돌려준다 */
 const paintLines = (ctx, lines, cx, baselineY, lineHeight, align) => {
   ctx.textAlign = align;
@@ -111,9 +123,23 @@ export const drawLyrics = (ctx, scene, env, t, override = {}) => {
 
   // ---- 현재 줄 (원문) ----
   if (line.text) {
-    ctx.font = fontFor(scene, size, L.weight ?? 500, L.face ?? 'body');
-    if ('letterSpacing' in ctx) ctx.letterSpacing = `${size * (L.tracking ?? 0.012)}px`;
+    const setFont = (px) => {
+      ctx.font = fontFor(scene, px, L.weight ?? 500, L.face ?? 'body');
+      if ('letterSpacing' in ctx) ctx.letterSpacing = `${px * (L.tracking ?? 0.012)}px`;
+    };
+    setFont(size);
 
+    /*
+     * 한 줄 고정 모드에서는 넘치는 만큼 글자를 줄인다.
+     * 줄 위치(y)는 기준 크기로 계산해 둔다 — 줄마다 크기가 달라도 자막이 위아래로 튀지 않는다.
+     */
+    let drawSize = size;
+    if (L.noWrap) {
+      const r = fitRatio(ctx, line.text, maxWidth, L.noWrapMin ?? 0.6);
+      if (r < 1) setFont((drawSize = size * r));
+    }
+
+    // 줄인 크기로 재는 것이라, 바닥 배율까지 내려가도 안 들어가는 줄만 두 줄이 된다
     const wrapped = wrapText(ctx, line.text, maxWidth);
     // 번역이 붙으면 원문을 그만큼 위로 올려 두 줄이 자막 영역 안에 들어오게 한다
     const tSize = size * (L.translationScale ?? 0.68);
@@ -132,9 +158,9 @@ export const drawLyrics = (ctx, scene, env, t, override = {}) => {
 
     // 가라오케 하이라이트 — 한 줄로 떨어질 때만 (줄바꿈되면 글자 위치가 어긋남)
     if (L.karaoke && line.words?.length && wrapped.length === 1) {
-      ctx.shadowBlur = size * 0.3;
+      ctx.shadowBlur = drawSize * 0.3;
       ctx.shadowColor = rgba(L.karaokeColor, 0.5);
-      paintKaraoke(ctx, line, wrapped[0], cx, y, t, L.karaokeColor, maxWidth, size);
+      paintKaraoke(ctx, line, wrapped[0], cx, y, t, L.karaokeColor, maxWidth, drawSize);
     }
 
     ctx.shadowBlur = 0;
@@ -142,8 +168,15 @@ export const drawLyrics = (ctx, scene, env, t, override = {}) => {
 
     // ---- 번역 줄 ----
     if (hasTranslation) {
-      ctx.font = fontFor(scene, tSize, L.translationWeight ?? 300, L.translationFace ?? 'body');
-      if ('letterSpacing' in ctx) ctx.letterSpacing = `${tSize * 0.01}px`;
+      const setTFont = (px) => {
+        ctx.font = fontFor(scene, px, L.translationWeight ?? 300, L.translationFace ?? 'body');
+        if ('letterSpacing' in ctx) ctx.letterSpacing = `${px * 0.01}px`;
+      };
+      setTFont(tSize);
+      if (L.noWrap) {
+        const r = fitRatio(ctx, line.translation, maxWidth, L.noWrapMin ?? 0.6);
+        if (r < 1) setTFont(tSize * r);
+      }
       ctx.globalAlpha = alpha * (L.translationOpacity ?? 0.72);
       ctx.shadowColor = `rgba(0,0,0,${0.7 * L.glow + 0.25})`;
       ctx.shadowBlur = tSize * 0.5;

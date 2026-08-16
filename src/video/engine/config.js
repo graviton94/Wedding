@@ -278,6 +278,13 @@ export const createDefaultProject = (overrides = {}) => ({
     fontSize: 0.042,    // 캔버스 높이 대비 비율
     lineHeight: 1.35,
     maxWidthRatio: 0.78,
+    /*
+     * 한 줄 고정. 폭을 넘는 줄은 줄바꿈 대신 글자를 줄여 넣는다.
+     * 원곡 가사는 길이를 손댈 수 없어서, 좁은 패널에서는 이쪽이 유일한 답이다.
+     * noWrapMin 아래로 내려가야 할 만큼 긴 줄만 예외적으로 줄바꿈된다.
+     */
+    noWrap: false,
+    noWrapMin: 0.6,     // 줄일 수 있는 최소 배율
     bottomRatio: 0.14,  // 아래에서 띄울 거리 (캔버스 높이 대비)
     color: '#ffffff',
     dimColor: '#ffffff',
