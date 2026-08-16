@@ -219,6 +219,8 @@ Object.assign(THEME_PRESETS, {
     description: '2.39:1 풀샷에 영화 자막. 사진은 크게, 글자는 담백하게.',
     patch: {
       layout: 'cinema',
+      // 세로 사진 비중이 커서 16:9보다 세로 여유가 있는 6:4가 유리하다
+      canvas: { width: 1920, height: 1280, fps: 30 },
       theme: {
         ...NUIT, bg: '#050608',
         fontDisplay: 'Cormorant Garamond',
@@ -247,6 +249,8 @@ Object.assign(THEME_PRESETS, {
     description: '가사가 화면 한가운데 크게. 사진은 거의 지워진 배경.',
     patch: {
       layout: 'marquee',
+      // 세로 사진 비중이 커서 16:9보다 세로 여유가 있는 6:4가 유리하다
+      canvas: { width: 1920, height: 1280, fps: 30 },
       theme: {
         ...NUIT, accent: '#d0a76a', bg: '#06080e',
         fontDisplay: 'Playfair Display',
@@ -275,6 +279,8 @@ Object.assign(THEME_PRESETS, {
     description: '가사 여러 줄이 세로로 흐름. 유튜브 가사 영상에 가장 가까움.',
     patch: {
       layout: 'defile',
+      // 세로 사진 비중이 커서 16:9보다 세로 여유가 있는 6:4가 유리하다
+      canvas: { width: 1920, height: 1280, fps: 30 },
       theme: {
         ...NUIT, accent: '#c2a074', bg: '#080a0f',
         fontDisplay: 'Cormorant Garamond',
@@ -303,6 +309,8 @@ Object.assign(THEME_PRESETS, {
     description: '기울인 사진 카드 + 옆 가사 컬럼. 잡지 지면 같은 편집 구성.',
     patch: {
       layout: 'carte',
+      // 세로 사진 비중이 커서 16:9보다 세로 여유가 있는 6:4가 유리하다
+      canvas: { width: 1920, height: 1280, fps: 30 },
       theme: {
         accent: '#bf9358', ink: '#f2e9d9', bg: '#0d0a08',
         fontDisplay: 'Marcellus',
@@ -330,6 +338,8 @@ Object.assign(THEME_PRESETS, {
     description: '위 사진 / 아래 가사 패널. 가장 정돈되고 읽기 쉬움.',
     patch: {
       layout: 'duplex',
+      // 세로 사진 비중이 커서 16:9보다 세로 여유가 있는 6:4가 유리하다
+      canvas: { width: 1920, height: 1280, fps: 30 },
       theme: {
         accent: '#c49a62', ink: '#f1e8d8', bg: '#0a0c11',
         fontDisplay: 'Italiana',

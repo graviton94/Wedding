@@ -22,9 +22,9 @@ export const drawMarquee = (ctx, scene, env, t) => {
   // 사진은 화면 전체지만 거의 지워질 만큼 어둡게 — 형태만 남는다
   paintPhotoRect(ctx, env, state, { x: 0, y: 0, w: W, h: H }, {
     fit: cfg.fit,
-    blurDim: cfg.blurDim,
-    edgeFeather: cfg.edgeFeather,
-    push: 0.05,
+    panStart: cfg.panStart,
+    panEnd: cfg.panEnd,
+    push: 0,
     brightness: cfg.brightness,
     saturation: cfg.saturation,
     tint: cfg.tint,
@@ -47,6 +47,24 @@ export const drawMarquee = (ctx, scene, env, t) => {
   ctx.restore();
 
   const cy = H * cfg.centerY;
+
+  /*
+   * 자막 뒤 가로 띠 그림자.
+   * 사진 전체를 어둡게 눌러 가독성을 얻으면 사진이 죽는다 —
+   * 글자가 놓이는 띠만 눌러서 사진은 밝게 두고 대비를 만든다.
+   */
+  if (cfg.textBand > 0) {
+    const bandH = H * (cfg.textBandHeight ?? 0.34);
+    const band = ctx.createLinearGradient(0, cy - bandH / 2, 0, cy + bandH / 2);
+    band.addColorStop(0, 'rgba(0,0,0,0)');
+    band.addColorStop(0.35, `rgba(0,0,0,${cfg.textBand})`);
+    band.addColorStop(0.65, `rgba(0,0,0,${cfg.textBand})`);
+    band.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.save();
+    ctx.fillStyle = band;
+    ctx.fillRect(0, cy - bandH / 2, W, bandH);
+    ctx.restore();
+  }
 
   // 가사 위아래 얇은 규칙선 — 글자를 판에 앉힌 느낌
   if (cfg.rule > 0) {

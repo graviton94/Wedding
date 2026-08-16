@@ -79,9 +79,11 @@ export const drawDuplex = (ctx, scene, env, t) => {
 
   // ── 사진 ──
   paintPhotoRect(ctx, env, state, photoRect, {
-    // 세로 배치면 영역 자체가 세로로 길어 cover로도 거의 안 잘린다.
-    // 가로 배치는 띠가 납작해서 blur 채움이 아니면 사진이 크게 잘린다.
-    fit: cfg.fit || (vertical ? 'cover' : 'blur'),
+    // 가로 배치는 가로맞춤 + 세로 팬으로 사진 전체를 시간에 걸쳐 훑는다.
+    // 세로 배치는 영역 자체가 세로로 길어 cover로 충분하다.
+    fit: cfg.fit || (vertical ? 'cover' : 'width'),
+    panStart: cfg.panStart,
+    panEnd: cfg.panEnd,
     push: cfg.pushIn,
     brightness: cfg.brightness,
     saturation: cfg.saturation,

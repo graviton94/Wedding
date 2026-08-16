@@ -14,6 +14,9 @@ export const CANVAS_PRESETS = {
   youtube4k: { label: 'YouTube 가로 4K', width: 3840, height: 2160, fps: 30 },
   shorts: { label: 'Shorts/릴스 세로', width: 1080, height: 1920, fps: 30 },
   square: { label: '인스타 정사각', width: 1080, height: 1080, fps: 30 },
+  // 6:4(3:2). 세로 사진을 가로맞춤할 때 16:9보다 세로 여유가 커서
+  // 한 화면에 사진이 더 많이 담긴다.
+  wide64: { label: '6:4 (3:2) 1920×1280', width: 1920, height: 1280, fps: 30 },
 };
 
 /** 청첩장 사이트에서 쓰는 사진들 (public/images) */
@@ -36,6 +39,10 @@ export const defaultPhotos = () =>
     focusY: 0.42,
     // 개별 노출 시간(초). null이면 photos.duration을 따른다.
     duration: null,
+    // 가로맞춤(fit='width')일 때 세로 팬 범위. null이면 레이아웃 기본값.
+    // 인물이 위쪽에 몰린 컷은 범위를 좁게 잡는다.
+    panStart: null,
+    panEnd: null,
   }));
 
 export const createDefaultProject = (overrides = {}) => ({
@@ -110,12 +117,12 @@ export const createDefaultProject = (overrides = {}) => ({
     /** 시네마 자막 — 2.39:1 풀블리드 + 하단 자막 */
     cinema: {
       aspect: 2.39,
-      // 2.39:1은 가장 납작한 틀이라 세로 사진을 cover로 넣으면 3배 넘게 확대된다.
-      // blur 채움이라야 사진 전체가 보인다.
-      fit: 'blur',
-      blurDim: 0.75,
-      edgeFeather: 0.06,
-      pushIn: 0.09,        // 슬롯 동안 서서히 확대
+      // 가로를 꽉 채우고 세로로 훑는다. 한 컷엔 일부만 보이지만
+      // 시간이 지나며 사진 전체를 지나간다 — 여백도 이음새도 없다.
+      fit: 'width',
+      panStart: 0.12,
+      panEnd: 0.88,
+      pushIn: 0,           // 팬이 움직임을 담당하므로 확대는 끈다
       brightness: 0.72,    // 색 보정 — 검은 막보다 먼저 걸어야 밤 톤이 된다
       saturation: 0.82,
       tint: '#101828',
@@ -128,18 +135,18 @@ export const createDefaultProject = (overrides = {}) => ({
 
     /** 밤의 간판 — 가사가 화면 한가운데, 사진은 배경으로만 */
     marquee: {
-      // 세로 사진 전체를 가운데 두고 양옆은 같은 사진을 흐리게 늘려 메운다.
-      // cover로 자르면 인물이 잘리고, contain으로 두면 양옆이 텅 빈다.
-      fit: 'blur',
-      blurDim: 0.9,     // 배경과 본 사진의 밝기 차가 크면 이음새가 보인다
-      edgeFeather: 0.07,
-      // 흰 스튜디오 컷을 밤으로 내리려면 밝기를 확실히 떨어뜨려야 한다.
-      // dim(검은 막)만 올리면 밤이 아니라 회색이 된다.
-      brightness: 0.3,
-      saturation: 0.38,
-      tint: '#0b1220',
-      tintOpacity: 0.4,
-      dim: 0.1,
+      fit: 'width',
+      panStart: 0.12,
+      panEnd: 0.88,
+      // 다른 안들과 밝기를 맞춘다. 글자 가독성은 아래 textBand(자막 뒤
+      // 가로 띠 그림자)로 확보하므로 사진 자체를 어둡게 누를 필요가 없다.
+      brightness: 0.66,
+      saturation: 0.7,
+      tint: '#0d1626',
+      tintOpacity: 0.24,
+      dim: 0.06,
+      textBand: 0.55,      // 자막 뒤 가로 띠 그림자 (0=없음)
+      textBandHeight: 0.34,
       centerY: 0.5,
       fontSize: 0.058,     // 캔버스 높이 대비 — 다섯 안 중 가장 큼
       halo: 0.1,           // 글자 뒤 은은한 빛
@@ -153,7 +160,7 @@ export const createDefaultProject = (overrides = {}) => ({
       photoSide: 'right',  // 'left' | 'right'
       // 컬럼이 세로로 길어(0.36×1080 → 세로비 1.56) 2:3 사진이 잘 들어간다
       fit: 'cover',
-      photoWidth: 0.36,
+      photoWidth: 0.38,
       brightness: 0.66,
       saturation: 0.7,
       tint: '#0d1420',
@@ -194,26 +201,28 @@ export const createDefaultProject = (overrides = {}) => ({
      * horizontal: [위 사진 / 아래 패널] — 가로 사진용
      */
     duplex: {
-      orientation: 'vertical',
-      photoSide: 'left',
+      orientation: 'horizontal',
+      photoSide: 'left',   // orientation='vertical'일 때만 의미 있음
       /*
-       * vertical일 때는 사진 영역의 '가로' 비율.
-       * 0.42 × 1920 = 806 × 1080 → 세로비 0.75. 2:3(0.67) 사진이
-       * 세로의 90% 넘게 그대로 들어간다. (가로 띠였다면 25%만 남았다)
+       * horizontal일 때는 사진이 차지하는 '높이' 비율.
+       * 가사 패널은 두 줄만 들어가면 되므로 얇게 두고 사진에 크게 준다.
        */
-      photoRatio: 0.42,
-      fit: '',             // 비우면 방향에 맞는 기본값 (vertical=cover, horizontal=blur)
-      pushIn: 0.07,
+      photoRatio: 0.78,
+      // 가로를 꽉 채우고 세로로 훑기 — 세로 사진을 가로 화면에 담는 가장 좋은 방법
+      fit: 'width',
+      panStart: 0.14,
+      panEnd: 0.86,
+      pushIn: 0,
       brightness: 0.82,
       saturation: 0.88,
       tint: '#121a26',
       tintOpacity: 0.16,
       photoDim: 0.04,
       panelColor: '',      // 비우면 theme.bg
-      feather: 0.05,       // 사진→패널 경계를 녹이는 폭/높이
+      feather: 0.045,      // 사진→패널 경계를 녹이는 폭/높이
       rule: 0.4,
-      textY: 0.46,         // 패널 안에서 가사 위치
-      fontSize: 0.04,
+      textY: 0.42,         // 패널 안에서 가사 위치
+      fontSize: 0.036,
       trackInfo: 'Our Wedding Playlist', // 패널 하단 라벨 (비우면 없음)
     },
   },

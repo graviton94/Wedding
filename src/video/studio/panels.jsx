@@ -445,3 +445,116 @@ export const BilingualPanel = ({ project, set }) => (
       format={(v) => v.toFixed(3)} onChange={(v) => set('lyrics', { tracking: v })} />
   </>
 );
+
+/* ─────────────────────────────── 레이아웃 ─────────────────────────────── */
+
+const FIT_OPTIONS = [
+  { value: 'width', label: '가로맞춤 + 세로 팬 (세로 사진 권장)' },
+  { value: 'cover', label: '꽉 채우고 자르기' },
+  { value: 'blur', label: '전체 담고 블러로 채우기' },
+  { value: 'contain', label: '전체 담고 여백' },
+];
+
+/** 현재 레이아웃의 핵심 값만 노출한다. 값 전체는 video.project.json에서 편집 */
+export const LayoutPanel = ({ project, set }) => {
+  const key = project.layout;
+  const cfg = project.layouts[key];
+  const setL = (patch) => set('layouts', { ...project.layouts, [key]: { ...cfg, ...patch } });
+
+  return (
+    <>
+      <Select
+        label="화면 구조"
+        value={key}
+        onChange={(v) => set(null, { layout: v })}
+        options={Object.entries(LAYOUTS).map(([value, l]) => ({ value, label: l.label }))}
+      />
+      <p className="text-[10px] text-white/35 leading-relaxed mb-1">
+        {LAYOUTS[key]?.description}
+      </p>
+
+      {!cfg ? (
+        <p className="text-[11px] text-white/40 py-4">
+          이 구조는 별도 설정이 없습니다. LP / 3분할 / 배경 탭을 쓰세요.
+        </p>
+      ) : (
+        <>
+          {'fit' in cfg && (
+            <>
+              <SectionTitle>사진 채우기</SectionTitle>
+              <Select label="방식" value={cfg.fit || 'width'}
+                onChange={(v) => setL({ fit: v })} options={FIT_OPTIONS} />
+              {(cfg.fit || 'width') === 'width' && (
+                <>
+                  <p className="text-[10px] text-white/35 leading-relaxed mb-2">
+                    가로를 꽉 채우고, 사진이 넘치는 세로만큼을 노출 시간 동안 훑습니다.
+                    0 = 사진 맨 위, 1 = 맨 아래.
+                  </p>
+                  <Slider label="팬 시작" value={cfg.panStart ?? 0.15} min={0} max={1} step={0.01}
+                    format={pct} onChange={(v) => setL({ panStart: v })} />
+                  <Slider label="팬 끝" value={cfg.panEnd ?? 0.85} min={0} max={1} step={0.01}
+                    format={pct} onChange={(v) => setL({ panEnd: v })} />
+                </>
+              )}
+            </>
+          )}
+
+          {'photoRatio' in cfg && (
+            <>
+              <SectionTitle>영역</SectionTitle>
+              <Slider
+                label={cfg.orientation === 'vertical' ? '사진 폭' : '사진 높이'}
+                value={cfg.photoRatio} min={0.3} max={0.92} step={0.01} format={pct}
+                onChange={(v) => setL({ photoRatio: v })}
+              />
+              {'orientation' in cfg && (
+                <Select label="배치" value={cfg.orientation}
+                  onChange={(v) => setL({ orientation: v })}
+                  options={[
+                    { value: 'horizontal', label: '위 사진 / 아래 가사' },
+                    { value: 'vertical', label: '사진 | 가사 (좌우)' },
+                  ]} />
+              )}
+            </>
+          )}
+
+          {'brightness' in cfg && (
+            <>
+              <SectionTitle>사진 톤</SectionTitle>
+              <Slider label="밝기" value={cfg.brightness} min={0.15} max={1.2} step={0.02}
+                format={pct} onChange={(v) => setL({ brightness: v })} />
+              <Slider label="채도" value={cfg.saturation} min={0} max={1.4} step={0.02}
+                format={pct} onChange={(v) => setL({ saturation: v })} />
+              {'tintOpacity' in cfg && (
+                <Slider label="밤색 틴트" value={cfg.tintOpacity} min={0} max={0.7} step={0.02}
+                  format={pct} onChange={(v) => setL({ tintOpacity: v })} />
+              )}
+            </>
+          )}
+
+          {'textBand' in cfg && (
+            <>
+              <SectionTitle>자막 뒤 띠</SectionTitle>
+              <p className="text-[10px] text-white/35 leading-relaxed mb-2">
+                사진 전체를 어둡게 누르는 대신 글자가 놓이는 띠만 눌러 대비를 만듭니다.
+              </p>
+              <Slider label="진하기" value={cfg.textBand} min={0} max={0.9} step={0.02}
+                format={pct} onChange={(v) => setL({ textBand: v })} />
+              <Slider label="높이" value={cfg.textBandHeight} min={0.1} max={0.7} step={0.02}
+                format={pct} onChange={(v) => setL({ textBandHeight: v })} />
+            </>
+          )}
+
+          {'trackInfo' in cfg && (
+            <TextInput label="하단 라벨" value={cfg.trackInfo} placeholder="비우면 없음"
+              onChange={(v) => setL({ trackInfo: v })} />
+          )}
+          {'slate' in cfg && (
+            <TextInput label="좌상단 라벨" value={cfg.slate} placeholder="비우면 없음"
+              onChange={(v) => setL({ slate: v })} />
+          )}
+        </>
+      )}
+    </>
+  );
+};

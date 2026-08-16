@@ -30,7 +30,9 @@ import {
 export const drawFrame = (ctx, scene, env, t) => {
   const time = Math.max(0, Math.min(t, scene.total));
 
-  // 이 프레임의 사진 상태를 한 번만 계산해 모든 레이어가 공유한다
+  // 이 프레임의 사진 상태를 한 번만 계산해 모든 레이어가 공유한다.
+  // env.time은 슬롯별 팬 위치를 따로 계산할 때 쓴다.
+  env.time = time;
   env.photoState = photoStateAt(scene.timeline, scene.project, time);
 
   ctx.save();

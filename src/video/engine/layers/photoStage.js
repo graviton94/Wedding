@@ -13,7 +13,42 @@
  *   'contain' 사진 전체를 담고 남는 자리는 그대로 둔다(단색 여백).
  */
 
-import { clamp, drawContain, drawCover, rgba, roundRectPath } from '../util.js';
+import { clamp, drawContain, drawCover, lerp, norm, rgba, roundRectPath, smoothstep } from '../util.js';
+
+/**
+ * fit='width' 배치 — 가로를 꽉 채우고 세로는 넘치게 둔 뒤, 넘친 만큼을
+ * 슬롯 진행에 따라 위아래로 훑는다.
+ *
+ * 세로 사진을 가로 화면에 넣는 가장 좋은 방법이다. 가로가 꽉 차서 여백도
+ * 이음새도 없고, 한 컷에 일부만 보이더라도 시간이 지나며 사진 전체를 훑는다.
+ * (상자에 사진을 맞추는 대신 시간을 쓰는 셈)
+ *
+ * 사진이 상자보다 가로로 넓으면 세로가 남으므로 그때는 cover로 떨어뜨린다.
+ */
+const paintWidthPan = (ctx, img, slot, box, progress, opts) => {
+  const { x, y, w, h } = box;
+  const scale = w / img.width;
+  const drawH = img.height * scale;
+
+  if (drawH <= h + 0.5) {
+    // 가로가 넓은 사진 — 가로맞춤하면 위아래가 빈다. cover로 처리.
+    drawCover(ctx, img, x, y, w, h, slot.photo?.focusX ?? 0.5, slot.photo?.focusY ?? 0.45);
+    return;
+  }
+
+  const overflow = drawH - h;
+  /*
+   * 0 = 사진 맨 위가 상자 위에, 1 = 사진 맨 아래가 상자 아래에.
+   * 사진별 값이 있으면 그걸 우선한다 — 인물이 위쪽에 몰린 컷은 범위를
+   * 좁혀야 끝에서 치맛단만 남는 걸 피할 수 있다.
+   */
+  const from = slot.photo?.panStart ?? opts.panStart ?? 0.15;
+  const to = slot.photo?.panEnd ?? opts.panEnd ?? 0.85;
+  const eased = opts.panEase === 'linear' ? clamp(progress) : smoothstep(clamp(progress));
+  const pan = lerp(from, to, eased);
+
+  ctx.drawImage(img, x, y - overflow * pan, w, drawH);
+};
 
 /**
  * 블러 배경은 ctx.filter 대신 "축소 → 확대"로 만든다.
@@ -113,13 +148,28 @@ export const paintPhotoRect = (ctx, env, state, rect, opts = {}) => {
   // ── 2. 본 사진 ──
   if (graded) ctx.filter = `brightness(${bright}) saturate(${sat})`;
 
-  if (fit === 'cover') {
+  if (fit === 'cover' || fit === 'width') {
+    /*
+     * 팬 위치는 슬롯마다 따로 계산한다.
+     * 크로스페이드 중에는 현재 슬롯이 팬 끝(0.85)에, 다음 슬롯이 팬 시작(0.15)에
+     * 있어야 한다. 하나의 progress를 공유하면 슬롯이 바뀌는 순간 사진이 튄다.
+     */
+    const slotProgress = (slot) => {
+      if (!slot || env.time == null) return state.progress ?? 0;
+      const span = slot.end - slot.start;
+      return span > 0 ? clamp(norm(env.time, slot.start, slot.end)) : 0;
+    };
+
     const paint = (slot, alpha) => {
       if (!slot || alpha <= 0.002) return;
       const img = env.getImage(slot.src);
       if (!img) return;
       ctx.globalAlpha = alpha;
-      drawCover(ctx, img, dx, dy, dw, dh, slot.photo?.focusX ?? 0.5, slot.photo?.focusY ?? 0.45);
+      if (fit === 'width') {
+        paintWidthPan(ctx, img, slot, { x: dx, y: dy, w: dw, h: dh }, slotProgress(slot), opts);
+      } else {
+        drawCover(ctx, img, dx, dy, dw, dh, slot.photo?.focusX ?? 0.5, slot.photo?.focusY ?? 0.45);
+      }
     };
     paint(state.current, 1);
     paint(state.next, state.mix);

@@ -7,14 +7,15 @@ import LyricsPanel from './LyricsPanel.jsx';
 import { useAudio, useFontsReady, useImageCache, publicUrl } from './useAssets.js';
 import { Btn } from './controls.jsx';
 import {
-  BackgroundPanel, BilingualPanel, EffectsPanel, LyricsStylePanel, MoodPanel,
-  OutputPanel, PhotosPanel, SplitPanel, TextPanel, VinylPanel,
+  BackgroundPanel, BilingualPanel, EffectsPanel, LayoutPanel, LyricsStylePanel,
+  MoodPanel, OutputPanel, PhotosPanel, SplitPanel, TextPanel, VinylPanel,
 } from './panels.jsx';
 
 const STORAGE_KEY = 'video-studio:project:v1';
 
 const TABS = [
   { id: 'mood', label: '무드' },
+  { id: 'layout', label: '구조' },
   { id: 'output', label: '출력' },
   { id: 'photos', label: '사진' },
   { id: 'vinyl', label: 'LP' },
@@ -309,6 +310,7 @@ const VideoStudio = () => {
 
           <div className="p-3 lg:h-[calc(100vh-98px)] lg:overflow-y-auto">
             {tab === 'mood' && <MoodPanel project={project} applyPreset={applyPreset} />}
+            {tab === 'layout' && <LayoutPanel {...panelProps} />}
             {tab === 'output' && <OutputPanel {...panelProps} audioDuration={audioDuration} />}
             {tab === 'photos' && <PhotosPanel {...panelProps} />}
             {tab === 'vinyl' && <VinylPanel {...panelProps} />}
