@@ -84,9 +84,12 @@ export const drawMarquee = (ctx, scene, env, t) => {
   }
 
   // 가사를 화면 한가운데로
-  drawLyrics(ctx, scene, env, t, {
+  env.lyricAnchor = {
+    cx: W / 2,
     baseY: cy,
     maxWidth: W * 0.68,
     size: Math.min(W, H) * cfg.fontSize,
-  });
+    align: 'center',
+  };
+  drawLyrics(ctx, scene, env, t, env.lyricAnchor);
 };

@@ -56,6 +56,14 @@ export const drawDefile = (ctx, scene, env, t) => {
     ctx.restore();
   }
 
+  env.lyricAnchor = {
+    cx: textX,
+    baseY: H * 0.5,
+    maxWidth: (W - photoW) * 0.82,
+    size: Math.min(W, H) * cfg.fontSize,
+    align: 'center',
+  };
+
   // 흐르는 가사 목록
   drawLyricScroll(ctx, scene, env, t, {
     cx: textX,

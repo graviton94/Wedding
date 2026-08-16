@@ -30,6 +30,8 @@ export const drawLyricScroll = (ctx, scene, env, t, opts) => {
   if (idx < 0) return;
 
   const { cx, top, height, size, align = 'center' } = opts;
+  const fade = env.lyricFade ?? 1;
+  if (fade <= 0.002) return;
   const gap = opts.gap ?? 2.05;
   const visible = opts.visible ?? 3;
   const step = size * gap;
@@ -69,7 +71,7 @@ export const drawLyricScroll = (ctx, scene, env, t, opts) => {
       ? 1
       : clamp(0.14 + 0.42 * focus * focus);
 
-    ctx.globalAlpha = alpha;
+    ctx.globalAlpha = alpha * fade;
     ctx.font = cssFont(
       scene.project.theme,
       px,
@@ -93,7 +95,7 @@ export const drawLyricScroll = (ctx, scene, env, t, opts) => {
       const tPx = px * (L.translationScale ?? 0.62);
       ctx.font = cssFont(scene.project.theme, tPx, 300, L.translationFace ?? 'body');
       if ('letterSpacing' in ctx) ctx.letterSpacing = `${tPx * 0.01}px`;
-      ctx.globalAlpha = alpha * (L.translationOpacity ?? 0.7);
+      ctx.globalAlpha = alpha * fade * (L.translationOpacity ?? 0.7);
       ctx.fillStyle = L.translationColor || L.color;
       const tWrapped = wrapText(ctx, item.translation, opts.maxWidth).slice(0, 2);
       const base = y + (wrapped.length * px * 1.18) / 2 + tPx * 0.85;

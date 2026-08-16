@@ -289,6 +289,8 @@ export const createDefaultProject = (overrides = {}) => ({
   /** 인트로/아웃트로 타이틀 */
   intro: {
     enabled: true,
+    // 'lyrics' = 가사가 놓이는 자리에 그대로 (기본) / 'center' = 화면 한가운데
+    placement: 'lyrics',
     duration: 5,
     title: '최준영 ♥ 민수영',
     subtitle: '2026. 09. 20',
@@ -296,6 +298,7 @@ export const createDefaultProject = (overrides = {}) => ({
   },
   outro: {
     enabled: true,
+    placement: 'lyrics',
     duration: 6,
     title: 'Thank You',
     subtitle: '함께해 주셔서 감사합니다',

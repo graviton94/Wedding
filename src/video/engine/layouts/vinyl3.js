@@ -18,7 +18,16 @@ export const drawVinyl3 = (ctx, scene, env, t) => {
   drawVignette(ctx, scene, env);
   drawVinyl(ctx, scene, env, t);
 
-  if (scene.project.lyrics.enabled) {
+  const L = scene.project.lyrics;
+  env.lyricAnchor = {
+    cx: env.width / 2,
+    baseY: env.height * (1 - L.bottomRatio),
+    maxWidth: env.width * L.maxWidthRatio,
+    size: Math.min(env.width, env.height) * L.fontSize,
+    align: 'center',
+  };
+
+  if (L.enabled) {
     drawBottomScrim(ctx, env, 0.34, 0.72);
     drawLyrics(ctx, scene, env, t);
     drawInterlude(ctx, scene, env, t);

@@ -51,10 +51,13 @@ export const drawCinema = (ctx, scene, env, t) => {
   ctx.restore();
 
   // 자막은 프레임 안쪽 아래에 — 실제 영화 자막이 앉는 자리
-  drawLyrics(ctx, scene, env, t, {
+  env.lyricAnchor = {
+    cx: W / 2,
     baseY: frame.y + frame.h * (1 - cfg.subtitleInset),
     maxWidth: W * 0.74,
-  });
+    align: 'center',
+  };
+  drawLyrics(ctx, scene, env, t, env.lyricAnchor);
 
   // 좌상단 트랙 표기 — 유튜브 플레이리스트 특유의 작은 라벨
   if (cfg.slate) {

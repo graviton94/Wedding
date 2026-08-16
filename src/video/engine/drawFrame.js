@@ -17,8 +17,8 @@
 import { photoStateAt } from './timeline.js';
 import { drawLayout } from './layouts/index.js';
 import {
-  drawBokeh, drawGrain, drawIntro, drawLetterbox,
-  drawMasterFade, drawOutro, drawProgressBar, drawWatermark,
+  drawBokeh, drawGrain, drawIntro, drawLetterbox, drawMasterFade,
+  drawOutro, drawProgressBar, drawWatermark, titleCardOcclusion,
 } from './layers/overlays.js';
 
 /**
@@ -34,6 +34,8 @@ export const drawFrame = (ctx, scene, env, t) => {
   // env.time은 슬롯별 팬 위치를 따로 계산할 때 쓴다.
   env.time = time;
   env.photoState = photoStateAt(scene.timeline, scene.project, time);
+  // 인트로/아웃트로 문구가 가사 자리에 떠 있으면 그만큼 가사를 물린다
+  env.lyricFade = 1 - titleCardOcclusion(scene, time);
 
   ctx.save();
   ctx.setTransform(1, 0, 0, 1, 0, 0);

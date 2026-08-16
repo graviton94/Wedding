@@ -111,11 +111,12 @@ export const drawCarte = (ctx, scene, env, t) => {
   ctx.stroke();
   ctx.restore();
 
-  drawLyrics(ctx, scene, env, t, {
+  env.lyricAnchor = {
     align: 'left',
     cx: textX,
     baseY: H * cfg.textY,
     maxWidth: textW,
     size: Math.min(W, H) * cfg.fontSize,
-  });
+  };
+  drawLyrics(ctx, scene, env, t, env.lyricAnchor);
 };

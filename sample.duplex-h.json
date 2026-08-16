@@ -315,14 +315,16 @@
     "duration": 5,
     "title": "최준영 ♥ 민수영",
     "subtitle": "2026. 09. 20",
-    "caption": "Our Wedding Playlist"
+    "caption": "",
+    "placement": "lyrics"
   },
   "outro": {
     "enabled": true,
     "duration": 6,
     "title": "Thank You",
     "subtitle": "함께해 주셔서 감사합니다",
-    "caption": ""
+    "caption": "",
+    "placement": "lyrics"
   },
   "effects": {
     "bokeh": 0.12,

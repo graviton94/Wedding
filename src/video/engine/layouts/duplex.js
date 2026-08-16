@@ -148,12 +148,15 @@ export const drawDuplex = (ctx, scene, env, t) => {
   }
 
   // ── 가사 ──
-  drawLyrics(ctx, scene, env, t, {
+  // 인트로/아웃트로 문구도 같은 자리에 앉히도록 앵커를 남긴다
+  env.lyricAnchor = {
     cx: panelRect.x + panelRect.w / 2,
     baseY: panelRect.y + panelRect.h * cfg.textY,
     maxWidth: panelRect.w * 0.82,
     size: Math.min(W, H) * cfg.fontSize,
-  });
+    align: 'center',
+  };
+  drawLyrics(ctx, scene, env, t, env.lyricAnchor);
 
   drawTrackInfo(ctx, scene, cfg, theme, panelRect, t);
 };

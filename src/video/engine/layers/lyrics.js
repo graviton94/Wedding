@@ -105,7 +105,8 @@ export const drawLyrics = (ctx, scene, env, t, override = {}) => {
   }
 
   const rise = L.animation === 'rise' ? (1 - inT) * size * 0.5 : 0;
-  const alpha = (L.animation === 'none' ? 1 : inT) * outT;
+  // 타이틀 문구가 같은 자리에 떠 있으면 가사는 물러난다 (겹쳐 찍히지 않게)
+  const alpha = (L.animation === 'none' ? 1 : inT) * outT * (env.lyricFade ?? 1);
   const hasTranslation = Boolean(line.translation);
 
   // ---- 현재 줄 (원문) ----

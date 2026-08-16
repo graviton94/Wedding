@@ -170,19 +170,54 @@ export const drawProgressBar = (ctx, scene, env, t) => {
   ctx.restore();
 };
 
-/** 인트로/아웃트로 타이틀 카드 */
-const drawTitleCard = (ctx, scene, env, card, startT, t, dimBackdrop) => {
+/** 카드가 지금 얼마나 진하게 떠 있는지 (0~1) */
+const cardAlpha = (card, startT, t) => {
+  if (!card?.enabled) return 0;
   const dur = card.duration;
   const local = t - startT;
-  if (local < -0.2 || local > dur + 0.2) return;
+  if (local < -0.2 || local > dur + 0.2) return 0;
+  return fadeEnvelope(local, dur, Math.min(1.4, dur * 0.3), Math.min(1.6, dur * 0.35));
+};
 
-  const alpha = fadeEnvelope(local, dur, Math.min(1.4, dur * 0.3), Math.min(1.6, dur * 0.35));
+/**
+ * 인트로/아웃트로 문구가 가사 자리를 얼마나 차지하고 있는지.
+ *
+ * 문구와 가사가 같은 자리에 앉으므로 둘이 겹치면 글자가 포개진다.
+ * 레이아웃이 가사를 그리기 전에 이 값을 알아야 해서 따로 뽑아둔다.
+ */
+export const titleCardOcclusion = (scene, t) => {
+  const { intro, outro } = scene.project;
+  let a = 0;
+  if (intro?.enabled && intro.placement !== 'center') {
+    a = Math.max(a, cardAlpha(intro, 0, t));
+  }
+  if (outro?.enabled && outro.placement !== 'center') {
+    a = Math.max(a, cardAlpha(outro, scene.total - outro.duration, t));
+  }
+  return clamp(a);
+};
+
+/** 인트로/아웃트로 타이틀 카드 */
+const drawTitleCard = (ctx, scene, env, card, startT, t, dimBackdrop) => {
+  const alpha = cardAlpha(card, startT, t);
   if (alpha <= 0.002) return;
+  const local = t - startT;
 
   const { width: W, height: H } = env;
   const { theme } = scene.project;
-  const cx = W / 2;
-  const rise = (1 - easeOutCubic(clamp(local / 1.2))) * H * 0.03;
+
+  /*
+   * 문구는 가사가 놓이는 자리에 그대로 앉힌다.
+   * 화면 한가운데에 따로 띄우면 인트로만 다른 화면처럼 붕 떠 보이고,
+   * 곡이 시작되는 순간 글자가 아래로 순간이동한다.
+   * 레이아웃이 남긴 앵커를 쓰면 첫 가사가 바로 그 자리에서 이어진다.
+   */
+  const anchor = card.placement === 'center' ? null : env.lyricAnchor;
+  const align = anchor?.align || 'center';
+  const cx = anchor?.cx ?? W / 2;
+  const baseY = anchor?.baseY ?? H * 0.52;
+  const unit = anchor?.size ?? Math.min(W, H) * 0.04;
+  const rise = (1 - easeOutCubic(clamp(local / 1.2))) * unit * 0.6;
 
   ctx.save();
   ctx.globalAlpha = alpha;
@@ -192,51 +227,36 @@ const drawTitleCard = (ctx, scene, env, card, startT, t, dimBackdrop) => {
     ctx.fillRect(0, 0, W, H);
   }
 
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
+  ctx.textAlign = align;
+  ctx.textBaseline = 'alphabetic';
   ctx.shadowColor = 'rgba(0,0,0,0.6)';
-  ctx.shadowBlur = H * 0.02;
+  ctx.shadowBlur = unit * 0.5;
 
-  const cy = H * 0.47 + rise;
+  // 가사 한 줄이 앉는 자리에 제목을, 번역이 앉는 자리에 부제를 둔다
+  const titleSize = unit * 1.25;
+  const subSize = unit * 0.7;
+  const capSize = unit * 0.5;
+  const titleY = baseY - subSize * 1.5 + rise;
 
   if (card.caption) {
-    const cs = H * 0.026;
-    ctx.font = cssFont(theme, cs, 400, 'display');
-    if ('letterSpacing' in ctx) ctx.letterSpacing = `${cs * 0.32}px`;
+    ctx.font = cssFont(theme, capSize, 400, 'display');
+    if ('letterSpacing' in ctx) ctx.letterSpacing = `${capSize * 0.32}px`;
     ctx.fillStyle = rgba(theme.accent, 0.95);
-    ctx.fillText(card.caption.toUpperCase(), cx, cy - H * 0.13);
+    ctx.fillText(card.caption.toUpperCase(), cx, titleY - titleSize * 0.95);
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
   }
 
   if (card.title) {
-    const ts = H * 0.082;
-    ctx.font = cssFont(theme, ts, 300, 'body');
+    ctx.font = cssFont(theme, titleSize, 300, 'body');
     ctx.fillStyle = theme.ink;
-    ctx.fillText(card.title, cx, cy);
+    ctx.fillText(card.title, cx, titleY);
   }
 
-  // 장식 구분선
-  const lineY = cy + H * 0.075;
-  const lw = W * 0.09;
-  ctx.strokeStyle = rgba(theme.accent, 0.7);
-  ctx.lineWidth = Math.max(1, H * 0.0012);
-  ctx.beginPath();
-  ctx.moveTo(cx - lw, lineY);
-  ctx.lineTo(cx - lw * 0.18, lineY);
-  ctx.moveTo(cx + lw * 0.18, lineY);
-  ctx.lineTo(cx + lw, lineY);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(cx, lineY, Math.max(2, H * 0.004), 0, TAU);
-  ctx.fillStyle = rgba(theme.accent, 0.9);
-  ctx.fill();
-
   if (card.subtitle) {
-    const ss = H * 0.034;
-    ctx.font = cssFont(theme, ss, 300, 'display');
-    if ('letterSpacing' in ctx) ctx.letterSpacing = `${ss * 0.14}px`;
-    ctx.fillStyle = rgba(theme.ink, 0.88);
-    ctx.fillText(card.subtitle, cx, lineY + H * 0.062);
+    ctx.font = cssFont(theme, subSize, 300, 'display');
+    if ('letterSpacing' in ctx) ctx.letterSpacing = `${subSize * 0.14}px`;
+    ctx.fillStyle = rgba(theme.ink, 0.82);
+    ctx.fillText(card.subtitle, cx, baseY + subSize * 0.35 + rise);
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
   }
 
@@ -247,7 +267,7 @@ export const drawIntro = (ctx, scene, env, t) => {
   const intro = scene.project.intro;
   if (!intro?.enabled) return;
   // 인트로는 초반에 배경을 좀 더 어둡게 눌러준다
-  const dim = 0.45 * (1 - smoothstep(norm(t, intro.duration * 0.5, intro.duration)));
+  const dim = 0.3 * (1 - smoothstep(norm(t, intro.duration * 0.5, intro.duration)));
   drawTitleCard(ctx, scene, env, intro, 0, t, dim);
 };
 
@@ -255,7 +275,7 @@ export const drawOutro = (ctx, scene, env, t) => {
   const outro = scene.project.outro;
   if (!outro?.enabled) return;
   const start = scene.total - outro.duration;
-  const dim = 0.5 * smoothstep(norm(t, start, start + 1.5));
+  const dim = 0.35 * smoothstep(norm(t, start, start + 1.5));
   drawTitleCard(ctx, scene, env, outro, start, t, dim);
 };
 
