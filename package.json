@@ -13,7 +13,8 @@
     "video:preview": "node tools/video/render.mjs --preview",
     "video:themes": "node tools/video/themes-preview.mjs",
     "video:crops": "node tools/video/make-crops.mjs",
-    "video:lyrics": "node tools/video/merge-translation.mjs"
+    "video:lyrics": "node tools/video/merge-translation.mjs",
+    "guestbook:backup": "node tools/guestbook/backup.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",

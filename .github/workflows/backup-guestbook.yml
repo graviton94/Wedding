@@ -1,0 +1,42 @@
+name: Backup Guestbook
+
+# Supabase 방명록을 src/data/guestbook.json 으로 백업해 커밋한다.
+# Actions 탭 → Backup Guestbook → Run workflow 로 언제든 다시 받을 수 있다.
+# (이 파일이나 백업 스크립트가 바뀐 커밋이 push되면 자동으로 한 번 실행된다)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/backup-guestbook.yml
+      - tools/guestbook/backup.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Backup
+        run: node tools/guestbook/backup.mjs
+
+      - name: Commit
+        run: |
+          git add src/data/guestbook.json
+          if git diff --cached --quiet; then
+            echo "변경 없음"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: 방명록 백업 갱신"
+          git push

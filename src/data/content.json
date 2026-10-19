@@ -184,7 +184,7 @@
   },
   "guestbook": {
     "title": "방명록",
-    "subtitle": "소중한 앞 날을 축복하는 따뜻한 한마디를 남겨주세요.",
+    "subtitle": "따뜻한 축하의 마음을 남겨주셔서 감사합니다.",
     "supabaseUrl": "https://yxubeykqosoixpvfpnpf.supabase.co",
     "supabaseKey": "sb_publishable_D_Z2GA77dC2_SBvCVG1HxQ_ddUJ8XoP"
   },
